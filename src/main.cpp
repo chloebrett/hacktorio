@@ -1,11 +1,15 @@
 using namespace std;
 
 #include <iostream>
-#include "SFML/Graphics.hpp"
-#include "SFML/Window.hpp"
+#include "game.hpp"
+#include "player.hpp"
+#include "media.hpp"
 
 int main()
 {
-    cout << "Hello, World!" << endl;
+    Game game;
+    game.start();
+    std::cout << "Game started" << std::endl;
+
     return 0;
 }
