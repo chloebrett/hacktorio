@@ -1,6 +1,7 @@
 #include "game.hpp"
 #include "player.hpp"
-#include "iron_patch.hpp"
+#include "resource_patch.hpp"
+#include "resource_patch_type.hpp"
 
 #include "SFML/Graphics.hpp"
 #include <iostream>
@@ -37,7 +38,6 @@ void Game::start()
 
     sf::Color blue = sf::Color(81.0f, 168.0f, 194.0f, 255.0f);
     sf::Color green = sf::Color(85.0f, 107.0f, 95.0f, 255.0f);
-    sf::Color grey = sf::Color(80.0f, 81.0f, 84.0f, 255.0f);
 
     sf::RenderWindow window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Hacktorio");
 
@@ -57,28 +57,81 @@ void Game::start()
     sf::Time timeSinceLastUpdate = sf::Time::Zero;
     sf::Time timePerFrame = sf::seconds(1.0f / FRAMES_PER_SECOND);
 
+    std::map <ResourcePatchType, sf::Color> resourcePatchColors;
+    resourcePatchColors[ResourcePatchType::IRON] = sf::Color(80, 81, 84, 255);
+    resourcePatchColors[ResourcePatchType::COAL] = sf::Color(23, 21, 16, 255);
+    resourcePatchColors[ResourcePatchType::COPPER] = sf::Color(150, 104, 68, 255);
+    resourcePatchColors[ResourcePatchType::STONE] = sf::Color(145, 145, 108, 255);
+
+    std::vector<std::unique_ptr<ResourcePatch> > resourcePatches;
+
     // Place iron patches
-    std::vector<std::unique_ptr<IronPatch> > ironPatches;
+    for (int i = 0; i < 6; i++)
+    {
+        for (int j = 0; j < 8; j++)
+        {
+            if (rand() % 2 == 0)
+            {
+                continue;
+            }
+            unique_ptr<ResourcePatch> resourcePatch(new ResourcePatch());
+
+            resourcePatch->setPosition(sf::Vector2f((5 + i) * GRID_SIZE, (7 + j) * GRID_SIZE));
+            resourcePatch->init(ResourcePatchType::IRON);
+            resourcePatches.push_back(std::move(resourcePatch));
+        }
+    }
+
+    // Place coal patches
     for (int i = 0; i < 10; i++)
     {
         for (int j = 0; j < 10; j++)
         {
-            // Allocate a new iron patch and add it to the vector
-            unique_ptr<IronPatch> ironPatch(new IronPatch());
+            if (rand() % 2 == 0)
+            {
+                continue;
+            }
+            unique_ptr<ResourcePatch> resourcePatch(new ResourcePatch());
 
-            ironPatch->setPosition(sf::Vector2f((10 + i) * GRID_SIZE, (10 + j) * GRID_SIZE));
-            ironPatch->init();
-            ironPatches.push_back(std::move(ironPatch));
+            resourcePatch->setPosition(sf::Vector2f((30 + i) * GRID_SIZE, (20 + j) * GRID_SIZE));
+            resourcePatch->init(ResourcePatchType::COAL);
+            resourcePatches.push_back(std::move(resourcePatch));
         }
     }
 
-    // TODO: pointers to entities
-    // std::vector<Entity> entities;
-    // entities.push_back(player);
-    // for (IronPatch ironPatch : ironPatches)
-    // {
-    //     entities.push_back(ironPatch);
-    // }
+    // Place copper patches
+    for (int i = 0; i < 3; i++)
+    {
+        for (int j = 0; j < 4; j++)
+        {
+            if (rand() % 2 == 0)
+            {
+                continue;
+            }
+            unique_ptr<ResourcePatch> resourcePatch(new ResourcePatch());
+
+            resourcePatch->setPosition(sf::Vector2f((15 + i) * GRID_SIZE, (15 + j) * GRID_SIZE));
+            resourcePatch->init(ResourcePatchType::COPPER);
+            resourcePatches.push_back(std::move(resourcePatch));
+        }
+    }
+
+    // Place stone patches
+    for (int i = 0; i < 5; i++)
+    {
+        for (int j = 0; j < 5; j++)
+        {
+            if (rand() % 2 == 0)
+            {
+                continue;
+            }
+            unique_ptr<ResourcePatch> resourcePatch(new ResourcePatch());
+
+            resourcePatch->setPosition(sf::Vector2f((4 + i) * GRID_SIZE, (20 + j) * GRID_SIZE));
+            resourcePatch->init(ResourcePatchType::STONE);
+            resourcePatches.push_back(std::move(resourcePatch));
+        }
+    }
 
     while (window.isOpen())
     {
@@ -99,16 +152,16 @@ void Game::start()
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
             {
                 sf::Vector2f playerPosition = player.getPosition();
-                for (const auto& ironPatch : ironPatches)
+                for (const auto& resourcePatch : resourcePatches)
                 {
-                    sf::Vector2f ironPatchPosition = ironPatch->getPosition();
-                    sf::Vector2f diff = playerPosition - ironPatchPosition;
+                    sf::Vector2f resourcePatchPosition = resourcePatch->getPosition();
+                    sf::Vector2f diff = playerPosition - resourcePatchPosition;
                     if (abs(diff.x) < 0.5 * GRID_SIZE && abs(diff.y) < 0.5 * GRID_SIZE)
                     {
-                        if (ironPatch->getRemaining() > 0)
+                        if (resourcePatch->getRemaining() > 0)
                         {
-                            bool didMine = ironPatch->mine(player.getMiningSpeed() / FRAMES_PER_SECOND);
-                            if (didMine)
+                            bool didMine = resourcePatch->mine(player.getMiningSpeed() / FRAMES_PER_SECOND);
+                            if (didMine && resourcePatch->getType() == ResourcePatchType::IRON)
                             {
                                 player.addIron(1);
                             }
@@ -139,15 +192,16 @@ void Game::start()
 
         window.clear();
         window.draw(background);
-        for (const auto& ironPatch : ironPatches)
+        for (const auto& resourcePatch : resourcePatches)
         {
-            if (ironPatch->getRemaining() > 0)
+            if (resourcePatch->getRemaining() > 0)
             {
-                sf::RectangleShape ironPatchRect;
-                ironPatchRect.setSize(sf::Vector2f(1 * GRID_SIZE, 1 * GRID_SIZE));
-                ironPatchRect.setPosition(ironPatch->getPosition());
-                ironPatchRect.setFillColor(grey);
-                window.draw(ironPatchRect);
+                sf::RectangleShape resourcePatchRect;
+                resourcePatchRect.setSize(sf::Vector2f(1 * GRID_SIZE, 1 * GRID_SIZE));
+                sf::Vector2f resourcePatchPosition = resourcePatch->getPosition();
+                resourcePatchRect.setPosition(resourcePatchPosition);
+                resourcePatchRect.setFillColor(resourcePatchColors[resourcePatch->getType()]);
+                window.draw(resourcePatchRect);
             }
         }
         window.draw(playerRect);
