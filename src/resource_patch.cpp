@@ -1,5 +1,6 @@
 #include "resource_patch.hpp"
 #include "resource_patch_type.hpp"
+#include "inventory_item_type.hpp"
 
 #include <iostream>
 #include <cstdlib>
@@ -18,6 +19,21 @@ float ResourcePatch::getRemaining()
 ResourcePatchType ResourcePatch::getType()
 {
     return type;
+}
+
+InventoryItemType ResourcePatch::getInventoryItemType()
+{
+    switch (type)
+    {
+    case ResourcePatchType::RPT_IRON:
+        return InventoryItemType::IIT_IRON_ORE;
+    case ResourcePatchType::RPT_COAL:
+        return InventoryItemType::IIT_COAL;
+    case ResourcePatchType::RPT_COPPER:
+        return InventoryItemType::IIT_COPPER_ORE;
+    case ResourcePatchType::RPT_STONE:
+        return InventoryItemType::IIT_STONE;
+    }
 }
 
 bool ResourcePatch::mine(float amount)

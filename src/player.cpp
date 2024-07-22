@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-Player::Player() : ironCount(0) {
+Player::Player() {
     position = sf::Vector2f(128.0f, 128.0f);
 };
 
@@ -14,11 +14,26 @@ float Player::getMiningSpeed() {
     return 3; // Units per second
 }
 
-int Player::getIronCount() {
-    return ironCount;
+int Player::getInventoryCount(InventoryItemType item) {
+    if (inventory.find(item) == inventory.end()) {
+        inventory[item] = 0;
+    }
+    return inventory[item];
 }
 
-void Player::addIron(int iron) {
-    ironCount += iron;
-    std::cout << "Player now has " << ironCount << " iron" << std::endl;
+void Player::addInventoryItem(InventoryItemType item, int amount) {
+    if (inventory.find(item) == inventory.end()) {
+        inventory[item] = 0;
+    }
+    inventory[item] += amount;
+}
+
+void Player::removeInventoryItem(InventoryItemType item, int amount) {
+    if (inventory.find(item) == inventory.end()) {
+        inventory[item] = 0;
+    }
+    inventory[item] -= amount;
+    if (inventory[item] < 0) {
+        inventory[item] = 0;
+    }
 }

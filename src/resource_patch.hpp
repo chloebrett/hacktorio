@@ -1,6 +1,7 @@
 #pragma once
 
 #include "resource_patch_type.hpp"
+#include "inventory_item_type.hpp"
 #include "SFML/Graphics.hpp"
 #include "entity.hpp"
 
@@ -11,6 +12,7 @@ public:
     float getRemaining();
     bool mine(float amount);
     ResourcePatchType getType();
+    InventoryItemType getInventoryItemType();
 
 private:
     float remaining;

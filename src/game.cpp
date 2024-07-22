@@ -1,6 +1,7 @@
 #include "game.hpp"
 #include "player.hpp"
 #include "resource_patch.hpp"
+#include "inventory_item_type.hpp"
 #include "resource_patch_type.hpp"
 
 #include "SFML/Graphics.hpp"
@@ -10,7 +11,24 @@
 
 using namespace std;
 
-void drawIronCountText(sf::RenderWindow& window, int ironCount)
+std::string inventoryItemTypeToString(InventoryItemType inventoryItemType)
+{
+    switch (inventoryItemType)
+    {
+        case InventoryItemType::IIT_IRON_ORE:
+            return "Iron Ore";
+        case InventoryItemType::IIT_COAL:
+            return "Coal";
+        case InventoryItemType::IIT_COPPER_ORE:
+            return "Copper Ore";
+        case InventoryItemType::IIT_STONE:
+            return "Stone";
+        default:
+            return "Unknown";
+    }
+}
+
+void drawInventory(sf::RenderWindow &window, Player &player)
 {
     sf::Font font;
     if (!font.loadFromFile("res/Inconsolata-Regular.ttf"))
@@ -18,12 +36,24 @@ void drawIronCountText(sf::RenderWindow& window, int ironCount)
         std::cout << "Failed to load font" << std::endl;
     }
 
-    sf::Text ironCountText("Iron: " + std::to_string(ironCount), font);
-    ironCountText.setCharacterSize(24);
-    ironCountText.setFillColor(sf::Color::White);
-    ironCountText.setPosition(10, 10);
+    std::vector<InventoryItemType> inventoryItemTypes;
+    inventoryItemTypes.push_back(InventoryItemType::IIT_IRON_ORE);
+    inventoryItemTypes.push_back(InventoryItemType::IIT_COAL);
+    inventoryItemTypes.push_back(InventoryItemType::IIT_COPPER_ORE);
+    inventoryItemTypes.push_back(InventoryItemType::IIT_STONE);
 
-    window.draw(ironCountText);
+    for (int i = 0; i < inventoryItemTypes.size(); i++)
+    {
+        InventoryItemType inventoryItemType = inventoryItemTypes[i];
+        int count = player.getInventoryCount(inventoryItemType);
+
+        sf::Text inventoryText(inventoryItemTypeToString(inventoryItemType) + ": " + std::to_string(count), font);
+        inventoryText.setCharacterSize(24);
+        inventoryText.setFillColor(sf::Color::White);
+        inventoryText.setPosition(10, 10 + 30 * (i + 1));
+
+        window.draw(inventoryText);
+    }
 }
 
 void Game::start()
@@ -57,11 +87,11 @@ void Game::start()
     sf::Time timeSinceLastUpdate = sf::Time::Zero;
     sf::Time timePerFrame = sf::seconds(1.0f / FRAMES_PER_SECOND);
 
-    std::map <ResourcePatchType, sf::Color> resourcePatchColors;
-    resourcePatchColors[ResourcePatchType::IRON] = sf::Color(80, 81, 84, 255);
-    resourcePatchColors[ResourcePatchType::COAL] = sf::Color(23, 21, 16, 255);
-    resourcePatchColors[ResourcePatchType::COPPER] = sf::Color(150, 104, 68, 255);
-    resourcePatchColors[ResourcePatchType::STONE] = sf::Color(145, 145, 108, 255);
+    std::map<ResourcePatchType, sf::Color> resourcePatchColors;
+    resourcePatchColors[ResourcePatchType::RPT_IRON] = sf::Color(80, 81, 84, 255);
+    resourcePatchColors[ResourcePatchType::RPT_COAL] = sf::Color(23, 21, 16, 255);
+    resourcePatchColors[ResourcePatchType::RPT_COPPER] = sf::Color(150, 104, 68, 255);
+    resourcePatchColors[ResourcePatchType::RPT_STONE] = sf::Color(145, 145, 108, 255);
 
     std::vector<std::unique_ptr<ResourcePatch> > resourcePatches;
 
@@ -77,7 +107,7 @@ void Game::start()
             unique_ptr<ResourcePatch> resourcePatch(new ResourcePatch());
 
             resourcePatch->setPosition(sf::Vector2f((5 + i) * GRID_SIZE, (7 + j) * GRID_SIZE));
-            resourcePatch->init(ResourcePatchType::IRON);
+            resourcePatch->init(ResourcePatchType::RPT_IRON);
             resourcePatches.push_back(std::move(resourcePatch));
         }
     }
@@ -94,7 +124,7 @@ void Game::start()
             unique_ptr<ResourcePatch> resourcePatch(new ResourcePatch());
 
             resourcePatch->setPosition(sf::Vector2f((30 + i) * GRID_SIZE, (20 + j) * GRID_SIZE));
-            resourcePatch->init(ResourcePatchType::COAL);
+            resourcePatch->init(ResourcePatchType::RPT_COAL);
             resourcePatches.push_back(std::move(resourcePatch));
         }
     }
@@ -111,7 +141,7 @@ void Game::start()
             unique_ptr<ResourcePatch> resourcePatch(new ResourcePatch());
 
             resourcePatch->setPosition(sf::Vector2f((15 + i) * GRID_SIZE, (15 + j) * GRID_SIZE));
-            resourcePatch->init(ResourcePatchType::COPPER);
+            resourcePatch->init(ResourcePatchType::RPT_COPPER);
             resourcePatches.push_back(std::move(resourcePatch));
         }
     }
@@ -128,7 +158,7 @@ void Game::start()
             unique_ptr<ResourcePatch> resourcePatch(new ResourcePatch());
 
             resourcePatch->setPosition(sf::Vector2f((4 + i) * GRID_SIZE, (20 + j) * GRID_SIZE));
-            resourcePatch->init(ResourcePatchType::STONE);
+            resourcePatch->init(ResourcePatchType::RPT_STONE);
             resourcePatches.push_back(std::move(resourcePatch));
         }
     }
@@ -152,7 +182,7 @@ void Game::start()
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
             {
                 sf::Vector2f playerPosition = player.getPosition();
-                for (const auto& resourcePatch : resourcePatches)
+                for (const auto &resourcePatch : resourcePatches)
                 {
                     sf::Vector2f resourcePatchPosition = resourcePatch->getPosition();
                     sf::Vector2f diff = playerPosition - resourcePatchPosition;
@@ -161,9 +191,9 @@ void Game::start()
                         if (resourcePatch->getRemaining() > 0)
                         {
                             bool didMine = resourcePatch->mine(player.getMiningSpeed() / FRAMES_PER_SECOND);
-                            if (didMine && resourcePatch->getType() == ResourcePatchType::IRON)
+                            if (didMine)
                             {
-                                player.addIron(1);
+                                player.addInventoryItem(resourcePatch->getInventoryItemType(), 1);
                             }
                         }
                     }
@@ -192,7 +222,7 @@ void Game::start()
 
         window.clear();
         window.draw(background);
-        for (const auto& resourcePatch : resourcePatches)
+        for (const auto &resourcePatch : resourcePatches)
         {
             if (resourcePatch->getRemaining() > 0)
             {
@@ -205,7 +235,7 @@ void Game::start()
             }
         }
         window.draw(playerRect);
-        drawIronCountText(window, player.getIronCount());
+        drawInventory(window, player);
         window.display();
     }
 };
