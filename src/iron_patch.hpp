@@ -2,16 +2,15 @@
 
 #include "SFML/Graphics.hpp"
 
-class Player {
+class IronPatch {
     public:
-    Player();
-    int getMoveSpeed();
-    int getIronCount();
-    void addIron(int iron);
+    IronPatch();
+    int getRemaining();
+    void removeOne();
     sf::Vector2f getPosition();
     void setPosition(sf::Vector2f position);
 
     private:
-    int ironCount;
+    int remaining;
     sf::Vector2f position;
 };
