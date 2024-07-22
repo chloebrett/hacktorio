@@ -15,6 +15,13 @@ class Container {
         }
         return contents[item];
     }
+    int getTotalItemCount() {
+        int total = 0;
+        for (auto const& [item, count] : contents) {
+            total += count;
+        }
+        return total;
+    }
     void addItem(InventoryItemType item, int amount) {
         if (contents.find(item) == contents.end()) {
             contents[item] = 0;
