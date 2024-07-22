@@ -1,16 +1,15 @@
 #pragma once
 
 #include "SFML/Graphics.hpp"
+#include "entity.hpp"
 
-class IronPatch {
-    public:
-    IronPatch();
-    int getRemaining();
-    void removeOne();
-    sf::Vector2f getPosition();
-    void setPosition(sf::Vector2f position);
+class IronPatch : public Entity
+{
+public:
+    void init();
+    float getRemaining();
+    bool mine(float amount);
 
-    private:
-    int remaining;
-    sf::Vector2f position;
+private:
+    float remaining;
 };

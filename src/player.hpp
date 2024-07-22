@@ -1,17 +1,16 @@
 #pragma once
 
 #include "SFML/Graphics.hpp"
+#include "entity.hpp"
 
-class Player {
+class Player : public Entity {
     public:
     Player();
     int getMoveSpeed();
+    float getMiningSpeed();
     int getIronCount();
     void addIron(int iron);
-    sf::Vector2f getPosition();
-    void setPosition(sf::Vector2f position);
 
     private:
     int ironCount;
-    sf::Vector2f position;
 };

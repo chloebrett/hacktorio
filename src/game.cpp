@@ -4,6 +4,26 @@
 
 #include "SFML/Graphics.hpp"
 #include <iostream>
+#include <memory>
+#include <vector>
+
+using namespace std;
+
+void drawIronCountText(sf::RenderWindow& window, int ironCount)
+{
+    sf::Font font;
+    if (!font.loadFromFile("res/Inconsolata-Regular.ttf"))
+    {
+        std::cout << "Failed to load font" << std::endl;
+    }
+
+    sf::Text ironCountText("Iron: " + std::to_string(ironCount), font);
+    ironCountText.setCharacterSize(24);
+    ironCountText.setFillColor(sf::Color::White);
+    ironCountText.setPosition(10, 10);
+
+    window.draw(ironCountText);
+}
 
 void Game::start()
 {
@@ -38,16 +58,27 @@ void Game::start()
     sf::Time timePerFrame = sf::seconds(1.0f / FRAMES_PER_SECOND);
 
     // Place iron patches
-    std::vector<IronPatch> ironPatches;
+    std::vector<std::unique_ptr<IronPatch> > ironPatches;
     for (int i = 0; i < 10; i++)
     {
         for (int j = 0; j < 10; j++)
         {
-            IronPatch ironPatch;
-            ironPatch.setPosition(sf::Vector2f((10 + i) * GRID_SIZE, (10 + j) * GRID_SIZE));
-            ironPatches.push_back(ironPatch);
+            // Allocate a new iron patch and add it to the vector
+            unique_ptr<IronPatch> ironPatch(new IronPatch());
+
+            ironPatch->setPosition(sf::Vector2f((10 + i) * GRID_SIZE, (10 + j) * GRID_SIZE));
+            ironPatch->init();
+            ironPatches.push_back(std::move(ironPatch));
         }
     }
+
+    // TODO: pointers to entities
+    // std::vector<Entity> entities;
+    // entities.push_back(player);
+    // for (IronPatch ironPatch : ironPatches)
+    // {
+    //     entities.push_back(ironPatch);
+    // }
 
     while (window.isOpen())
     {
@@ -62,6 +93,30 @@ void Game::start()
         while (timeSinceLastUpdate > timePerFrame)
         {
             timeSinceLastUpdate -= timePerFrame;
+
+            // Handle events
+
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+            {
+                sf::Vector2f playerPosition = player.getPosition();
+                for (const auto& ironPatch : ironPatches)
+                {
+                    sf::Vector2f ironPatchPosition = ironPatch->getPosition();
+                    sf::Vector2f diff = playerPosition - ironPatchPosition;
+                    if (abs(diff.x) < 0.5 * GRID_SIZE && abs(diff.y) < 0.5 * GRID_SIZE)
+                    {
+                        if (ironPatch->getRemaining() > 0)
+                        {
+                            bool didMine = ironPatch->mine(player.getMiningSpeed() / FRAMES_PER_SECOND);
+                            if (didMine)
+                            {
+                                player.addIron(1);
+                            }
+                        }
+                    }
+                }
+            }
+
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
             {
                 player.setPosition(sf::Vector2f(player.getPosition().x, player.getPosition().y - player.getMoveSpeed()));
@@ -84,18 +139,19 @@ void Game::start()
 
         window.clear();
         window.draw(background);
-        for (IronPatch ironPatch : ironPatches)
+        for (const auto& ironPatch : ironPatches)
         {
-            if (ironPatch.getRemaining() > 0)
+            if (ironPatch->getRemaining() > 0)
             {
                 sf::RectangleShape ironPatchRect;
                 ironPatchRect.setSize(sf::Vector2f(1 * GRID_SIZE, 1 * GRID_SIZE));
-                ironPatchRect.setPosition(ironPatch.getPosition());
+                ironPatchRect.setPosition(ironPatch->getPosition());
                 ironPatchRect.setFillColor(grey);
                 window.draw(ironPatchRect);
             }
         }
         window.draw(playerRect);
+        drawIronCountText(window, player.getIronCount());
         window.display();
     }
 };

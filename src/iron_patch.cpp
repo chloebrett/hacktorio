@@ -3,20 +3,27 @@
 #include <iostream>
 #include <cstdlib>
 
-IronPatch::IronPatch() : remaining(rand() % 21 + 5) {};
-
-sf::Vector2f IronPatch::getPosition() {
-    return position;
+void IronPatch::init()
+{
+    remaining = rand() % 6 + 5; // 5-10 iron
 }
 
-void IronPatch::setPosition(sf::Vector2f position) {
-    this->position = position;
-}
-
-int IronPatch::getRemaining() {
+float IronPatch::getRemaining()
+{
     return remaining;
 }
 
-void IronPatch::removeOne() {
-    remaining--;
+bool IronPatch::mine(float amount)
+{
+    int remainingInt = std::floor(remaining);
+    remaining -= amount;
+
+    std::cout << "Remaining iron: " + std::to_string(remaining) << std::endl;
+
+    if (remaining < 0)
+    {
+        remaining = 0;
+    }
+
+    return remaining <= remainingInt;
 }
