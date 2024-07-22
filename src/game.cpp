@@ -23,6 +23,8 @@ std::string inventoryItemTypeToString(InventoryItemType inventoryItemType)
         return "Copper Ore";
     case InventoryItemType::IIT_STONE:
         return "Stone";
+    case InventoryItemType::IIT_WOOD:
+        return "Wood";
     default:
         return "Unknown";
     }
@@ -35,6 +37,7 @@ std::map<ResourcePatchType, sf::Color> getResourcePatchColors()
     resourcePatchColors[ResourcePatchType::RPT_COAL] = sf::Color(23, 21, 16, 255);
     resourcePatchColors[ResourcePatchType::RPT_COPPER] = sf::Color(150, 104, 68, 255);
     resourcePatchColors[ResourcePatchType::RPT_STONE] = sf::Color(145, 145, 108, 255);
+    resourcePatchColors[ResourcePatchType::RPT_WOOD] = sf::Color(84, 64, 48, 255);
     return resourcePatchColors;
 }
 
@@ -51,6 +54,7 @@ void drawInventory(sf::RenderWindow &window, Player &player, int selectedIndex)
     inventoryItemTypes.push_back(InventoryItemType::IIT_COAL);
     inventoryItemTypes.push_back(InventoryItemType::IIT_COPPER_ORE);
     inventoryItemTypes.push_back(InventoryItemType::IIT_STONE);
+    inventoryItemTypes.push_back(InventoryItemType::IIT_WOOD);
 
     for (int i = 0; i < inventoryItemTypes.size(); i++)
     {
@@ -87,7 +91,8 @@ std::vector<std::unique_ptr<ResourcePatch> > initResourcePatches()
             unique_ptr<ResourcePatch> resourcePatch(new ResourcePatch());
 
             resourcePatch->setPosition(sf::Vector2f((5 + i) * GRID_SIZE, (7 + j) * GRID_SIZE));
-            resourcePatch->init(ResourcePatchType::RPT_IRON);
+            int amount = rand() % 6 + 5; // 5-10 units
+            resourcePatch->init(ResourcePatchType::RPT_IRON, amount);
             resourcePatches.push_back(std::move(resourcePatch));
         }
     }
@@ -104,7 +109,8 @@ std::vector<std::unique_ptr<ResourcePatch> > initResourcePatches()
             unique_ptr<ResourcePatch> resourcePatch(new ResourcePatch());
 
             resourcePatch->setPosition(sf::Vector2f((30 + i) * GRID_SIZE, (20 + j) * GRID_SIZE));
-            resourcePatch->init(ResourcePatchType::RPT_COAL);
+            int amount = rand() % 6 + 5; // 5-10 units
+            resourcePatch->init(ResourcePatchType::RPT_COAL, amount);
             resourcePatches.push_back(std::move(resourcePatch));
         }
     }
@@ -121,7 +127,8 @@ std::vector<std::unique_ptr<ResourcePatch> > initResourcePatches()
             unique_ptr<ResourcePatch> resourcePatch(new ResourcePatch());
 
             resourcePatch->setPosition(sf::Vector2f((15 + i) * GRID_SIZE, (15 + j) * GRID_SIZE));
-            resourcePatch->init(ResourcePatchType::RPT_COPPER);
+            int amount = rand() % 6 + 5; // 5-10 units
+            resourcePatch->init(ResourcePatchType::RPT_COPPER, amount);
             resourcePatches.push_back(std::move(resourcePatch));
         }
     }
@@ -138,7 +145,22 @@ std::vector<std::unique_ptr<ResourcePatch> > initResourcePatches()
             unique_ptr<ResourcePatch> resourcePatch(new ResourcePatch());
 
             resourcePatch->setPosition(sf::Vector2f((4 + i) * GRID_SIZE, (20 + j) * GRID_SIZE));
-            resourcePatch->init(ResourcePatchType::RPT_STONE);
+            int amount = rand() % 6 + 5; // 5-10 units
+            resourcePatch->init(ResourcePatchType::RPT_STONE, amount);
+            resourcePatches.push_back(std::move(resourcePatch));
+        }
+    }
+
+    // Place trees
+    for (int i = 0; i < 30; i++) {
+        for (int j = 0; j < 20; j++) {
+            if (rand() % 30 > 0) {
+                continue;
+            }
+            unique_ptr<ResourcePatch> resourcePatch(new ResourcePatch());
+
+            resourcePatch->setPosition(sf::Vector2f((20 + i) * GRID_SIZE, (5 + j) * GRID_SIZE));
+            resourcePatch->init(ResourcePatchType::RPT_WOOD, 1);
             resourcePatches.push_back(std::move(resourcePatch));
         }
     }

@@ -5,10 +5,10 @@
 #include <iostream>
 #include <cstdlib>
 
-void ResourcePatch::init(ResourcePatchType type)
+void ResourcePatch::init(ResourcePatchType type, int amount)
 {
     this->type = type;
-    remaining = rand() % 6 + 5; // 5-10 units
+    remaining = amount;
 }
 
 float ResourcePatch::getRemaining()
@@ -33,6 +33,8 @@ InventoryItemType ResourcePatch::getInventoryItemType()
         return InventoryItemType::IIT_COPPER_ORE;
     case ResourcePatchType::RPT_STONE:
         return InventoryItemType::IIT_STONE;
+    case ResourcePatchType::RPT_WOOD:
+        return InventoryItemType::IIT_WOOD;
     }
 }
 

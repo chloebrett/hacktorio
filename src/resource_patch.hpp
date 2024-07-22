@@ -8,7 +8,7 @@
 class ResourcePatch : public Entity
 {
 public:
-    void init(ResourcePatchType type);
+    void init(ResourcePatchType type, int amount);
     float getRemaining();
     bool mine(float amount);
     ResourcePatchType getType();
