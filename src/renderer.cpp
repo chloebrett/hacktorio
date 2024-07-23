@@ -23,11 +23,11 @@ std::map<ResourcePatchType, sf::Color> getResourcePatchColors()
     return resourcePatchColors;
 }
 
-void drawChest(sf::RenderWindow &window, Chest &chest)
+void drawChest(sf::RenderWindow &window, shared_ptr<Chest> chest)
 {
     sf::RectangleShape chestRect;
     chestRect.setSize(sf::Vector2f(1 * GRID_SIZE, 1 * GRID_SIZE));
-    chestRect.setPosition(chest.getPosition());
+    chestRect.setPosition(chest->getPosition());
     chestRect.setFillColor(sf::Color(0, 0, 0, 255));
     window.draw(chestRect);
 }
@@ -90,7 +90,7 @@ void drawInventory(sf::RenderWindow &window, shared_ptr<Player> player, int sele
     }
 }
 
-void drawChestContentsIfNear(sf::RenderWindow &window, Chest &chest, std::shared_ptr<Player> player, int selectedIndex)
+void drawChestContentsIfNear(sf::RenderWindow &window, shared_ptr<Chest> chest, std::shared_ptr<Player> player, int selectedIndex)
 {
     sf::Font font;
     if (!font.loadFromFile("res/Inconsolata-Regular.ttf"))
@@ -99,11 +99,11 @@ void drawChestContentsIfNear(sf::RenderWindow &window, Chest &chest, std::shared
     }
 
     sf::Vector2f playerPosition = player->getPosition();
-    sf::Vector2f chestPosition = chest.getPosition();
+    sf::Vector2f chestPosition = chest->getPosition();
     sf::Vector2f diff = playerPosition - chestPosition;
     if (abs(diff.x) < 2 * GRID_SIZE && abs(diff.y) < 2 * GRID_SIZE)
     {
-        std::map<InventoryItemType, int> chestContents = chest.getContents();
+        std::map<InventoryItemType, int> chestContents = chest->getContents();
 
         int i = 0;
         for (const auto &item : chestContents) // TODO: Be careful about ordering - is this deterministic?
@@ -130,7 +130,7 @@ void drawChestContentsIfNear(sf::RenderWindow &window, Chest &chest, std::shared
 Renderer::Renderer(sf::RenderWindow &window,
                    std::shared_ptr<Player> player,
                    std::vector<std::shared_ptr<ResourcePatch> > resourcePatches,
-                   Chest &chest)
+                   shared_ptr<Chest> chest)
     : window(window),
       player(player),
       resourcePatches(std::move(resourcePatches)),
