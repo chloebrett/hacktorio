@@ -147,3 +147,9 @@ void Input::handleOngoingEvents() {
         player.setPosition(sf::Vector2f(player.getPosition().x + player.getMoveSpeed(), player.getPosition().y));
     }
 }
+
+
+sf::Vector2i Input::getMousePosition() {
+    sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
+    return sf::Vector2i(mousePosition.x, mousePosition.y);
+}

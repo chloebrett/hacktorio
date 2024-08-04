@@ -53,7 +53,11 @@ void Game::start()
             input->handleOngoingEvents();
         }
 
-        renderer->render(input->getIsInventoryOpen(),
-        input->getSelectedInventoryItemIndex(), input->getSelectedOtherItemIndex());
+        renderer->render(
+            input->getIsInventoryOpen(),
+            input->getSelectedInventoryItemIndex(),
+            input->getSelectedOtherItemIndex(),
+            input->getMousePosition()
+        );
     }
 };

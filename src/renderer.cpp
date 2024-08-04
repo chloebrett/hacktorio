@@ -152,12 +152,12 @@ Renderer::Renderer(sf::RenderWindow &window,
         this->playerRect = playerRect;
 };
 
-void Renderer::render(bool isInventoryOpen, int selectedInventoryItemIndex, int selectedOtherItemIndex)
+void Renderer::render(bool isInventoryOpen, int selectedInventoryItemIndex, int selectedOtherItemIndex, sf::Vector2i mousePosition)
 {
     window.clear();
     renderBackground();
     renderScene();
-    renderGui(isInventoryOpen, selectedInventoryItemIndex, selectedOtherItemIndex);
+    renderGui(isInventoryOpen, selectedInventoryItemIndex, selectedOtherItemIndex, mousePosition);
     window.display();
 }
 
@@ -185,7 +185,16 @@ void Renderer::renderScene()
     window.draw(playerRect);
 }
 
-void Renderer::renderGui(bool isInventoryOpen, int selectedInventoryItemIndex, int selectedOtherItemIndex)
+void drawCursor(sf::RenderWindow &window, sf::Vector2i mousePosition)
+{
+    sf::RectangleShape cursorRect;
+    cursorRect.setSize(sf::Vector2f(1 * GRID_SIZE, 1 * GRID_SIZE));
+    cursorRect.setPosition(mousePosition.x, mousePosition.y);
+    cursorRect.setFillColor(sf::Color(255, 255, 255, 255));
+    window.draw(cursorRect);
+}
+
+void Renderer::renderGui(bool isInventoryOpen, int selectedInventoryItemIndex, int selectedOtherItemIndex, sf::Vector2i mousePosition)
 {
     if (isInventoryOpen)
     {
@@ -193,4 +202,5 @@ void Renderer::renderGui(bool isInventoryOpen, int selectedInventoryItemIndex, i
     }
     drawChest(window, chest);
     drawChestContentsIfNear(window, chest, player, selectedOtherItemIndex);
+    drawCursor(window, mousePosition);
 }

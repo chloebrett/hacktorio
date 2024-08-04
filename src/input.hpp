@@ -23,6 +23,7 @@ class Input {
     bool getIsInventoryOpen();
     int getSelectedInventoryItemIndex();
     int getSelectedOtherItemIndex();
+    sf::Vector2i getMousePosition();
 
     private:
     sf::RenderWindow &window;

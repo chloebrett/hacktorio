@@ -17,8 +17,8 @@ public:
              Chest &chest);
     void renderBackground();
     void renderScene();
-    void renderGui(bool isInventoryOpen, int selectedInventoryItemIndex, int selectedOtherItemIndex);
-    void render(bool isInventoryOpen, int selectedInventoryItemIndex, int selectedOtherItemIndex);
+    void renderGui(bool isInventoryOpen, int selectedInventoryItemIndex, int selectedOtherItemIndex, sf::Vector2i mousePosition);
+    void render(bool isInventoryOpen, int selectedInventoryItemIndex, int selectedOtherItemIndex, sf::Vector2i mousePosition);
 
     private:
     sf::RenderWindow &window;
