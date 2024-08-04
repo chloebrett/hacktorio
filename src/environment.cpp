@@ -1,100 +1,45 @@
 #include "environment.hpp"
 #include "resource_patch.hpp"
 #include "constants.hpp"
+#include <vector>
 
 using namespace std;
 
 Environment::Environment() {
 }
 
-void Environment::initResourcePatches() {
-    // Place iron patches
-    for (int i = 0; i < 6; i++)
-    {
-        for (int j = 0; j < 8; j++)
-        {
-            if (rand() % 2 == 0)
-            {
+void Environment::addPatches(
+    ResourcePatchType type,
+    int xMin,
+    int xMax,
+    int yMin,
+    int yMax,
+    int probabilityPercent,
+    int amountMin,
+    int amountMax
+) {
+    for (int i = xMin; i < xMax; i++) {
+        for (int j = yMin; j < yMax; j++) {
+            if (rand() % 100 > probabilityPercent) {
                 continue;
             }
             ResourcePatch resourcePatch;
-            resourcePatch.setPosition(sf::Vector2f((5 + i) * GRID_SIZE, (7 + j) * GRID_SIZE));
-            int amount = rand() % 6 + 5; // 5-10 units
-            resourcePatch.init(ResourcePatchType::RPT_IRON, amount);
-            resourcePatches.push_back(resourcePatch);
-        }
-    }
-
-    // Place coal patches
-    for (int i = 0; i < 10; i++)
-    {
-        for (int j = 0; j < 10; j++)
-        {
-            if (rand() % 2 == 0)
-            {
-                continue;
-            }
-            ResourcePatch resourcePatch;
-            resourcePatch.setPosition(sf::Vector2f((30 + i) * GRID_SIZE, (20 + j) * GRID_SIZE));
-            int amount = rand() % 6 + 5; // 5-10 units
-            resourcePatch.init(ResourcePatchType::RPT_COAL, amount);
-            resourcePatches.push_back(resourcePatch);
-        }
-    }
-
-    // Place copper patches
-    for (int i = 0; i < 3; i++)
-    {
-        for (int j = 0; j < 4; j++)
-        {
-            if (rand() % 2 == 0)
-            {
-                continue;
-            }
-            ResourcePatch resourcePatch;
-            resourcePatch.setPosition(sf::Vector2f((15 + i) * GRID_SIZE, (15 + j) * GRID_SIZE));
-            int amount = rand() % 6 + 5; // 5-10 units
-            resourcePatch.init(ResourcePatchType::RPT_COPPER, amount);
-            resourcePatches.push_back(resourcePatch);
-        }
-    }
-
-    // Place stone patches
-    for (int i = 0; i < 5; i++)
-    {
-        for (int j = 0; j < 5; j++)
-        {
-            if (rand() % 2 == 0)
-            {
-                continue;
-            }
-            ResourcePatch resourcePatch;
-            resourcePatch.setPosition(sf::Vector2f((4 + i) * GRID_SIZE, (20 + j) * GRID_SIZE));
-            int amount = rand() % 6 + 5; // 5-10 units
-            resourcePatch.init(ResourcePatchType::RPT_STONE, amount);
-            resourcePatches.push_back(resourcePatch);
-        }
-    }
-
-    // Place trees
-    for (int i = 0; i < 30; i++) {
-        for (int j = 0; j < 20; j++) {
-            if (rand() % 30 > 0) {
-                continue;
-            }
-            ResourcePatch resourcePatch;
-            resourcePatch.setPosition(sf::Vector2f((20 + i) * GRID_SIZE, (5 + j) * GRID_SIZE));
-            resourcePatch.init(ResourcePatchType::RPT_WOOD, 1);
+            resourcePatch.setPosition(sf::Vector2f(i * GRID_SIZE, j * GRID_SIZE));
+            int amount = rand() % (amountMax - amountMin) + amountMin;
+            resourcePatch.init(type, amount);
             resourcePatches.push_back(resourcePatch);
         }
     }
 }
 
+void Environment::initResourcePatches() {
+    addPatches(ResourcePatchType::RPT_IRON, 5, 11, 7, 15, 50, 5, 10);
+    addPatches(ResourcePatchType::RPT_COAL, 30, 40, 20, 30, 50, 5, 10);
+    addPatches(ResourcePatchType::RPT_COPPER, 15, 18, 15, 19, 50, 5, 10);
+    addPatches(ResourcePatchType::RPT_STONE, 4, 9, 20, 25, 50, 5, 10);
+    addPatches(ResourcePatchType::RPT_WOOD, 20, 50, 5, 25, 3, 1, 1);
+}
+
 vector<ResourcePatch>& Environment::getResourcePatches() {
-    // vector<ResourcePatch*> resourcePatchesPtrs;
-    // for (ResourcePatch &resourcePatch : resourcePatches) {
-    //     resourcePatchesPtrs.push_back(&resourcePatch);
-    // }
-    // return resourcePatchesPtrs;
     return resourcePatches;
 }

@@ -12,4 +12,14 @@ class Environment {
 
     private:
     vector<ResourcePatch> resourcePatches;
+    void addPatches(
+        ResourcePatchType type,
+        int xMin,
+        int xMax,
+        int yMin,
+        int yMax,
+        int probabilityPercent,
+        int amountMin,
+        int amountMax
+    );
 };
