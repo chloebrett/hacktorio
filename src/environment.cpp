@@ -33,11 +33,11 @@ void Environment::addPatches(
 }
 
 void Environment::initResourcePatches() {
-    addPatches(ResourcePatchType::RPT_IRON, 5, 11, 7, 15, 50, 5, 10);
-    addPatches(ResourcePatchType::RPT_COAL, 30, 40, 20, 30, 50, 5, 10);
-    addPatches(ResourcePatchType::RPT_COPPER, 15, 18, 15, 19, 50, 5, 10);
-    addPatches(ResourcePatchType::RPT_STONE, 4, 9, 20, 25, 50, 5, 10);
-    addPatches(ResourcePatchType::RPT_WOOD, 20, 50, 5, 25, 3, 1, 1);
+    addPatches(ResourcePatchType::IRON, 5, 11, 7, 15, 50, 5, 10);
+    addPatches(ResourcePatchType::COAL, 30, 40, 20, 30, 50, 5, 10);
+    addPatches(ResourcePatchType::COPPER, 15, 18, 15, 19, 50, 5, 10);
+    addPatches(ResourcePatchType::STONE, 4, 9, 20, 25, 50, 5, 10);
+    addPatches(ResourcePatchType::WOOD, 20, 50, 5, 25, 3, 1, 1);
 }
 
 vector<ResourcePatch>& Environment::getResourcePatches() {

@@ -15,11 +15,11 @@
 std::map<ResourcePatchType, sf::Color> getResourcePatchColors()
 {
     std::map<ResourcePatchType, sf::Color> resourcePatchColors;
-    resourcePatchColors[ResourcePatchType::RPT_IRON] = sf::Color(80, 81, 84, 255);
-    resourcePatchColors[ResourcePatchType::RPT_COAL] = sf::Color(23, 21, 16, 255);
-    resourcePatchColors[ResourcePatchType::RPT_COPPER] = sf::Color(150, 104, 68, 255);
-    resourcePatchColors[ResourcePatchType::RPT_STONE] = sf::Color(145, 145, 108, 255);
-    resourcePatchColors[ResourcePatchType::RPT_WOOD] = sf::Color(84, 64, 48, 255);
+    resourcePatchColors[ResourcePatchType::IRON] = sf::Color(80, 81, 84, 255);
+    resourcePatchColors[ResourcePatchType::COAL] = sf::Color(23, 21, 16, 255);
+    resourcePatchColors[ResourcePatchType::COPPER] = sf::Color(150, 104, 68, 255);
+    resourcePatchColors[ResourcePatchType::STONE] = sf::Color(145, 145, 108, 255);
+    resourcePatchColors[ResourcePatchType::WOOD] = sf::Color(84, 64, 48, 255);
     return resourcePatchColors;
 }
 
@@ -34,27 +34,27 @@ void drawChest(sf::RenderWindow &window, Chest &chest)
 
 std::string inventoryItemTypeToString(InventoryItemType inventoryItemType)
 {
-    switch (inventoryItemType)
+    switch (static_cast<int>(inventoryItemType))
     {
-    case InventoryItemType::IIT_IRON_ORE:
+    case static_cast<int>(InventoryItemType::IRON_ORE):
         return "Iron Ore";
-    case InventoryItemType::IIT_COAL:
+    case static_cast<int>(InventoryItemType::COAL):
         return "Coal";
-    case InventoryItemType::IIT_COPPER_ORE:
+    case static_cast<int>(InventoryItemType::COPPER_ORE):
         return "Copper Ore";
-    case InventoryItemType::IIT_STONE:
+    case static_cast<int>(InventoryItemType::STONE):
         return "Stone";
-    case InventoryItemType::IIT_WOOD:
+    case static_cast<int>(InventoryItemType::WOOD):
         return "Wood";
-    case InventoryItemType::IIT_IRON_PLATE:
+    case static_cast<int>(InventoryItemType::IRON_PLATE):
         return "Iron Plate";
-    case InventoryItemType::IIT_STEEL:
+    case static_cast<int>(InventoryItemType::STEEL):
         return "Steel";
-    case InventoryItemType::IIT_COPPER_PLATE:
+    case static_cast<int>(InventoryItemType::COPPER_PLATE):
         return "Copper Plate";
-    case InventoryItemType::IIT_STONE_BRICK:
-        return "Stone Brick";
-    case InventoryItemType::IIT_STONE_FURNACE:
+    case static_cast<int>(InventoryItemType::STONE_BRICK):
+        return "Stone Bricket";
+    case static_cast<int>(InventoryItemType::STONE_FURNACE):
         return "Stone Furnace";
     default:
         return "Unknown";

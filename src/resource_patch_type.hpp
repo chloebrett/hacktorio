@@ -1,10 +1,10 @@
 #pragma once
 
-enum ResourcePatchType
+enum class ResourcePatchType
 {
-    RPT_IRON,
-    RPT_COAL,
-    RPT_COPPER,
-    RPT_STONE,
-    RPT_WOOD
+    IRON,
+    COAL,
+    COPPER,
+    STONE,
+    WOOD
 };

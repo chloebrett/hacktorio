@@ -31,8 +31,8 @@ void Game::start()
     environment->initResourcePatches();
 
     unique_ptr<Chest> chest(new Chest(10));
-    chest->addItem(InventoryItemType::IIT_STONE_FURNACE, 2);
-    chest->addItem(InventoryItemType::IIT_IRON_PLATE, 5);
+    chest->addItem(InventoryItemType::STONE_FURNACE, 2);
+    chest->addItem(InventoryItemType::IRON_PLATE, 5);
     chest->setPosition(sf::Vector2f(25 * GRID_SIZE, 2 * GRID_SIZE));
 
     unique_ptr<Renderer> renderer(

@@ -23,18 +23,18 @@ ResourcePatchType ResourcePatch::getType()
 
 InventoryItemType ResourcePatch::getInventoryItemType()
 {
-    switch (type)
+    switch (static_cast<int>(type))
     {
-    case ResourcePatchType::RPT_IRON:
-        return InventoryItemType::IIT_IRON_ORE;
-    case ResourcePatchType::RPT_COAL:
-        return InventoryItemType::IIT_COAL;
-    case ResourcePatchType::RPT_COPPER:
-        return InventoryItemType::IIT_COPPER_ORE;
-    case ResourcePatchType::RPT_STONE:
-        return InventoryItemType::IIT_STONE;
-    case ResourcePatchType::RPT_WOOD:
-        return InventoryItemType::IIT_WOOD;
+    case static_cast<int>(ResourcePatchType::IRON):
+        return InventoryItemType::IRON_ORE;
+    case static_cast<int>(ResourcePatchType::COAL):
+        return InventoryItemType::COAL;
+    case static_cast<int>(ResourcePatchType::COPPER):
+        return InventoryItemType::COPPER_ORE;
+    case static_cast<int>(ResourcePatchType::STONE):
+        return InventoryItemType::STONE;
+    case static_cast<int>(ResourcePatchType::WOOD):
+        return InventoryItemType::WOOD;
     }
 }
 
