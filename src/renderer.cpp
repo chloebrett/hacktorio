@@ -129,11 +129,11 @@ void drawChestContentsIfNear(sf::RenderWindow &window, Chest &chest, Player &pla
 
 Renderer::Renderer(sf::RenderWindow &window,
                    Player &player,
-                   std::vector<ResourcePatch*> &resourcePatches,
+                   Environment &environment,
                    Chest &chest)
     : window(window),
       player(player),
-      resourcePatches(resourcePatches),
+      environment(environment),
       chest(chest) {
         sf::Vector2f SCREEN_SIZE = sf::Vector2f(SCREEN_WIDTH, SCREEN_HEIGHT);
         sf::Color green = sf::Color(85.0f, 107.0f, 95.0f, 255.0f);
@@ -169,15 +169,15 @@ void Renderer::renderBackground()
 void Renderer::renderScene()
 {
     std::map<ResourcePatchType, sf::Color> resourcePatchColors = getResourcePatchColors();
-    for (const auto &resourcePatch : resourcePatches)
+    for (ResourcePatch& resourcePatch : environment.getResourcePatches())
     {
-        if (resourcePatch->getRemaining() > 0)
+        if (resourcePatch.getRemaining() > 0)
         {
             sf::RectangleShape resourcePatchRect;
             resourcePatchRect.setSize(sf::Vector2f(1 * GRID_SIZE, 1 * GRID_SIZE));
-            sf::Vector2f resourcePatchPosition = resourcePatch->getPosition();
+            sf::Vector2f resourcePatchPosition = resourcePatch.getPosition();
             resourcePatchRect.setPosition(resourcePatchPosition);
-            resourcePatchRect.setFillColor(resourcePatchColors[resourcePatch->getType()]);
+            resourcePatchRect.setFillColor(resourcePatchColors[resourcePatch.getType()]);
             window.draw(resourcePatchRect);
         }
     }

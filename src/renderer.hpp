@@ -4,6 +4,7 @@
 #include "resource_patch.hpp"
 #include "chest.hpp"
 #include <vector>
+#include "environment.hpp"
 
 using namespace std;
 
@@ -12,7 +13,7 @@ using namespace std;
 public:
     Renderer(sf::RenderWindow &window,
              Player &player,
-             std::vector<ResourcePatch*> &resourcePatches,
+             Environment &environment,
              Chest &chest);
     void renderBackground();
     void renderScene();
@@ -22,7 +23,7 @@ public:
     private:
     sf::RenderWindow &window;
     Player &player;
-    std::vector<ResourcePatch*> resourcePatches;
+    Environment &environment;
     Chest &chest;
     sf::RectangleShape background;
     sf::RectangleShape playerRect;

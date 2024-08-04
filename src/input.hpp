@@ -5,6 +5,7 @@
 #include <memory>
 #include "player.hpp"
 #include "chest.hpp"
+#include "environment.hpp"
 #include "resource_patch.hpp"
 
 using namespace std;
@@ -15,7 +16,7 @@ class Input {
         sf::RenderWindow &window,
         Player &player,
         Chest &chest,
-        vector<ResourcePatch*> &resourcePatches
+        Environment &environment
     );
     void handleQueuedEvents();
     void handleOngoingEvents();
@@ -27,7 +28,7 @@ class Input {
     sf::RenderWindow &window;
     Player &player;
     Chest &chest;
-    vector<ResourcePatch*> &resourcePatches;
+    Environment &environment;
     bool isInventoryOpen;
     int selectedInventoryItemIndex;
     int selectedOtherItemIndex;

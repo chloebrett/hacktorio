@@ -3,6 +3,7 @@
 #include "SFML/Graphics.hpp"
 #include "chest.hpp"
 #include "constants.hpp"
+#include "environment.hpp"
 #include "resource_patch.hpp"
 
 using namespace std;
@@ -11,8 +12,8 @@ Input::Input(
     sf::RenderWindow &window,
     Player &player,
     Chest &chest,
-    vector<ResourcePatch*> &resourcePatches
-) : window(window), player(player), chest(chest), resourcePatches(resourcePatches),
+    Environment &environment
+) : window(window), player(player), chest(chest), environment(environment),
 isInventoryOpen(false),
 selectedInventoryItemIndex(0),
 selectedOtherItemIndex(0) {};
@@ -106,22 +107,23 @@ int Input::getSelectedOtherItemIndex() {
 void Input::handleOngoingEvents() {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
     {
+        vector<ResourcePatch>& resourcePatches = environment.getResourcePatches();
         sf::Vector2f playerPosition = player.getPosition();
         std::cout << "playerPosition: " << playerPosition.x << ", " << playerPosition.y << std::endl;
         std::cout << "rps" << resourcePatches.size() << std::endl;
-        for (const auto &resourcePatch : resourcePatches)
+        for (ResourcePatch& resourcePatch : resourcePatches)
         {
-            sf::Vector2f resourcePatchPosition = resourcePatch->getPosition();
+            sf::Vector2f resourcePatchPosition = resourcePatch.getPosition();
             sf::Vector2f diff = playerPosition - resourcePatchPosition;
             if (abs(diff.x) < 0.5 * GRID_SIZE && abs(diff.y) < 0.5 * GRID_SIZE)
             {
-                if (resourcePatch->getRemaining() > 0)
+                if (resourcePatch.getRemaining() > 0)
                 {
-                    bool didMine = resourcePatch->mine(player.getMiningSpeed() / FRAMES_PER_SECOND);
+                    bool didMine = resourcePatch.mine(player.getMiningSpeed() / FRAMES_PER_SECOND);
                     std::cout << "Mined: " << didMine << std::endl;
                     if (didMine)
                     {
-                        player.addItem(resourcePatch->getInventoryItemType(), 1);
+                        player.addItem(resourcePatch.getInventoryItemType(), 1);
                     }
                 }
             }
