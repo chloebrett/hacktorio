@@ -25,11 +25,15 @@ std::map<ResourcePatchType, sf::Color> getResourcePatchColors()
 
 void drawChest(sf::RenderWindow &window, Chest &chest)
 {
-    sf::RectangleShape chestRect;
-    chestRect.setSize(sf::Vector2f(1 * GRID_SIZE, 1 * GRID_SIZE));
-    chestRect.setPosition(chest.getPosition());
-    chestRect.setFillColor(sf::Color(0, 0, 0, 255));
-    window.draw(chestRect);
+    sf::Texture texture;
+    if (!texture.loadFromFile("data/base/graphics/entity/wooden-chest/wooden-chest.png"))
+    {
+        // Handle loading error
+        cout << "Failed to load texture" << endl;
+    }
+    sf::Sprite sprite(texture);
+    sprite.setPosition(chest.getPosition());
+    window.draw(sprite);
 }
 
 std::string inventoryItemTypeToString(InventoryItemType inventoryItemType)
@@ -61,6 +65,35 @@ std::string inventoryItemTypeToString(InventoryItemType inventoryItemType)
     }
 }
 
+std::string inventoryItemTypeToFilename(InventoryItemType inventoryItemType)
+{
+    switch (static_cast<int>(inventoryItemType))
+    {
+    case static_cast<int>(InventoryItemType::IRON_ORE):
+        return "data/base/graphics/icons/iron-ore.png";
+    case static_cast<int>(InventoryItemType::COAL):
+        return "data/base/graphics/icons/coal.png";
+    case static_cast<int>(InventoryItemType::COPPER_ORE):
+        return "data/base/graphics/icons/copper-ore.png";
+    case static_cast<int>(InventoryItemType::STONE):
+        return "data/base/graphics/icons/stone.png";
+    case static_cast<int>(InventoryItemType::WOOD):
+        return "data/base/graphics/icons/wood.png";
+    case static_cast<int>(InventoryItemType::IRON_PLATE):
+        return "data/base/graphics/icons/iron-plate.png";
+    case static_cast<int>(InventoryItemType::STEEL):
+        return "data/base/graphics/icons/steel.png";
+    case static_cast<int>(InventoryItemType::COPPER_PLATE):
+        return "data/base/graphics/icons/copper-plate.png";
+    case static_cast<int>(InventoryItemType::STONE_BRICK):
+        return "data/base/graphics/icons/stone-brick.png";
+    case static_cast<int>(InventoryItemType::STONE_FURNACE):
+        return "data/base/graphics/icons/stone-furnace.png";
+    default:
+        return "data/core/graphics/cancel.png";
+    }
+}
+
 void drawInventory(sf::RenderWindow &window, Player &player, int selectedIndex)
 {
     sf::Font font;
@@ -75,17 +108,17 @@ void drawInventory(sf::RenderWindow &window, Player &player, int selectedIndex)
         InventoryItemType inventoryItemType = item.first;
         int count = item.second;
 
-        sf::Text inventoryText(inventoryItemTypeToString(inventoryItemType) + ": " + std::to_string(count), font);
-        inventoryText.setCharacterSize(24);
-        inventoryText.setFillColor(sf::Color::White);
-        inventoryText.setPosition(10, 10 + 30 * (i + 1));
-
-        if (i == (selectedIndex % player.getContents().size()))
+        sf::Texture texture;
+        if (!texture.loadFromFile(inventoryItemTypeToFilename(inventoryItemType)))
         {
-            inventoryText.setFillColor(sf::Color::Red);
+            // Handle loading error
+            cout << "Failed to load texture" << endl;
         }
+        sf::Sprite sprite(texture);
+        sprite.setTextureRect(sf::IntRect(0, 0, 64, 64));
+        sprite.setPosition(10, 10 + 64 * (i + 1));
 
-        window.draw(inventoryText);
+        window.draw(sprite);
         i++;
     }
 }
@@ -111,17 +144,17 @@ void drawChestContentsIfNear(sf::RenderWindow &window, Chest &chest, Player &pla
             InventoryItemType inventoryItemType = item.first;
             int count = item.second;
 
-            sf::Text inventoryText(inventoryItemTypeToString(inventoryItemType) + ": " + std::to_string(count), font);
-            inventoryText.setCharacterSize(24);
-            inventoryText.setFillColor(sf::Color::White);
-            inventoryText.setPosition(200, 10 + 30 * (i + 1));
-
-            if (i == (selectedIndex % chestContents.size()))
+            sf::Texture texture;
+            if (!texture.loadFromFile(inventoryItemTypeToFilename(inventoryItemType)))
             {
-                inventoryText.setFillColor(sf::Color::Red);
+                // Handle loading error
+                cout << "Failed to load texture" << endl;
             }
+            sf::Sprite sprite(texture);
+            sprite.setTextureRect(sf::IntRect(0, 0, 64, 64));
+            sprite.setPosition(200, 10 + 64 * (i + 1));
 
-            window.draw(inventoryText);
+            window.draw(sprite);
             i++;
         }
     }
