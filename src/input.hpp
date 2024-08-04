@@ -13,22 +13,22 @@ class Input {
     public:
     Input(
         sf::RenderWindow &window,
-    std::shared_ptr<Player> player,
-    std::shared_ptr<Chest> chest,
-    shared_ptr<vector<shared_ptr<ResourcePatch> > > resourcePatches,
-    std::shared_ptr<bool> isInventoryOpen,
-    shared_ptr<int> selectedInventoryItemIndex,
-    shared_ptr<int> selectedOtherItemIndex
+        Player &player,
+        Chest &chest,
+        vector<ResourcePatch*> &resourcePatches
     );
     void handleQueuedEvents();
     void handleOngoingEvents();
+    bool getIsInventoryOpen();
+    int getSelectedInventoryItemIndex();
+    int getSelectedOtherItemIndex();
 
     private:
     sf::RenderWindow &window;
-    std::shared_ptr<Player> player;
-    std::shared_ptr<Chest> chest;
-    shared_ptr<vector<shared_ptr<ResourcePatch> > > resourcePatches;
-    std::shared_ptr<bool> isInventoryOpen;
-    shared_ptr<int> selectedInventoryItemIndex;
-    shared_ptr<int> selectedOtherItemIndex;
+    Player &player;
+    Chest &chest;
+    vector<ResourcePatch*> &resourcePatches;
+    bool isInventoryOpen;
+    int selectedInventoryItemIndex;
+    int selectedOtherItemIndex;
 };

@@ -23,11 +23,11 @@ std::map<ResourcePatchType, sf::Color> getResourcePatchColors()
     return resourcePatchColors;
 }
 
-void drawChest(sf::RenderWindow &window, shared_ptr<Chest> chest)
+void drawChest(sf::RenderWindow &window, Chest &chest)
 {
     sf::RectangleShape chestRect;
     chestRect.setSize(sf::Vector2f(1 * GRID_SIZE, 1 * GRID_SIZE));
-    chestRect.setPosition(chest->getPosition());
+    chestRect.setPosition(chest.getPosition());
     chestRect.setFillColor(sf::Color(0, 0, 0, 255));
     window.draw(chestRect);
 }
@@ -61,7 +61,7 @@ std::string inventoryItemTypeToString(InventoryItemType inventoryItemType)
     }
 }
 
-void drawInventory(sf::RenderWindow &window, shared_ptr<Player> player, int selectedIndex)
+void drawInventory(sf::RenderWindow &window, Player &player, int selectedIndex)
 {
     sf::Font font;
     if (!font.loadFromFile("res/Inconsolata-Regular.ttf"))
@@ -70,7 +70,7 @@ void drawInventory(sf::RenderWindow &window, shared_ptr<Player> player, int sele
     }
 
     int i = 0;
-    for (const auto &item : player->getContents())
+    for (const auto &item : player.getContents())
     {
         InventoryItemType inventoryItemType = item.first;
         int count = item.second;
@@ -80,7 +80,7 @@ void drawInventory(sf::RenderWindow &window, shared_ptr<Player> player, int sele
         inventoryText.setFillColor(sf::Color::White);
         inventoryText.setPosition(10, 10 + 30 * (i + 1));
 
-        if (i == (selectedIndex % player->getContents().size()))
+        if (i == (selectedIndex % player.getContents().size()))
         {
             inventoryText.setFillColor(sf::Color::Red);
         }
@@ -90,7 +90,7 @@ void drawInventory(sf::RenderWindow &window, shared_ptr<Player> player, int sele
     }
 }
 
-void drawChestContentsIfNear(sf::RenderWindow &window, shared_ptr<Chest> chest, std::shared_ptr<Player> player, int selectedIndex)
+void drawChestContentsIfNear(sf::RenderWindow &window, Chest &chest, Player &player, int selectedIndex)
 {
     sf::Font font;
     if (!font.loadFromFile("res/Inconsolata-Regular.ttf"))
@@ -98,12 +98,12 @@ void drawChestContentsIfNear(sf::RenderWindow &window, shared_ptr<Chest> chest, 
         std::cout << "Failed to load font" << std::endl;
     }
 
-    sf::Vector2f playerPosition = player->getPosition();
-    sf::Vector2f chestPosition = chest->getPosition();
+    sf::Vector2f playerPosition = player.getPosition();
+    sf::Vector2f chestPosition = chest.getPosition();
     sf::Vector2f diff = playerPosition - chestPosition;
     if (abs(diff.x) < 2 * GRID_SIZE && abs(diff.y) < 2 * GRID_SIZE)
     {
-        std::map<InventoryItemType, int> chestContents = chest->getContents();
+        std::map<InventoryItemType, int> chestContents = chest.getContents();
 
         int i = 0;
         for (const auto &item : chestContents) // TODO: Be careful about ordering - is this deterministic?
@@ -128,12 +128,12 @@ void drawChestContentsIfNear(sf::RenderWindow &window, shared_ptr<Chest> chest, 
 }
 
 Renderer::Renderer(sf::RenderWindow &window,
-                   std::shared_ptr<Player> player,
-                   std::vector<std::shared_ptr<ResourcePatch> > resourcePatches,
-                   shared_ptr<Chest> chest)
+                   Player &player,
+                   std::vector<ResourcePatch*> &resourcePatches,
+                   Chest &chest)
     : window(window),
       player(player),
-      resourcePatches(std::move(resourcePatches)),
+      resourcePatches(resourcePatches),
       chest(chest) {
         sf::Vector2f SCREEN_SIZE = sf::Vector2f(SCREEN_WIDTH, SCREEN_HEIGHT);
         sf::Color green = sf::Color(85.0f, 107.0f, 95.0f, 255.0f);
@@ -181,7 +181,7 @@ void Renderer::renderScene()
             window.draw(resourcePatchRect);
         }
     }
-    playerRect.setPosition(player->getPosition());
+    playerRect.setPosition(player.getPosition());
     window.draw(playerRect);
 }
 
