@@ -102,6 +102,36 @@ void drawInventory(sf::RenderWindow &window, Player &player, int selectedIndex)
         std::cout << "Failed to load font" << std::endl;
     }
 
+    float margin = 50.0;
+    float padding = 20.0;
+
+    sf::RectangleShape mainRect;
+    mainRect.setSize(sf::Vector2f(INVENTORY_WIDTH * 2 + INVENTORY_PADDING * 3, INVENTORY_HEIGHT + INVENTORY_PADDING * 2));
+    mainRect.setPosition(INVENTORY_H_MARGIN, INVENTORY_V_MARGIN);
+    mainRect.setFillColor(sf::Color(120, 120, 120, 255));
+
+    sf::RectangleShape leftRect;
+    leftRect.setSize(sf::Vector2f(INVENTORY_WIDTH, INVENTORY_HEIGHT));
+    leftRect.setPosition(INVENTORY_H_MARGIN + INVENTORY_PADDING, INVENTORY_V_MARGIN + INVENTORY_PADDING);
+    leftRect.setFillColor(sf::Color(80, 80, 80, 255));
+
+    sf::RectangleShape rightRect;
+    rightRect.setSize(sf::Vector2f(INVENTORY_WIDTH, INVENTORY_HEIGHT));
+    rightRect.setPosition(INVENTORY_H_MARGIN + INVENTORY_WIDTH + INVENTORY_PADDING * 2, INVENTORY_V_MARGIN + INVENTORY_PADDING);
+    rightRect.setFillColor(sf::Color(80, 80, 80, 255));
+
+    sf::Text text;
+    text.setFont(font);
+    text.setString("Hello, World!");
+    text.setCharacterSize(24);
+    text.setFillColor(sf::Color::White);
+    text.setPosition(10, 70);
+
+    window.draw(mainRect);
+    window.draw(leftRect);
+    window.draw(rightRect);
+    window.draw(text);
+
     int i = 0;
     for (const auto &item : player.getContents())
     {
