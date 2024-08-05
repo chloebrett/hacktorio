@@ -113,12 +113,50 @@ void drawInventory(sf::RenderWindow &window, Player &player, int selectedIndex)
     sf::RectangleShape leftRect;
     leftRect.setSize(sf::Vector2f(INVENTORY_WIDTH, INVENTORY_HEIGHT));
     leftRect.setPosition(INVENTORY_H_MARGIN + INVENTORY_PADDING, INVENTORY_V_MARGIN + INVENTORY_PADDING);
+    leftRect.setOutlineColor(sf::Color(40, 40, 40, 255));
+    leftRect.setOutlineThickness(2.0);
     leftRect.setFillColor(sf::Color(80, 80, 80, 255));
 
     sf::RectangleShape rightRect;
     rightRect.setSize(sf::Vector2f(INVENTORY_WIDTH, INVENTORY_HEIGHT));
     rightRect.setPosition(INVENTORY_H_MARGIN + INVENTORY_WIDTH + INVENTORY_PADDING * 2, INVENTORY_V_MARGIN + INVENTORY_PADDING);
+    rightRect.setOutlineColor(sf::Color(40, 40, 40, 255));
+    rightRect.setOutlineThickness(1.0);
     rightRect.setFillColor(sf::Color(80, 80, 80, 255));
+
+    window.draw(mainRect);
+    window.draw(leftRect);
+    window.draw(rightRect);
+
+    // Left inventory
+    for (int i = 0; i < INVENTORY_WIDTH_CELLS; i++)
+    {
+        for (int j = 0; j < INVENTORY_HEIGHT_CELLS; j++)
+        {
+            sf::RectangleShape itemRect;
+            itemRect.setSize(sf::Vector2f(GRID_SIZE, GRID_SIZE));
+            itemRect.setPosition(INVENTORY_H_MARGIN + INVENTORY_PADDING + i * GRID_SIZE, INVENTORY_V_MARGIN + INVENTORY_PADDING + j * GRID_SIZE);
+            itemRect.setFillColor(sf::Color(0, 0, 0, 0));
+            itemRect.setOutlineColor(sf::Color(40, 40, 40, 255));
+            itemRect.setOutlineThickness(1.0);
+            window.draw(itemRect);
+        }
+    }
+
+    // Right inventory
+    for (int i = 0; i < INVENTORY_WIDTH_CELLS; i++)
+    {
+        for (int j = 0; j < INVENTORY_HEIGHT_CELLS; j++)
+        {
+            sf::RectangleShape itemRect;
+            itemRect.setSize(sf::Vector2f(GRID_SIZE, GRID_SIZE));
+            itemRect.setPosition(INVENTORY_H_MARGIN + INVENTORY_WIDTH + INVENTORY_PADDING * 2 + i * GRID_SIZE, INVENTORY_V_MARGIN + INVENTORY_PADDING + j * GRID_SIZE);
+            itemRect.setFillColor(sf::Color(0, 0, 0, 0));
+            itemRect.setOutlineColor(sf::Color(40, 40, 40, 255));
+            itemRect.setOutlineThickness(1.0);
+            window.draw(itemRect);
+        }
+    }
 
     sf::Text text;
     text.setFont(font);
@@ -126,10 +164,6 @@ void drawInventory(sf::RenderWindow &window, Player &player, int selectedIndex)
     text.setCharacterSize(24);
     text.setFillColor(sf::Color::White);
     text.setPosition(10, 70);
-
-    window.draw(mainRect);
-    window.draw(leftRect);
-    window.draw(rightRect);
     window.draw(text);
 
     int i = 0;
