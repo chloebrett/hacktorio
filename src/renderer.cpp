@@ -10,6 +10,7 @@
 #include <iostream>
 #include <memory>
 #include "chest.hpp"
+#include "item_stack.hpp"
 #include <vector>
 
 std::map<ResourcePatchType, sf::Color> getResourcePatchColors()
@@ -129,17 +130,38 @@ void drawInventory(sf::RenderWindow &window, Player &player, int selectedIndex)
     window.draw(rightRect);
 
     // Left inventory
-    for (int i = 0; i < INVENTORY_WIDTH_CELLS; i++)
+    player.updateItems();
+    vector<ItemStack>& items = player.getItems();
+    int size = player.getItems().size();
+    for (int y = 0; y < INVENTORY_HEIGHT_CELLS; y++)
     {
-        for (int j = 0; j < INVENTORY_HEIGHT_CELLS; j++)
+        for (int x = 0; x < INVENTORY_WIDTH_CELLS; x++)
         {
             sf::RectangleShape itemRect;
             itemRect.setSize(sf::Vector2f(GRID_SIZE, GRID_SIZE));
-            itemRect.setPosition(INVENTORY_H_MARGIN + INVENTORY_PADDING + i * GRID_SIZE, INVENTORY_V_MARGIN + INVENTORY_PADDING + j * GRID_SIZE);
+            itemRect.setPosition(INVENTORY_H_MARGIN + INVENTORY_PADDING + x * GRID_SIZE, INVENTORY_V_MARGIN + INVENTORY_PADDING + y * GRID_SIZE);
             itemRect.setFillColor(sf::Color(0, 0, 0, 0));
             itemRect.setOutlineColor(sf::Color(40, 40, 40, 255));
             itemRect.setOutlineThickness(1.0);
             window.draw(itemRect);
+
+            int index = y * INVENTORY_WIDTH_CELLS + x;
+            if (index < items.size()) {
+                InventoryItemType inventoryItemType = items[index].getType();
+                int count = items[index].getAmount();
+
+                sf::Texture texture;
+                if (!texture.loadFromFile(inventoryItemTypeToFilename(inventoryItemType)))
+                {
+                    // Handle loading error
+                    cout << "Failed to load texture" << endl;
+                }
+                sf::Sprite sprite(texture);
+                sprite.setTextureRect(sf::IntRect(64, 0, 32, 32));
+                sprite.setPosition(INVENTORY_H_MARGIN + INVENTORY_PADDING + x * GRID_SIZE, INVENTORY_V_MARGIN + INVENTORY_PADDING + y * GRID_SIZE);
+
+                window.draw(sprite);
+            }
         }
     }
 

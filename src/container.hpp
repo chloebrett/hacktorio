@@ -2,11 +2,19 @@
 
 #include <map>
 #include "inventory_item_type.hpp"
+#include <vector>
+#include "item_stack.hpp"
+#include <iostream>
+
+using namespace std;
 
 class Container {
     // TODO: maybe move this to a C++ file? (and likewise for Entity)
     public:
-    std::map<InventoryItemType, int> getContents() {
+    Container() {
+        this->contents = map<InventoryItemType, int>();
+    }
+    map<InventoryItemType, int> getContents() {
         return contents;
     }
     int getItemCount(InventoryItemType item) {
@@ -37,7 +45,21 @@ class Container {
             contents[item] = 0;
         }
     }
+    vector<ItemStack> &getItems() {
+        return items;
+    }
+
+    void updateItems() {
+        vector<ItemStack> items;
+        for (auto const& [item, count] : contents) {
+            if (count > 0) {
+                items.push_back(ItemStack(count, item));
+            }
+        }
+        this->items = items;
+    }
 
     protected:
-    std::map<InventoryItemType, int> contents;
+    map<InventoryItemType, int> contents;
+    vector<ItemStack> items;
 };

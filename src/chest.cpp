@@ -14,6 +14,5 @@ int Chest::getCapacity() {
 }
 
 int Chest::getFreeSpace() {
-    std::cout << "contents.size(): " << contents.size() << ", capacity: " << capacity << std::endl;
     return capacity - getTotalItemCount();
 }
