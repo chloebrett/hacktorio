@@ -12,6 +12,7 @@
 #include <vector>
 #include "input.hpp"
 #include "environment.hpp"
+#include "cursor_state.hpp"
 
 using namespace std;
 
@@ -35,11 +36,12 @@ void Game::start()
     chest->addItem(InventoryItemType::IRON_PLATE, 5);
     chest->setPosition(sf::Vector2f(25 * GRID_SIZE, 2 * GRID_SIZE));
 
+    unique_ptr<CursorState> cursorState(new CursorState());
     unique_ptr<Renderer> renderer(
-        new Renderer(window, *player, *environment, *chest)
+        new Renderer(window, *player, *environment, *chest, *cursorState)
     );
     unique_ptr<Input> input(new Input(
-        window, *player, *chest, *environment
+        window, *player, *chest, *environment, *cursorState
     ));
 
     while (window.isOpen())

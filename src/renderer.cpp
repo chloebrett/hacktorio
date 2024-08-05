@@ -12,6 +12,7 @@
 #include "chest.hpp"
 #include "item_stack.hpp"
 #include <vector>
+#include "cursor_state.hpp"
 
 std::map<ResourcePatchType, sf::Color> getResourcePatchColors()
 {
@@ -161,6 +162,14 @@ void drawInventory(sf::RenderWindow &window, Player &player, int selectedIndex)
                 sprite.setPosition(INVENTORY_H_MARGIN + INVENTORY_PADDING + x * GRID_SIZE, INVENTORY_V_MARGIN + INVENTORY_PADDING + y * GRID_SIZE);
 
                 window.draw(sprite);
+
+                sf::Text text;
+                text.setFont(font);
+                text.setString(to_string(count));
+                text.setCharacterSize(12);
+                text.setFillColor(sf::Color::White);
+                text.setPosition(INVENTORY_H_MARGIN + INVENTORY_PADDING + x * GRID_SIZE + 16, INVENTORY_V_MARGIN + INVENTORY_PADDING + y * GRID_SIZE + 16);
+                window.draw(text);
             }
         }
     }
@@ -187,26 +196,6 @@ void drawInventory(sf::RenderWindow &window, Player &player, int selectedIndex)
     text.setFillColor(sf::Color::White);
     text.setPosition(10, 70);
     window.draw(text);
-
-    int i = 0;
-    for (const auto &item : player.getContents())
-    {
-        InventoryItemType inventoryItemType = item.first;
-        int count = item.second;
-
-        sf::Texture texture;
-        if (!texture.loadFromFile(inventoryItemTypeToFilename(inventoryItemType)))
-        {
-            // Handle loading error
-            cout << "Failed to load texture" << endl;
-        }
-        sf::Sprite sprite(texture);
-        sprite.setTextureRect(sf::IntRect(0, 0, 64, 64));
-        sprite.setPosition(10, 10 + 64 * (i + 1));
-
-        window.draw(sprite);
-        i++;
-    }
 }
 
 void drawChestContentsIfNear(sf::RenderWindow &window, Chest &chest, Player &player, int selectedIndex)
@@ -249,11 +238,12 @@ void drawChestContentsIfNear(sf::RenderWindow &window, Chest &chest, Player &pla
 Renderer::Renderer(sf::RenderWindow &window,
                    Player &player,
                    Environment &environment,
-                   Chest &chest)
+                   Chest &chest,
+                   CursorState &cursorState)
     : window(window),
       player(player),
       environment(environment),
-      chest(chest) {
+      chest(chest), cursorState(cursorState) {
         sf::Vector2f SCREEN_SIZE = sf::Vector2f(SCREEN_WIDTH, SCREEN_HEIGHT);
         sf::Color green = sf::Color(85.0f, 107.0f, 95.0f, 255.0f);
         sf::Color blue = sf::Color(81.0f, 168.0f, 194.0f, 255.0f);

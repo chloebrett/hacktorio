@@ -7,6 +7,7 @@
 #include "chest.hpp"
 #include "environment.hpp"
 #include "resource_patch.hpp"
+#include "cursor_state.hpp"
 
 using namespace std;
 
@@ -16,7 +17,8 @@ class Input {
         sf::RenderWindow &window,
         Player &player,
         Chest &chest,
-        Environment &environment
+        Environment &environment,
+        CursorState &cursorState
     );
     void handleQueuedEvents();
     void handleOngoingEvents();
@@ -33,4 +35,5 @@ class Input {
     bool isInventoryOpen;
     int selectedInventoryItemIndex;
     int selectedOtherItemIndex;
+    CursorState &cursorState;
 };

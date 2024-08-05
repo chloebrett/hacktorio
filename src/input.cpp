@@ -5,6 +5,7 @@
 #include "constants.hpp"
 #include "environment.hpp"
 #include "resource_patch.hpp"
+#include "cursor_state.hpp"
 
 using namespace std;
 
@@ -12,8 +13,9 @@ Input::Input(
     sf::RenderWindow &window,
     Player &player,
     Chest &chest,
-    Environment &environment
-) : window(window), player(player), chest(chest), environment(environment),
+    Environment &environment,
+    CursorState &cursorState
+) : window(window), player(player), chest(chest), environment(environment), cursorState(cursorState),
 isInventoryOpen(false),
 selectedInventoryItemIndex(0),
 selectedOtherItemIndex(0) {};
@@ -31,7 +33,7 @@ void Input::handleQueuedEvents() {
             {
                 isInventoryOpen = !isInventoryOpen;
             }
-            
+
             if (event.key.code == sf::Keyboard::Down)
             {
                 selectedInventoryItemIndex++;

@@ -5,6 +5,7 @@
 #include "chest.hpp"
 #include <vector>
 #include "environment.hpp"
+#include "cursor_state.hpp"
 
 using namespace std;
 
@@ -14,7 +15,8 @@ public:
     Renderer(sf::RenderWindow &window,
              Player &player,
              Environment &environment,
-             Chest &chest);
+             Chest &chest,
+             CursorState &cursorState);
     void renderBackground();
     void renderScene();
     void renderGui(bool isInventoryOpen, int selectedInventoryItemIndex, int selectedOtherItemIndex, sf::Vector2i mousePosition);
@@ -27,4 +29,5 @@ public:
     Chest &chest;
     sf::RectangleShape background;
     sf::RectangleShape playerRect;
+    CursorState &cursorState;
 };
