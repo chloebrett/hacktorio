@@ -3,10 +3,10 @@
 #include "container.hpp"
 #include "inventory_item_type.hpp"
 #include "SFML/Graphics.hpp"
-#include "entity.hpp"
+#include "scene_node.hpp"
 using namespace std;
 
-class Player : public Entity, public Container {
+class Player : public SceneNode, public Container {
     public:
     Player();
     int getMoveSpeed();

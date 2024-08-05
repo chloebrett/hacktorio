@@ -13,6 +13,7 @@
 #include "input.hpp"
 #include "environment.hpp"
 #include "cursor_state.hpp"
+#include "scene_node.hpp"
 
 using namespace std;
 
@@ -31,14 +32,26 @@ void Game::start()
     unique_ptr<Environment> environment(new Environment());
     environment->initResourcePatches();
 
-    unique_ptr<Chest> chest(new Chest(10));
+    unique_ptr<Chest> chest(new Chest(10, sf::Vector2f(25 * GRID_SIZE, 2 * GRID_SIZE)));
     chest->addItem(InventoryItemType::STONE_FURNACE, 2);
     chest->addItem(InventoryItemType::IRON_PLATE, 5);
-    chest->setPosition(sf::Vector2f(25 * GRID_SIZE, 2 * GRID_SIZE));
 
     unique_ptr<CursorState> cursorState(new CursorState());
+    unique_ptr<SceneNode> root(new SceneNode(
+        sf::Vector2f(0, 0),
+        sf::Vector2f(SCREEN_WIDTH, SCREEN_HEIGHT),
+        /* onClick= */ nullptr,
+        /* onRender= */ nullptr
+    ));
+    for (auto& patch : environment->getResourcePatches())
+    {
+        root->addChild(&patch);
+    }
+    root->addChild(player.get());
+    root->addChild(chest.get());
+
     unique_ptr<Renderer> renderer(
-        new Renderer(window, *player, *environment, *chest, *cursorState)
+        new Renderer(window, *player, *environment, *chest, *root, *cursorState)
     );
     unique_ptr<Input> input(new Input(
         window, *player, *chest, *environment, *cursorState

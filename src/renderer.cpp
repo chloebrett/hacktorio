@@ -14,6 +14,33 @@
 #include <vector>
 #include "cursor_state.hpp"
 
+Renderer::Renderer(sf::RenderWindow &window,
+                   Player &player,
+                   Environment &environment,
+                   Chest &chest,
+                   SceneNode &rootSceneNode,
+                   CursorState &cursorState)
+    : window(window),
+      player(player),
+      environment(environment),
+      chest(chest), rootSceneNode(rootSceneNode), cursorState(cursorState) {
+        sf::Vector2f SCREEN_SIZE = sf::Vector2f(SCREEN_WIDTH, SCREEN_HEIGHT);
+        sf::Color green = sf::Color(85.0f, 107.0f, 95.0f, 255.0f);
+        sf::Color blue = sf::Color(81.0f, 168.0f, 194.0f, 255.0f);
+
+        sf::RectangleShape background;
+        background.setSize(SCREEN_SIZE);
+        background.setPosition(0.0f, 0.0f);
+        background.setFillColor(green);
+        this->background = background;
+
+        sf::RectangleShape playerRect;
+        playerRect.setSize(sf::Vector2f(1 * GRID_SIZE, 1 * GRID_SIZE));
+        playerRect.setPosition(2 * GRID_SIZE, 2 * GRID_SIZE);
+        playerRect.setFillColor(blue);
+        this->playerRect = playerRect;
+};
+
 std::map<ResourcePatchType, sf::Color> getResourcePatchColors()
 {
     std::map<ResourcePatchType, sf::Color> resourcePatchColors;
@@ -234,32 +261,6 @@ void drawChestContentsIfNear(sf::RenderWindow &window, Chest &chest, Player &pla
         }
     }
 }
-
-Renderer::Renderer(sf::RenderWindow &window,
-                   Player &player,
-                   Environment &environment,
-                   Chest &chest,
-                   CursorState &cursorState)
-    : window(window),
-      player(player),
-      environment(environment),
-      chest(chest), cursorState(cursorState) {
-        sf::Vector2f SCREEN_SIZE = sf::Vector2f(SCREEN_WIDTH, SCREEN_HEIGHT);
-        sf::Color green = sf::Color(85.0f, 107.0f, 95.0f, 255.0f);
-        sf::Color blue = sf::Color(81.0f, 168.0f, 194.0f, 255.0f);
-
-        sf::RectangleShape background;
-        background.setSize(SCREEN_SIZE);
-        background.setPosition(0.0f, 0.0f);
-        background.setFillColor(green);
-        this->background = background;
-
-        sf::RectangleShape playerRect;
-        playerRect.setSize(sf::Vector2f(1 * GRID_SIZE, 1 * GRID_SIZE));
-        playerRect.setPosition(2 * GRID_SIZE, 2 * GRID_SIZE);
-        playerRect.setFillColor(blue);
-        this->playerRect = playerRect;
-};
 
 void Renderer::render(bool isInventoryOpen, int selectedInventoryItemIndex, int selectedOtherItemIndex, sf::Vector2i mousePosition)
 {

@@ -7,8 +7,8 @@
 using namespace std;
 
 SceneNode::SceneNode(
-    sf::Vector2i position,
-    sf::Vector2i size,
+    sf::Vector2f position,
+    sf::Vector2f size,
     std::function<void()> onClick,
     std::function<void()> onRender
 ) {
@@ -17,13 +17,14 @@ SceneNode::SceneNode(
     this->onClick = onClick;
     this->onRender = onRender;
     this->children = vector<SceneNode*>();
+    this->zIndex = 0;
 }
 
-sf::Vector2i SceneNode::getPosition() {
+sf::Vector2f SceneNode::getPosition() {
     return position;
 }
 
-sf::Vector2i SceneNode::getSize() {
+sf::Vector2f SceneNode::getSize() {
     return size;
 }
 
@@ -39,11 +40,11 @@ vector<SceneNode*> &SceneNode::getChildren() {
     return children;
 }
 
-void SceneNode::setPosition(sf::Vector2i position) {
+void SceneNode::setPosition(sf::Vector2f position) {
     this->position = position;
 }
 
-void SceneNode::setSize(sf::Vector2i size) {
+void SceneNode::setSize(sf::Vector2f size) {
     this->size = size;
 }
 

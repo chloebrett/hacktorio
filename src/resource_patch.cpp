@@ -1,9 +1,30 @@
 #include "resource_patch.hpp"
 #include "resource_patch_type.hpp"
 #include "inventory_item_type.hpp"
+#include "scene_node.hpp"
+#include "SFML/Graphics.hpp"
+#include "constants.hpp"
 
 #include <iostream>
 #include <cstdlib>
+
+ResourcePatch::ResourcePatch(sf::Vector2f position) : SceneNode(
+    /* position= */ position,
+    /* size= */ sf::Vector2f(GRID_SIZE, GRID_SIZE),
+    /* onClick= */ []() {
+        std::cout << "Resource patch clicked" << std::endl;
+    },
+    /* onRender= */ [](
+        // sf::RenderWindow &window,
+        // sf::Vector2f position,
+        // sf::Vector2f size
+    ) {
+        std::cout << "Resource patch rendered" << std::endl;
+    }
+)
+{
+    remaining = 0;
+}
 
 void ResourcePatch::init(ResourcePatchType type, int amount)
 {

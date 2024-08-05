@@ -23,8 +23,7 @@ void Environment::addPatches(
             if (rand() % 100 > probabilityPercent) {
                 continue;
             }
-            ResourcePatch resourcePatch;
-            resourcePatch.setPosition(sf::Vector2f(i * GRID_SIZE, j * GRID_SIZE));
+            ResourcePatch resourcePatch = ResourcePatch(sf::Vector2f(i * GRID_SIZE, j * GRID_SIZE));
             int amount = rand() % (amountMax - amountMin) + amountMin;
             resourcePatch.init(type, amount);
             resourcePatches.push_back(resourcePatch);

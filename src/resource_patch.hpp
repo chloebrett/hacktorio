@@ -3,11 +3,12 @@
 #include "resource_patch_type.hpp"
 #include "inventory_item_type.hpp"
 #include "SFML/Graphics.hpp"
-#include "entity.hpp"
+#include "scene_node.hpp"
 
-class ResourcePatch : public Entity
+class ResourcePatch : public SceneNode
 {
 public:
+    ResourcePatch(sf::Vector2f position);
     void init(ResourcePatchType type, int amount);
     float getRemaining();
     bool mine(float amount);
