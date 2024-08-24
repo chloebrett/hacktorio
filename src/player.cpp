@@ -6,15 +6,15 @@
 #include <iostream>
 
 Player::Player() : SceneNode(
-    /* position= */ sf::Vector2f(0, 0),
+    /* pos= */ sf::Vector2f(0, 0),
     /* size= */ sf::Vector2f(GRID_SIZE, GRID_SIZE),
     /* onClick= */ []() {
         std::cout << "Player clicked" << std::endl;
     },
     /* onRender= */ [](
-        // sf::RenderWindow &window,
-        // sf::Vector2f position,
-        // sf::Vector2f size
+        SceneNode &node,
+        sf::RenderWindow &window,
+        sf::Vector2f absolutePos
     ) {
         std::cout << "Player rendered" << std::endl;
         // sf::RectangleShape playerRect(size);

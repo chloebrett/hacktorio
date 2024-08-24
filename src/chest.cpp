@@ -16,9 +16,9 @@ Chest::Chest(int capacity, sf::Vector2f position) : SceneNode(
         std::cout << "Chest clicked" << std::endl;
     },
     /* onRender= */ [](
-        // sf::RenderWindow &window,
-        // sf::Vector2f position,
-        // sf::Vector2f size
+        SceneNode &node,
+        sf::RenderWindow &window,
+        sf::Vector2f absolutePos
     ) {
         std::cout << "Chest rendered" << std::endl;
     }

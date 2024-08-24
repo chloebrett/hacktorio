@@ -10,7 +10,7 @@ SceneNode::SceneNode(
     sf::Vector2f pos,
     sf::Vector2f size,
     std::function<void()> onClick,
-    std::function<void()> onRender
+    std::function<void(SceneNode&, sf::RenderWindow&, sf::Vector2f)> onRender
 ) {
     this->pos = pos;
     this->size = size;
@@ -32,10 +32,6 @@ std::function<void()> SceneNode::getOnClick() {
     return onClick;
 }
 
-std::function<void()> SceneNode::getOnRender() {
-    return onRender;
-}
-
 vector<SceneNode*> &SceneNode::getChildren() {
     return children;
 }
@@ -50,10 +46,6 @@ void SceneNode::setSize(sf::Vector2f size) {
 
 void SceneNode::setOnClick(std::function<void()> onClick) {
     this->onClick = onClick;
-}
-
-void SceneNode::setOnRender(std::function<void()> onRender) {
-    this->onRender = onRender;
 }
 
 void SceneNode::addChild(SceneNode* child) {
@@ -84,4 +76,15 @@ bool SceneNode::isVisible() {
 
 void SceneNode::setVisible(bool visible) {
     this->visible = visible;
+}
+
+void SceneNode::render(sf::RenderWindow& window, sf::Vector2f absolutePos) {
+    if (visible) {
+        if (onRender != nullptr) {
+            onRender(*this, window, absolutePos);
+        }
+        for (auto& child : children) {
+            child->render(window, absolutePos + pos);
+        }
+    }
 }

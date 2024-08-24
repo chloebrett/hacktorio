@@ -36,6 +36,20 @@ void Game::start()
     chest->addItem(InventoryItemType::STONE_FURNACE, 2);
     chest->addItem(InventoryItemType::IRON_PLATE, 5);
 
+    unique_ptr<SceneNode> background(new SceneNode(
+        sf::Vector2f(0.0f, 0.0f),
+        sf::Vector2f(SCREEN_WIDTH, SCREEN_HEIGHT),
+        /* onClick= */ nullptr,
+        /* onRender= */ [](SceneNode &node, sf::RenderWindow &window, sf::Vector2f absolutePos) {
+            sf::Color green = sf::Color(85.0f, 107.0f, 95.0f, 255.0f);
+            sf::RectangleShape backgroundShape;
+            backgroundShape.setSize(node.getSize());
+            backgroundShape.setPosition(absolutePos);
+            backgroundShape.setFillColor(green);
+            window.draw(backgroundShape);
+        }
+    ));
+
     unique_ptr<CursorState> cursorState(new CursorState());
     unique_ptr<SceneNode> root(new SceneNode(
         sf::Vector2f(0, 0),
@@ -43,6 +57,7 @@ void Game::start()
         /* onClick= */ nullptr,
         /* onRender= */ nullptr
     ));
+    root->addChild(background.get());
     for (auto& patch : environment->getResourcePatches())
     {
         root->addChild(&patch);
