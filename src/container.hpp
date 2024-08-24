@@ -9,7 +9,7 @@
 using namespace std;
 
 class Container {
-    // TODO: maybe move this to a C++ file? (and likewise for Entity)
+    // TODO: maybe move this to a C++ file?
     public:
     Container() {
         this->contents = map<InventoryItemType, int>();
@@ -53,7 +53,7 @@ class Container {
         vector<ItemStack> items;
         for (auto const& [item, count] : contents) {
             if (count > 0) {
-                items.push_back(ItemStack(count, item));
+                items.push_back(ItemStack(item, count));
             }
         }
         this->items = items;

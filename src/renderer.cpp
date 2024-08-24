@@ -92,14 +92,6 @@ void drawInventory(sf::RenderWindow &window, Player &player, int selectedIndex)
     {
         for (int x = 0; x < INVENTORY_WIDTH_CELLS; x++)
         {
-            sf::RectangleShape itemRect;
-            itemRect.setSize(sf::Vector2f(GRID_SIZE, GRID_SIZE));
-            itemRect.setPosition(INVENTORY_H_MARGIN + INVENTORY_PADDING + x * GRID_SIZE, INVENTORY_V_MARGIN + INVENTORY_PADDING + y * GRID_SIZE);
-            itemRect.setFillColor(sf::Color(0, 0, 0, 0));
-            itemRect.setOutlineColor(sf::Color(40, 40, 40, 255));
-            itemRect.setOutlineThickness(1.0);
-            window.draw(itemRect);
-
             int index = y * INVENTORY_WIDTH_CELLS + x;
             if (index < items.size()) {
                 InventoryItemType inventoryItemType = items[index].getType();

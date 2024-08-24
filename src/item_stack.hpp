@@ -4,7 +4,7 @@
 
 class ItemStack {
     public:
-    ItemStack(int amount, InventoryItemType type);
+    ItemStack(InventoryItemType type, int amount);
     int getAmount();
     InventoryItemType getType();
 

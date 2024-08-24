@@ -12,10 +12,12 @@
 #include <vector>
 #include "input.hpp"
 #include "inventory.hpp"
+#include "inventory_slot.hpp"
 #include "cursor.hpp"
 #include "environment.hpp"
 #include "cursor_state.hpp"
 #include "scene_node.hpp"
+#include "item_stack.hpp"
 #include "inventory_left.hpp"
 #include "spatial_index.hpp"
 #include "inventory_right.hpp"
@@ -69,6 +71,15 @@ void Game::start()
     unique_ptr<InventoryRight> inventoryRight(new InventoryRight(*chest));
     inventory.get()->addChild(inventoryLeft.get());
     inventory.get()->addChild(inventoryRight.get());
+
+    for (int row = 0; row < INVENTORY_HEIGHT_CELLS; row++)
+    {
+        for (int column = 0; column < INVENTORY_WIDTH_CELLS; column++)
+        {
+            inventoryLeft.get()->addChild(new InventorySlot(row, column, new ItemStack(InventoryItemType::IRON_PLATE, 1)));
+            inventoryRight.get()->addChild(new InventorySlot(row, column, nullptr));
+        }
+    }
 
     unique_ptr<Cursor> cursor(new Cursor());
 
