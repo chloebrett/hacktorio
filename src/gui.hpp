@@ -9,7 +9,7 @@
  */
 class Gui {
     public:
-    Gui(Panel &doubleInventoryGridPanel);
+    Gui(Panel &doubleInventoryGridPanel, Panel &craftingPanel, Panel &researchPanel, Panel &escapeMenuPanel);
     void closeOpenPanels();
     void showCrafting();
     void showResearch();
@@ -21,6 +21,9 @@ class Gui {
     
     private:
     Panel &doubleInventoryGridPanel;
+    Panel &craftingPanel;
+    Panel &researchPanel;
+    Panel &escapeMenuPanel;
     InventoryGrid *containerInventoryGrid;
     Container *targetContainer;
 };

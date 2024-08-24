@@ -8,28 +8,41 @@
 
 using namespace std;
 
-Gui::Gui(Panel &doubleInventoryGridPanel)
-    : doubleInventoryGridPanel(doubleInventoryGridPanel), containerInventoryGrid(nullptr), targetContainer(nullptr) {}
+Gui::Gui(Panel &doubleInventoryGridPanel, Panel &craftingPanel, Panel &researchPanel, Panel &escapeMenuPanel) :
+    doubleInventoryGridPanel(doubleInventoryGridPanel),
+    craftingPanel(craftingPanel),
+    researchPanel(researchPanel),
+    escapeMenuPanel(escapeMenuPanel),
+    containerInventoryGrid(nullptr), targetContainer(nullptr) {}
 
 void Gui::closeOpenPanels() {
     doubleInventoryGridPanel.setVisible(false);
+    craftingPanel.setVisible(false);
+    researchPanel.setVisible(false);
+    escapeMenuPanel.setVisible(false);
     targetContainer = nullptr;
 }
 
 bool Gui::isAnyPanelOpen() {
-    return doubleInventoryGridPanel.isVisible();
+    return doubleInventoryGridPanel.isVisible() ||
+        craftingPanel.isVisible() ||
+        researchPanel.isVisible() ||
+        escapeMenuPanel.isVisible();
 }
 
 void Gui::showCrafting() {
-    // TODO
+    closeOpenPanels();
+    craftingPanel.setVisible(true);
 }
 
 void Gui::showResearch() {
-    // TODO
+    closeOpenPanels();
+    researchPanel.setVisible(true);
 }
 
 void Gui::showEscapeMenu() {
-    // TODO
+    closeOpenPanels();
+    escapeMenuPanel.setVisible(true);
 }
 
 void Gui::showPanelForContainer(Container *container) {

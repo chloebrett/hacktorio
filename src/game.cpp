@@ -21,6 +21,7 @@
 #include "spatial_index.hpp"
 #include "inventory_grid.hpp"
 #include "gui.hpp"
+#include "button.hpp"
 
 using namespace std;
 
@@ -76,7 +77,65 @@ void Game::start()
         /* visible= */ false
         ));
 
-    unique_ptr<Gui> gui(new Gui(*doubleInventoryGridPanel));
+    // Panel for showing the crafting screen.
+    unique_ptr<Panel> craftingPanel(new Panel(
+        /* position= */ sf::Vector2f(INVENTORY_H_MARGIN, INVENTORY_V_MARGIN),
+        /* size= */ sf::Vector2f(
+            INVENTORY_WIDTH * 2 + INVENTORY_PADDING * 3,
+            INVENTORY_HEIGHT + INVENTORY_PADDING * 2
+        ),
+        /* fillColor= */ sf::Color(120, 120, 120, 255),
+        /* visible= */ false
+        ));
+
+    unique_ptr<Panel> researchPanel(new Panel(
+        /* position= */ sf::Vector2f(INVENTORY_H_MARGIN, INVENTORY_V_MARGIN),
+        /* size= */ sf::Vector2f(
+            INVENTORY_WIDTH * 2 + INVENTORY_PADDING * 3,
+            INVENTORY_HEIGHT + INVENTORY_PADDING * 2
+        ),
+        /* fillColor= */ sf::Color(120, 120, 120, 255),
+        /* visible= */ false
+        ));
+
+    unique_ptr<Panel> escapeMenuPanel(new Panel(
+        /* position= */ sf::Vector2f(ESCAPE_MENU_LEFT, ESCAPE_MENU_TOP),
+        /* size= */ sf::Vector2f(ESCAPE_MENU_WIDTH, ESCAPE_MENU_HEIGHT),
+        /* fillColor= */ sf::Color(120, 120, 120, 255),
+        /* visible= */ false
+        ));
+
+    root->addChild(doubleInventoryGridPanel.get());
+    root->addChild(craftingPanel.get());
+    root->addChild(researchPanel.get());
+    root->addChild(escapeMenuPanel.get());
+
+    unique_ptr<Gui> gui(new Gui(*doubleInventoryGridPanel, *craftingPanel, *researchPanel, *escapeMenuPanel));
+
+    unique_ptr<Button> resumeButton(new Button(
+            /* position= */ sf::Vector2f(ESCAPE_MENU_ITEM_PADDING, ESCAPE_MENU_ITEM_PADDING),
+            /* size= */ sf::Vector2f(ESCAPE_MENU_ITEM_WIDTH, ESCAPE_MENU_ITEM_HEIGHT),
+            /* fillColor= */ sf::Color(80, 80, 80, 255),
+            /* textString= */ "Resume",
+            /* onClick= */ [&gui](Cursor &cursor) {
+                gui->closeOpenPanels();
+            }
+        )
+    );
+
+    unique_ptr<Button> quitButton(new Button(
+            /* position= */ sf::Vector2f(ESCAPE_MENU_ITEM_PADDING, ESCAPE_MENU_ITEM_PADDING * 2 + ESCAPE_MENU_ITEM_HEIGHT),
+            /* size= */ sf::Vector2f(ESCAPE_MENU_ITEM_WIDTH, ESCAPE_MENU_ITEM_HEIGHT),
+            /* fillColor= */ sf::Color(200, 80, 80, 255),
+            /* textString= */ "Quit game",
+            /* onClick= */ [&window](Cursor &cursor) {
+                window.close();
+            }
+        )
+    );
+
+    escapeMenuPanel->addChild(resumeButton.get());
+    escapeMenuPanel->addChild(quitButton.get());
 
     unique_ptr<Chest> chest(new Chest(*gui, 10, sf::Vector2f(2 * GRID_SIZE, 2 * GRID_SIZE)));
     chest->addItem(InventoryItemType::STONE_FURNACE, 2);
@@ -103,7 +162,6 @@ void Game::start()
     }
 
     root->addChild(player.get());
-    root->addChild(doubleInventoryGridPanel.get());
     root->addChild(cursorDisplay.get());
 
     unique_ptr<Renderer> renderer(
