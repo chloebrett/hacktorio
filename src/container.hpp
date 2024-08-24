@@ -56,6 +56,9 @@ class Container {
                 items.push_back(ItemStack(item, count));
             }
         }
+        sort(items.begin(), items.end(), [](ItemStack a, ItemStack b) {
+            return a.getAmount() < b.getAmount();
+        });
         this->items = items;
     }
 

@@ -74,24 +74,21 @@ InventorySlot::InventorySlot(int row, int column, int index, Container &containe
 
             container.addItem(cursorItemStack->getType(), cursorItemStack->getAmount());
             cursor.setItemStack(nullptr);
-            container.updateItems();
-            return;
         } else { // slot with items
-            ItemStack* itemStack = &containerItems[index];
+            // Beware memory leaks, when we remove item from container, we need to delete it
+            ItemStack* containerItemStackCopy = new ItemStack(containerItems[index]);
 
-            if (cursorItemStack == nullptr) { // give to cursor
-                cursor.setItemStack(itemStack);
-                container.removeItem(itemStack->getType(), itemStack->getAmount());
-                container.updateItems();
-                return;
-            } else { // swap
-                ItemStack temp = *itemStack;
-                *itemStack = *cursorItemStack;
-                *cursorItemStack = temp;
-                container.updateItems();
-                return;
+            cout << "Item stack: " << inventoryItemTypeToString(containerItemStackCopy->getType()) << " " << containerItemStackCopy->getAmount() << endl;
+            cout << "Cursor item stack: " << (cursorItemStack == nullptr ? "null" : inventoryItemTypeToString(cursorItemStack->getType())) << endl;
+
+            cursor.setItemStack(containerItemStackCopy);
+            container.removeItem(containerItemStackCopy->getType(), containerItemStackCopy->getAmount());
+            if (cursorItemStack != nullptr) { // give to cursor
+                container.addItem(cursorItemStack->getType(), cursorItemStack->getAmount());
             }
         }
+
+        container.updateItems();
     },
     /* onRender= */ [this, index, &container](
         SceneNode &node,
@@ -122,9 +119,11 @@ InventorySlot::InventorySlot(int row, int column, int index, Container &containe
         sf::Text text;
         text.setFont(font);
         text.setString(to_string(count));
-        text.setCharacterSize(12);
+        int textWidth = 12; // TODO: infer dynamically
+        int textHeight = 12;
+        text.setCharacterSize(textHeight);
         text.setFillColor(sf::Color::White);
-        text.setPosition(absolutePos.x + 16, absolutePos.y + 16); // TODO: separate class?
+        text.setPosition(absolutePos.x + GRID_SIZE - textWidth, absolutePos.y + GRID_SIZE - textHeight); // TODO: separate class?
         window.draw(text);
     }
 ) {}

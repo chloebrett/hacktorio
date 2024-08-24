@@ -10,6 +10,6 @@ ItemStack* Cursor::getItemStack() {
     return itemStack;
 }
 
-void Cursor::setItemStack(ItemStack* itemStack) {
+void Cursor::setItemStack(ItemStack *itemStack) {
     this->itemStack = itemStack;
 }

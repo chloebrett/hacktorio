@@ -15,6 +15,7 @@
 #include "inventory_slot.hpp"
 #include "cursor.hpp"
 #include "environment.hpp"
+#include "cursor_display.hpp"
 #include "scene_node.hpp"
 #include "item_stack.hpp"
 #include "inventory_left.hpp"
@@ -75,6 +76,7 @@ void Game::start()
     inventory.get()->addChild(inventoryRight.get());
 
     unique_ptr<Cursor> cursor(new Cursor());
+    unique_ptr<CursorDisplay> cursorDisplay(new CursorDisplay(*cursor));
 
     for (int row = 0; row < INVENTORY_HEIGHT_CELLS; row++)
     {
@@ -89,6 +91,7 @@ void Game::start()
     root->addChild(player.get());
     root->addChild(chest.get());
     root->addChild(inventory.get());
+    root->addChild(cursorDisplay.get());
 
     unique_ptr<Renderer> renderer(
         new Renderer(window)

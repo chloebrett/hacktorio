@@ -7,7 +7,7 @@ class Cursor {
     public:
     Cursor();
     ItemStack* getItemStack();
-    void setItemStack(ItemStack* itemStack);
+    void setItemStack(ItemStack *itemStack);
 
     private:
     ItemStack* itemStack;
