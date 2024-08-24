@@ -16,6 +16,7 @@
 #include "environment.hpp"
 #include "cursor_state.hpp"
 #include "scene_node.hpp"
+#include "inventory_left.hpp"
 
 using namespace std;
 
@@ -60,7 +61,9 @@ void Game::start()
 
     unique_ptr<Environment> environment(new Environment());
     environment->initResourcePatches(*root);
-    unique_ptr<Inventory> inventory(new Inventory(*player, *chest));
+    unique_ptr<Inventory> inventory(new Inventory());
+    unique_ptr<InventoryLeft> inventoryLeft(new InventoryLeft(*player));
+    inventory.get()->addChild(inventoryLeft.get());
     unique_ptr<Cursor> cursor(new Cursor());
 
     root->addChild(player.get());
@@ -69,7 +72,7 @@ void Game::start()
     root->addChild(cursor.get());
 
     unique_ptr<Renderer> renderer(
-        new Renderer(window, *player, *environment, *chest, *root, *cursorState)
+        new Renderer(window)
     );
     unique_ptr<Input> input(new Input(
         window, *player, *chest, *environment, *cursorState
@@ -86,11 +89,6 @@ void Game::start()
             input->handleOngoingEvents();
         }
 
-        renderer->render(
-            input->getIsInventoryOpen(),
-            input->getSelectedInventoryItemIndex(),
-            input->getSelectedOtherItemIndex(),
-            input->getMousePosition()
-        );
+        renderer->render(*root);
     }
 };

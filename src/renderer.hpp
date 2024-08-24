@@ -13,22 +13,9 @@ using namespace std;
 class Renderer
 {
 public:
-    Renderer(sf::RenderWindow &window,
-                Player &player,
-                Environment &environment,
-                Chest &chest,
-             SceneNode &rootSceneNode,
-             CursorState &cursorState);
-    void renderScene();
-    void renderGui(bool isInventoryOpen, int selectedInventoryItemIndex, int selectedOtherItemIndex, sf::Vector2i mousePosition);
-    void render(bool isInventoryOpen, int selectedInventoryItemIndex, int selectedOtherItemIndex, sf::Vector2i mousePosition);
+    Renderer(sf::RenderWindow &window);
+    void render(SceneNode &rootSceneNode);
 
 private:
     sf::RenderWindow &window;
-    Player &player;
-    Environment &environment;
-    Chest &chest;
-    SceneNode &rootSceneNode;
-    sf::RectangleShape playerRect;
-    CursorState &cursorState;
 };

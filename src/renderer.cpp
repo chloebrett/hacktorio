@@ -14,18 +14,8 @@
 #include <vector>
 #include "cursor_state.hpp"
 
-Renderer::Renderer(sf::RenderWindow &window,
-                   Player &player,
-                   Environment &environment,
-                   Chest &chest,
-                   SceneNode &rootSceneNode,
-                   CursorState &cursorState)
-    : window(window),
-      player(player),
-      environment(environment),
-      chest(chest), rootSceneNode(rootSceneNode), cursorState(cursorState) {
-        sf::Vector2f SCREEN_SIZE = sf::Vector2f(SCREEN_WIDTH, SCREEN_HEIGHT);
-        sf::Color blue = sf::Color(81.0f, 168.0f, 194.0f, 255.0f);
+Renderer::Renderer(sf::RenderWindow &window)
+    : window(window) {
 };
 
 std::string inventoryItemTypeToString(InventoryItemType inventoryItemType)
@@ -162,21 +152,9 @@ void drawInventory(sf::RenderWindow &window, Player &player, int selectedIndex)
     window.draw(text);
 }
 
-void Renderer::render(bool isInventoryOpen, int selectedInventoryItemIndex, int selectedOtherItemIndex, sf::Vector2i mousePosition)
+void Renderer::render(SceneNode &rootSceneNode)
 {
     window.clear();
-
     rootSceneNode.render(window, sf::Vector2f(0, 0));
-
-    // renderScene();
-    // renderGui(isInventoryOpen, selectedInventoryItemIndex, selectedOtherItemIndex, mousePosition);
     window.display();
-}
-
-void Renderer::renderGui(bool isInventoryOpen, int selectedInventoryItemIndex, int selectedOtherItemIndex, sf::Vector2i mousePosition)
-{
-    if (isInventoryOpen)
-    {
-        drawInventory(window, player, selectedInventoryItemIndex);
-    }
 }

@@ -5,7 +5,7 @@
 #include "player.hpp"
 #include "chest.hpp"
 
-class Inventory : public SceneNode {
+class SceneNodeTemplate : public SceneNode {
     public:
-    Inventory();
+    SceneNodeTemplate();
 };

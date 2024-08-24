@@ -5,7 +5,10 @@
 #include "player.hpp"
 #include "chest.hpp"
 
-class Inventory : public SceneNode {
+class InventoryLeft : public SceneNode {
     public:
-    Inventory();
+    InventoryLeft(Player &player);
+
+    private:
+    Player &player;
 };
