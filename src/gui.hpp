@@ -1,6 +1,6 @@
 #pragma once
 
-#include "inventory.hpp"
+#include "panel.hpp"
 #include "inventory_grid.hpp"
 #include "container.hpp"
 
@@ -9,7 +9,7 @@
  */
 class Gui {
     public:
-    Gui(Inventory &inventory);
+    Gui(Panel &doubleInventoryGridPanel);
     void closeOpenPanels();
     void showCrafting();
     void showResearch();
@@ -20,7 +20,7 @@ class Gui {
     bool isAnyPanelOpen();
     
     private:
-    Inventory &inventory;
+    Panel &doubleInventoryGridPanel;
     InventoryGrid *containerInventoryGrid;
     Container *targetContainer;
 };

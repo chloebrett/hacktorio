@@ -1,6 +1,6 @@
 #pragma once
 
-#include "inventory.hpp"
+#include "panel.hpp"
 #include "inventory_grid.hpp"
 #include "container.hpp"
 #include "gui.hpp"
@@ -8,16 +8,16 @@
 
 using namespace std;
 
-Gui::Gui(Inventory &inventory)
-    : inventory(inventory), containerInventoryGrid(nullptr), targetContainer(nullptr) {}
+Gui::Gui(Panel &doubleInventoryGridPanel)
+    : doubleInventoryGridPanel(doubleInventoryGridPanel), containerInventoryGrid(nullptr), targetContainer(nullptr) {}
 
 void Gui::closeOpenPanels() {
-    inventory.setVisible(false);
+    doubleInventoryGridPanel.setVisible(false);
     targetContainer = nullptr;
 }
 
 bool Gui::isAnyPanelOpen() {
-    return inventory.isVisible();
+    return doubleInventoryGridPanel.isVisible();
 }
 
 void Gui::showCrafting() {
@@ -39,7 +39,7 @@ void Gui::showPanelForContainer(Container *container) {
     }
 
     closeOpenPanels();
-    inventory.setVisible(true);
+    doubleInventoryGridPanel.setVisible(true);
     targetContainer = container;
     containerInventoryGrid->setContainer(container);
 }

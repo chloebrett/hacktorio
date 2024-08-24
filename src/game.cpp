@@ -11,7 +11,7 @@
 #include "chest.hpp"
 #include <vector>
 #include "input.hpp"
-#include "inventory.hpp"
+#include "panel.hpp"
 #include "inventory_slot.hpp"
 #include "cursor.hpp"
 #include "environment.hpp"
@@ -64,9 +64,19 @@ void Game::start()
     unique_ptr<Environment> environment(new Environment());
     environment->initResourcePatches(*root);
 
-    unique_ptr<Inventory> inventory(new Inventory());
+    // Panel for showing two inventory grids - e.g. player inventory and chest inventory.
+    // Hidden by default.
+    unique_ptr<Panel> doubleInventoryGridPanel(new Panel(
+        /* position= */ sf::Vector2f(INVENTORY_H_MARGIN, INVENTORY_V_MARGIN),
+        /* size= */ sf::Vector2f(
+            INVENTORY_WIDTH * 2 + INVENTORY_PADDING * 3,
+            INVENTORY_HEIGHT + INVENTORY_PADDING * 2
+        ),
+        /* fillColor= */ sf::Color(120, 120, 120, 255),
+        /* visible= */ false
+        ));
 
-    unique_ptr<Gui> gui(new Gui(*inventory));
+    unique_ptr<Gui> gui(new Gui(*doubleInventoryGridPanel));
 
     unique_ptr<Chest> chest(new Chest(*gui, 10, sf::Vector2f(2 * GRID_SIZE, 2 * GRID_SIZE)));
     chest->addItem(InventoryItemType::STONE_FURNACE, 2);
@@ -76,8 +86,8 @@ void Game::start()
 
     unique_ptr<InventoryGrid> inventoryLeft(new InventoryGrid(sf::Vector2f(INVENTORY_PADDING, INVENTORY_PADDING), player.get()));
     unique_ptr<InventoryGrid> inventoryRight(new InventoryGrid(sf::Vector2f(INVENTORY_WIDTH + INVENTORY_PADDING * 2, INVENTORY_PADDING), chest.get() /* TODO: nullptr */));
-    inventory.get()->addChild(inventoryLeft.get());
-    inventory.get()->addChild(inventoryRight.get());
+    doubleInventoryGridPanel.get()->addChild(inventoryLeft.get());
+    doubleInventoryGridPanel.get()->addChild(inventoryRight.get());
 
     unique_ptr<Cursor> cursor(new Cursor());
     unique_ptr<CursorDisplay> cursorDisplay(new CursorDisplay(*cursor));
@@ -93,7 +103,7 @@ void Game::start()
     }
 
     root->addChild(player.get());
-    root->addChild(inventory.get());
+    root->addChild(doubleInventoryGridPanel.get());
     root->addChild(cursorDisplay.get());
 
     unique_ptr<Renderer> renderer(

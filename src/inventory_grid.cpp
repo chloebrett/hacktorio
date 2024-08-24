@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include "container.hpp"
-#include "inventory.hpp"
+#include "panel.hpp"
 #include "scene_node.hpp"
 #include "SFML/Graphics.hpp"
 #include <functional>
