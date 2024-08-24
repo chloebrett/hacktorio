@@ -21,6 +21,7 @@
 #include "spatial_index.hpp"
 #include "inventory_grid.hpp"
 #include "gui.hpp"
+#include "recipe_panel.hpp"
 #include "button.hpp"
 
 using namespace std;
@@ -147,6 +148,7 @@ void Game::start()
     unique_ptr<InventoryGrid> inventoryRight(new InventoryGrid(sf::Vector2f(INVENTORY_WIDTH + INVENTORY_PADDING * 2, INVENTORY_PADDING), chest.get() /* TODO: nullptr */));
     doubleInventoryGridPanel.get()->addChild(inventoryLeft.get());
     doubleInventoryGridPanel.get()->addChild(inventoryRight.get());
+    craftingPanel.get()->addChild(inventoryLeft.get());
 
     unique_ptr<Cursor> cursor(new Cursor());
     unique_ptr<CursorDisplay> cursorDisplay(new CursorDisplay(*cursor));
@@ -160,6 +162,11 @@ void Game::start()
             inventoryRight.get()->addChild(new InventorySlot(row, column, index, *inventoryRight));
         }
     }
+
+    unique_ptr<RecipePanel> recipePanel(new RecipePanel(
+        /* position= */ sf::Vector2f(INVENTORY_WIDTH + INVENTORY_PADDING * 2, INVENTORY_PADDING)
+    ));
+    craftingPanel.get()->addChild(recipePanel.get());
 
     root->addChild(player.get());
     root->addChild(cursorDisplay.get());
