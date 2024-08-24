@@ -6,6 +6,7 @@
 #include "resource_patch.hpp"
 #include "gui.hpp"
 #include "spatial_index.hpp"
+#include <set>
 
 using namespace std;
 
@@ -28,9 +29,17 @@ void Input::handleQueuedEvents() {
         {
             sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
             vector<SceneNode*> nodes = spatialIndex.nodesAt(mousePosition);
+
+            // Only allow clicking each node once. This prevents bugs when the node tree is a DAG
+            // (e.g. when reusing the left inventory for both the crafting and the chest panels).
+            set<SceneNode*> clickedNodes;
+
             for (SceneNode* node : nodes)
             {
-                node->click(cursor);
+                if (node->isTransitivelyVisible() && clickedNodes.find(node) == clickedNodes.end()){
+                    node->click(cursor);
+                    clickedNodes.insert(node);
+                }
             }
         }
 

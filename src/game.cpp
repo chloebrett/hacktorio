@@ -14,6 +14,7 @@
 #include "panel.hpp"
 #include "inventory_slot.hpp"
 #include "cursor.hpp"
+#include "recipe_tab.hpp"
 #include "environment.hpp"
 #include "cursor_display.hpp"
 #include "scene_node.hpp"
@@ -166,7 +167,16 @@ void Game::start()
     unique_ptr<RecipePanel> recipePanel(new RecipePanel(
         /* position= */ sf::Vector2f(INVENTORY_WIDTH + INVENTORY_PADDING * 2, INVENTORY_PADDING)
     ));
+    unique_ptr<RecipeTab> logisticsTab(new RecipeTab(0, RecipeTabType::LOGISTICS, *recipePanel));
+    unique_ptr<RecipeTab> productionTab(new RecipeTab(1, RecipeTabType::PRODUCTION, *recipePanel));
+    unique_ptr<RecipeTab> intermediateProductsTab(new RecipeTab(2, RecipeTabType::INTERMEDIATE_PRODUCTS, *recipePanel));
+    unique_ptr<RecipeTab> combatTab(new RecipeTab(3, RecipeTabType::COMBAT, *recipePanel));
+
     craftingPanel.get()->addChild(recipePanel.get());
+    recipePanel.get()->addChild(logisticsTab.get());
+    recipePanel.get()->addChild(productionTab.get());
+    recipePanel.get()->addChild(intermediateProductsTab.get());
+    recipePanel.get()->addChild(combatTab.get());
 
     root->addChild(player.get());
     root->addChild(cursorDisplay.get());

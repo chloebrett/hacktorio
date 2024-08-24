@@ -42,8 +42,8 @@ std::string inventoryItemTypeToString(InventoryItemType inventoryItemType)
         return "Wood";
     case static_cast<int>(InventoryItemType::IRON_PLATE):
         return "Iron Plate";
-    case static_cast<int>(InventoryItemType::STEEL):
-        return "Steel";
+    // case static_cast<int>(InventoryItemType::STEEL):
+    //     return "Steel";
     case static_cast<int>(InventoryItemType::COPPER_PLATE):
         return "Copper Plate";
     case static_cast<int>(InventoryItemType::STONE_BRICK):

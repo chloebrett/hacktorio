@@ -26,9 +26,12 @@ class SceneNode {
     void removeChild(SceneNode* child);
     void setZ(int zIndex);
     bool isVisible();
+    bool isTransitivelyVisible();
     void setVisible(bool visible);
     void render(sf::RenderWindow &window, sf::Vector2f);
     void click(Cursor &cursor);
+    void addParent(SceneNode* parent);
+    void removeParent(SceneNode* parent);
 
     protected:
     sf::Vector2f pos; // top-left, relative
@@ -36,6 +39,7 @@ class SceneNode {
     std::function<void(Cursor&)> onClick;
     std::function<void(SceneNode&, sf::RenderWindow&, sf::Vector2f)> onRender;
     vector<SceneNode*> children;
+    vector<SceneNode*> parents;
     int z; // relative
     bool visible = true;
 };

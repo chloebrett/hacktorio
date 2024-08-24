@@ -26,8 +26,8 @@ string GameResources::inventoryItemTypeToFilename(InventoryItemType inventoryIte
         return "data/base/graphics/icons/wood.png";
     case static_cast<int>(InventoryItemType::IRON_PLATE):
         return "data/base/graphics/icons/iron-plate.png";
-    case static_cast<int>(InventoryItemType::STEEL):
-        return "data/base/graphics/icons/steel-plate.png";
+    // case static_cast<int>(InventoryItemType::STEEL):
+    //     return "data/base/graphics/icons/steel-plate.png";
     case static_cast<int>(InventoryItemType::COPPER_PLATE):
         return "data/base/graphics/icons/copper-plate.png";
     case static_cast<int>(InventoryItemType::STONE_BRICK):
@@ -55,8 +55,8 @@ std::string GameResources::inventoryItemTypeToKey(InventoryItemType inventoryIte
         return "wood";
     case static_cast<int>(InventoryItemType::IRON_PLATE):
         return "iron-plate";
-    case static_cast<int>(InventoryItemType::STEEL):
-        return "steel";
+    // case static_cast<int>(InventoryItemType::STEEL):
+    //     return "steel";
     case static_cast<int>(InventoryItemType::COPPER_PLATE):
         return "copper-plate";
     case static_cast<int>(InventoryItemType::STONE_BRICK):
@@ -104,7 +104,7 @@ void GameResources::init() {
     loadInventorySprite(InventoryItemType::STONE);
     loadInventorySprite(InventoryItemType::WOOD);
     loadInventorySprite(InventoryItemType::IRON_PLATE);
-    loadInventorySprite(InventoryItemType::STEEL);
+    // loadInventorySprite(InventoryItemType::STEEL);
     loadInventorySprite(InventoryItemType::COPPER_PLATE);
     loadInventorySprite(InventoryItemType::STONE_BRICK);
     loadInventorySprite(InventoryItemType::STONE_FURNACE);

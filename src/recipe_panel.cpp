@@ -5,13 +5,18 @@
 #include <SFML/Graphics.hpp>
 #include <functional>
 #include "scene_node.hpp"
+#include <iostream>
+
+using namespace std;
 
 RecipePanel::RecipePanel(
     sf::Vector2f pos
-) : SceneNode(
+) : selectedTabIndex(0), SceneNode(
     /* position= */ pos,
     /* size= */ sf::Vector2f(RECIPE_PANEL_WIDTH, RECIPE_PANEL_HEIGHT),
-    /* onClick= */ nullptr,
+    /* onClick= */ [](Cursor &cursor) {
+        cout << "Recipe panel clicked" << endl;
+    },
     /* onRender= */ [this](
         SceneNode &node,
         sf::RenderWindow &window,
@@ -23,6 +28,12 @@ RecipePanel::RecipePanel(
         mainRect.setFillColor(sf::Color(120, 120, 120, 255));
         window.draw(mainRect);
     }
-) {
-    this->setVisible(false);
+) {}
+
+int RecipePanel::getSelectedTabIndex() {
+    return selectedTabIndex;
+}
+
+void RecipePanel::setSelectedTabIndex(int index) {
+    selectedTabIndex = index;
 }

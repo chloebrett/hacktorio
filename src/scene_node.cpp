@@ -18,6 +18,7 @@ SceneNode::SceneNode(
     this->onClick = onClick;
     this->onRender = onRender;
     this->children = vector<SceneNode*>();
+    this->parents = vector<SceneNode*>();
     this->z = 0;
 }
 
@@ -47,6 +48,22 @@ void SceneNode::setOnClick(std::function<void(Cursor&)> onClick) {
 
 void SceneNode::addChild(SceneNode* child) {
     children.push_back(child);
+    child->addParent(this);
+}
+
+void SceneNode::addParent(SceneNode* parent) {
+    parents.push_back(parent);
+}
+
+void SceneNode::removeParent(SceneNode* parent) {
+    // Find the first occurrence of parent
+    auto it = std::find(parents.begin(), parents.end(), parent);
+
+    // If the value was found, erase it
+    if (it != parents.end()) {
+        parents.erase(it);
+        // Don't worry about removing the child reference, since we usually call this from removeChild() anyway.
+    }
 }
 
 void SceneNode::removeChild(SceneNode* child) {
@@ -56,6 +73,7 @@ void SceneNode::removeChild(SceneNode* child) {
     // If the value was found, erase it
     if (it != children.end()) {
         children.erase(it);
+        child->removeParent(this);
     }
 }
 
@@ -69,6 +87,20 @@ void SceneNode::setZ(int z) {
 
 bool SceneNode::isVisible() {
     return visible;
+}
+
+bool SceneNode::isTransitivelyVisible() {
+    // Returns true if the node itself is directly visible, and at least one of its parents is transitively visible.
+    // For the root node, there are no parents to check.
+    if (!visible) {
+        return false;
+    }
+    for (auto& parent : parents) {
+        if (parent->isTransitivelyVisible()) {
+            return true;
+        }
+    }
+    return parents.size() == 0;
 }
 
 void SceneNode::setVisible(bool visible) {
