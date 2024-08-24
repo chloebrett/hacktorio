@@ -27,6 +27,7 @@
 #include "gui.hpp"
 #include "recipe_panel.hpp"
 #include "button.hpp"
+#include "electric_mining_drill.hpp"
 
 using namespace std;
 
@@ -202,6 +203,11 @@ void Game::start()
             recipePanel.get()->addChild(new RecipeGridSlot(*gui, *recipePanel, *recipeConfiguration, *combatPosition));
         }
     }
+
+    unique_ptr<ElectricMiningDrill> electricMiningDrill(new ElectricMiningDrill(
+        sf::Vector2f(10 * GRID_SIZE, 10 * GRID_SIZE)
+    ));
+    root->addChild(electricMiningDrill.get());
 
     root->addChild(player.get());
     root->addChild(cursorDisplay.get());

@@ -5,6 +5,7 @@
 #include <map>
 #include <iostream>
 #include "game_resources.hpp"
+#include "entity_type.hpp"
 
 using namespace std;
 
@@ -85,6 +86,82 @@ string GameResources::inventoryItemTypeToFilename(InventoryItemType inventoryIte
     default:
         return "data/core/graphics/cancel.png";
     }
+}
+
+std::string GameResources::entityTypeToFilename(EntityType entityType) {
+    switch (static_cast<int>(entityType))
+    {
+    case static_cast<int>(EntityType::WOODEN_CHEST):
+        return "data/base/graphics/entity/wooden-chest/wooden-chest.png";
+    case static_cast<int>(EntityType::IRON_CHEST):
+        return "data/base/graphics/entity/iron-chest/iron-chest.png";
+    case static_cast<int>(EntityType::TRANSPORT_BELT):
+        return "data/base/graphics/entity/transport-belt/transport-belt.png";
+    // case static_cast<int>(EntityType::ASSEMBLING_MACHINE_1):
+    //     return "data/base/graphics/entity/assembling-machine-1/assembling-machine-1.png";
+    // case static_cast<int>(EntityType::ASSEMBLING_MACHINE_2):
+    //     return "data/base/graphics/entity/assembling-machine-2/assembling-machine-2.png";
+    // case static_cast<int>(EntityType::ASSEMBLING_MACHINE_3):
+    //     return "data/base/graphics/entity/assembling-machine-3/assembling-machine-3.png";
+    case static_cast<int>(EntityType::STONE_FURNACE):
+        return "data/base/graphics/entity/stone-furnace/stone-furnace.png";
+    // case static_cast<int>(EntityType::ELECTRIC_FURNACE):
+    //     return "data/base/graphics/entity/electric-furnace/electric-furnace.png";
+    case static_cast<int>(EntityType::OFFSHORE_PUMP):
+        return "data/base/graphics/entity/offshore-pump/offshore-pump.png";
+    case static_cast<int>(EntityType::BOILER):
+        return "data/base/graphics/entity/boiler/boiler.png";
+    case static_cast<int>(EntityType::STEAM_ENGINE):
+        return "data/base/graphics/entity/steam-engine/steam-engine.png";
+    case static_cast<int>(EntityType::RADAR):
+        return "data/base/graphics/entity/radar/radar.png";
+    case static_cast<int>(EntityType::LAB):
+        return "data/base/graphics/entity/lab/lab.png";
+    // case static_cast<int>(EntityType::SOLAR_PANEL):
+    //     return "data/base/graphics/entity/solar-panel/solar-panel.png";
+    // case static_cast<int>(EntityType::ACCUMULATOR):
+    //     return "data/base/graphics/entity/accumulator/accumulator.png";
+    // case static_cast<int>(EntityType::STONE_WALL):
+    //     return "data/base/graphics/entity/stone-wall/stone-wall.png";
+    // case static_cast<int>(EntityType::GATE):
+    //     return "data/base/graphics/entity/gate/gate.png";
+    // case static_cast<int>(EntityType::CONCRETE):
+    //     return "data/base/graphics/entity/concrete/concrete.png";
+    // case static_cast<int>(EntityType::LANDFILL):
+    //     return "data/base/graphics/entity/landfill/landfill.png";
+    // case static_cast<int>(EntityType::TRAIN_STOP):
+    //     return "data/base/graphics/entity/train-stop/train-stop.png";
+    // case static_cast<int>(EntityType::RAIL):
+    //     return "data/base/graphics/entity/rail/rail.png";
+    // case static_cast<int>(EntityType::RAIL_SIGNAL):
+    //     return "data/base/graphics/entity/rail-signal/rail-signal.png";
+    // case static_cast<int>(EntityType::RAIL_CHAIN_SIGNAL):
+    //     return "data/base/graphics/entity/rail-chain-signal/rail-chain-signal.png";
+    // case static_cast<int>(EntityType::LOCOMOTIVE):
+    //     return "data/base/graphics/entity/diesel-locomotive/diesel-locomotive.png";
+    // case static_cast<int>(EntityType::CARGO_WAGON):
+    //     return "data/base/graphics/entity/cargo-wagon/cargo-wagon.png";
+    // case static_cast<int>(EntityType::FLUID_WAGON):
+    //     return "data/base/graphics/entity/fluid-wagon/fluid-wagon.png";
+    // case static_cast<int>(EntityType::ARTILLERY_WAGON):
+    //     return "data/base/graphics/entity/artillery-wagon/artillery-wagon.png";
+    // case static_cast<int>(EntityType::CAR):
+    //     return "data/base/graphics/entity/car/car.png";
+    // case static_cast<int>(EntityType::TANK):
+    //     return "data/base/graphics/entity/tank/tank.png";
+    // case static_cast<int>(EntityType::SPIDERTRON):
+    //     return "data/base/graphics/entity/spidertron/spidertron.png";
+    // case static_cast<int>(EntityType::ROCKET_SILO):
+    //     return "data/base/graphics/entity/rocket-silo/rocket-silo.png";
+    case static_cast<int>(EntityType::ELECTRIC_MINING_DRILL):
+        return "data/base/graphics/entity/electric-mining-drill/electric-mining-drill-N.png";
+    default:
+        return "data/core/graphics/cancel.png";
+    }
+}
+
+std::string GameResources::entityTypeToKey(EntityType entityType) {
+    return "entity-electric-mining-drill"; // TODO: Implement for other entities
 }
 
 std::string GameResources::inventoryItemTypeToKey(InventoryItemType inventoryItemType)
@@ -188,6 +265,17 @@ void GameResources::loadInventorySprite(InventoryItemType inventoryItemType, boo
     }
 }
 
+void GameResources::loadEntitySprite(EntityType entityType) {
+    string key = entityTypeToKey(entityType);
+    textures[key] = new sf::Texture();
+    if (!textures[key]->loadFromFile(entityTypeToFilename(entityType)))
+    {
+        // Handle loading error
+        cout << "Failed to load texture" << endl;
+    }
+    sprites[key] = new sf::Sprite(*textures[key]);
+}
+
 void GameResources::init() {
     fonts["main"] = new sf::Font();
     if (!fonts["main"]->loadFromFile("res/Inconsolata-Regular.ttf"))
@@ -230,6 +318,8 @@ void GameResources::init() {
     loadInventorySprite(InventoryItemType::FIREARM_MAGAZINE);
     loadInventorySprite(InventoryItemType::LIGHT_ARMOR);
     loadInventorySprite(InventoryItemType::RADAR);
+    loadEntitySprite(EntityType::WOODEN_CHEST);
+    loadEntitySprite(EntityType::ELECTRIC_MINING_DRILL);
 }
 
 GameResources* instance = nullptr;
