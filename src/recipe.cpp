@@ -3,11 +3,13 @@
 #include "item_stack.hpp"
 #include "recipe.hpp"
 #include <vector>
+#include <string>
 
 using namespace std;
 
 Recipe::Recipe(
-    vector<ItemStack> &inputs,
-    vector<ItemStack> &outputs,
+    string name,
+    vector<ItemStack*> &inputs,
+    vector<ItemStack*> &outputs,
     float time
-) : inputs(inputs), outputs(outputs), time(time) {}
+) : name(name), inputs(inputs), outputs(outputs), time(time) {}

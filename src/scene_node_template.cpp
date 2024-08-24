@@ -1,10 +1,7 @@
 #pragma once
 
-#include "container.hpp"
 #include "scene_node.hpp"
 #include "scene_node_template.hpp"
-#include "player.hpp"
-#include "chest.hpp"
 #include "constants.hpp"
 
 SceneNodeTemplate::SceneNodeTemplate() : SceneNode(

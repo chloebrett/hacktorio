@@ -5,6 +5,10 @@
 #include "container.hpp"
 #include "gui.hpp"
 #include <iostream>
+#include <string>
+#include "game_resources.hpp"
+#include "recipe.hpp"
+#include "item_stack.hpp"
 
 using namespace std;
 
@@ -63,4 +67,17 @@ void Gui::showPanelForInteractable() {
 
 void Gui::setContainerInventoryGrid(InventoryGrid *containerInventoryGrid) {
     this->containerInventoryGrid = containerInventoryGrid;
+}
+
+void Gui::startCraftingRecipe(Recipe *recipe) {
+    cout << "Crafting recipe: " << recipe->getName() << endl;
+    cout << "Ingredients: " << endl;
+    GameResources &gameResources = GameResources::getInstance();
+    // for (ItemStack* input : recipe->getInputs()) {
+        // cout << "  " << (*input).getAmount() << "x " << gameResources.inventoryItemTypeToKey((*input).getType()) << endl;
+    // }
+    // for (ItemStack* output : recipe->getOutputs()) {
+        // cout << "  " << output->getAmount() << "x " << gameResources.inventoryItemTypeToKey(output->getType()) << endl;
+    // }
+    cout << "Crafting time: " << recipe->getTime() << "s" << endl;
 }

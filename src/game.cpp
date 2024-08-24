@@ -12,9 +12,12 @@
 #include <vector>
 #include "input.hpp"
 #include "panel.hpp"
+#include "recipe_configuration.hpp"
+#include "recipe_grid_slot.hpp"
 #include "inventory_slot.hpp"
 #include "cursor.hpp"
 #include "recipe_tab.hpp"
+#include "recipe_tab_type.hpp"
 #include "environment.hpp"
 #include "cursor_display.hpp"
 #include "scene_node.hpp"
@@ -177,6 +180,23 @@ void Game::start()
     recipePanel.get()->addChild(productionTab.get());
     recipePanel.get()->addChild(intermediateProductsTab.get());
     recipePanel.get()->addChild(combatTab.get());
+
+    unique_ptr<RecipeConfiguration> recipeConfiguration(new RecipeConfiguration());
+    for (int row = 0; row < RECIPE_GRID_HEIGHT_CELLS; row++)
+    {
+        for (int column = 0; column < RECIPE_GRID_WIDTH_CELLS; column++)
+        {
+            RecipePosition* logisticsPosition = new RecipePosition(RecipeTabType::LOGISTICS, row, column);
+            RecipePosition* productionPosition = new RecipePosition(RecipeTabType::PRODUCTION, row, column);
+            RecipePosition* intermediateProductsPosition = new RecipePosition(RecipeTabType::INTERMEDIATE_PRODUCTS, row, column);
+            RecipePosition* combatPosition = new RecipePosition(RecipeTabType::COMBAT, row, column);
+
+            recipePanel.get()->addChild(new RecipeGridSlot(*gui, *recipePanel, *recipeConfiguration, *logisticsPosition));
+            recipePanel.get()->addChild(new RecipeGridSlot(*gui, *recipePanel, *recipeConfiguration, *productionPosition));
+            recipePanel.get()->addChild(new RecipeGridSlot(*gui, *recipePanel, *recipeConfiguration, *intermediateProductsPosition));
+            recipePanel.get()->addChild(new RecipeGridSlot(*gui, *recipePanel, *recipeConfiguration, *combatPosition));
+        }
+    }
 
     root->addChild(player.get());
     root->addChild(cursorDisplay.get());

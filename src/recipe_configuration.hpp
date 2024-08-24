@@ -1,14 +1,24 @@
 #pragma once
 
 #include "recipe.hpp"
-#include <vector>
+#include <map>
+#include "recipe_position.hpp"
 
 using namespace std;
+
+struct cmpByRecipePosition {
+    bool operator()(const RecipePosition& a, const RecipePosition& b) const {
+        return a.getTabIndex() < b.getTabIndex() ||
+            (a.getTabIndex() == b.getTabIndex() && a.getRow() < b.getRow()) ||
+            (a.getTabIndex() == b.getTabIndex() && a.getRow() == b.getRow() && a.getColumn() < b.getColumn());
+    }
+};
 
 class RecipeConfiguration {
     public:
     RecipeConfiguration();
+    Recipe* getRecipeAtPosition(RecipePosition &position);
 
     private:
-    vector<Recipe> recipes;
+    map<RecipePosition, Recipe*, cmpByRecipePosition> recipeMap;
 };

@@ -2,15 +2,29 @@
 
 #include "item_stack.hpp"
 #include <vector>
+#include <string>
 
 using namespace std;
 
 class Recipe {
     public:
-    Recipe(vector<ItemStack> &inputs, vector<ItemStack> &outputs, float time);
+    Recipe(string name, vector<ItemStack*> &inputs, vector<ItemStack*> &outputs, float time);
+    string getName() {
+        return name;
+    }
+    vector<ItemStack*>& getInputs() {
+        return inputs;
+    }
+    vector<ItemStack*>& getOutputs() {
+        return outputs;
+    }
+    float getTime() {
+        return time;
+    }
 
     private:
-    vector<ItemStack> &inputs;
-    vector<ItemStack> &outputs;
+    string name;
+    vector<ItemStack*> &inputs;
+    vector<ItemStack*> &outputs;
     float time;
 };

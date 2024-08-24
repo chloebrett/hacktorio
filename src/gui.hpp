@@ -3,6 +3,7 @@
 #include "panel.hpp"
 #include "inventory_grid.hpp"
 #include "container.hpp"
+#include "recipe.hpp"
 
 /**
  * Wrappers for Gui functionality, mainly showing/hiding panels.
@@ -18,6 +19,7 @@ class Gui {
     void showPanelForInteractable(); // TODO: implement interactable (e.g. mining drill)
     void setContainerInventoryGrid(InventoryGrid *containerInventoryGrid);
     bool isAnyPanelOpen();
+    void startCraftingRecipe(Recipe *recipe);
     
     private:
     Panel &doubleInventoryGridPanel;
