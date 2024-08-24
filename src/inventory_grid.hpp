@@ -4,11 +4,9 @@
 #include "scene_node.hpp"
 #include "player.hpp"
 #include "chest.hpp"
+#include <SFML/Graphics.hpp>
 
-class InventoryLeft : public SceneNode {
+class InventoryGrid : public SceneNode {
     public:
-    InventoryLeft(Player &player);
-
-    private:
-    Player &player;
+    InventoryGrid(sf::Vector2f pos);
 };

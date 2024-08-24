@@ -13,7 +13,6 @@
 #include "SFML/Graphics.hpp"
 #include "player.hpp"
 #include "resource_patch.hpp"
-#include "inventory_left.hpp"
 #include "game.hpp"
 #include "game_resources.hpp"
 #include "resource_patch.hpp"

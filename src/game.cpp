@@ -18,9 +18,8 @@
 #include "cursor_display.hpp"
 #include "scene_node.hpp"
 #include "item_stack.hpp"
-#include "inventory_left.hpp"
 #include "spatial_index.hpp"
-#include "inventory_right.hpp"
+#include "inventory_grid.hpp"
 
 using namespace std;
 
@@ -70,8 +69,8 @@ void Game::start()
     environment->initResourcePatches(*root);
 
     unique_ptr<Inventory> inventory(new Inventory());
-    unique_ptr<InventoryLeft> inventoryLeft(new InventoryLeft(*player));
-    unique_ptr<InventoryRight> inventoryRight(new InventoryRight(*chest));
+    unique_ptr<InventoryGrid> inventoryLeft(new InventoryGrid(sf::Vector2f(INVENTORY_PADDING, INVENTORY_PADDING)));
+    unique_ptr<InventoryGrid> inventoryRight(new InventoryGrid(sf::Vector2f(INVENTORY_WIDTH + INVENTORY_PADDING * 2, INVENTORY_PADDING)));
     inventory.get()->addChild(inventoryLeft.get());
     inventory.get()->addChild(inventoryRight.get());
 
