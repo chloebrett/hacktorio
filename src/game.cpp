@@ -76,25 +76,13 @@ void Game::start()
     inventory.get()->addChild(inventoryLeft.get());
     inventory.get()->addChild(inventoryRight.get());
 
-    vector<ItemStack> playerItems = player->getItems();
-    vector<ItemStack> chestItems = chest->getItems();
     for (int row = 0; row < INVENTORY_HEIGHT_CELLS; row++)
     {
         for (int column = 0; column < INVENTORY_WIDTH_CELLS; column++)
         {
             int index = row * INVENTORY_WIDTH_CELLS + column;
-
-            if (index < playerItems.size()) {
-                inventoryLeft.get()->addChild(new InventorySlot(row, column, &playerItems[index]));
-            } else {
-                inventoryLeft.get()->addChild(new InventorySlot(row, column, nullptr));
-            }
-
-            if (index < chestItems.size()) {
-                inventoryRight.get()->addChild(new InventorySlot(row, column, &chestItems[index]));
-            } else {
-                inventoryRight.get()->addChild(new InventorySlot(row, column, nullptr));
-            }
+            inventoryLeft.get()->addChild(new InventorySlot(row, column, index, *player));
+            inventoryRight.get()->addChild(new InventorySlot(row, column, index, *chest));
         }
     }
 

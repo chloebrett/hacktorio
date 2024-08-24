@@ -56,13 +56,13 @@ std::string inventoryItemTypeToString(InventoryItemType inventoryItemType)
     }
 }
 
-InventorySlot::InventorySlot(int row, int column, ItemStack *itemStack) : row(row), column(column), itemStack(itemStack), SceneNode(
+InventorySlot::InventorySlot(int row, int column, int index, Container &container) : row(row), column(column), index(index), container(container), SceneNode(
     /* position= */ sf::Vector2f(column * GRID_SIZE, row * GRID_SIZE),
     /* size= */ sf::Vector2f(GRID_SIZE, GRID_SIZE),
     /* onClick= */ [row, column]() {
         std::cout << "Inventory slot (" << column << "," << row << ") clicked" << std::endl;
     },
-    /* onRender= */ [this, itemStack](
+    /* onRender= */ [this, index, &container](
         SceneNode &node,
         sf::RenderWindow &window,
         sf::Vector2f absolutePos
@@ -75,11 +75,12 @@ InventorySlot::InventorySlot(int row, int column, ItemStack *itemStack) : row(ro
         itemRect.setOutlineThickness(1.0);
         window.draw(itemRect);
 
-        if (itemStack == nullptr)
+        vector<ItemStack>& items = container.getItems();
+        if (index >= items.size())
         {
             return;
         }
-
+        ItemStack* itemStack = &items[index];
         int count = itemStack->getAmount();
 
         sf::Sprite sprite = *GameResources::getInstance().getInventorySprite(itemStack->getType());

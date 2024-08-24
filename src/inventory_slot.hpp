@@ -7,10 +7,11 @@
 
 class InventorySlot : public SceneNode {
     public:
-    InventorySlot(int row, int column, ItemStack *itemStack);
+    InventorySlot(int row, int column, int index, Container &container);
 
     private:
-    ItemStack *itemStack;
     int row;
     int column;
+    int index;
+    Container &container;
 };
