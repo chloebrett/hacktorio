@@ -11,7 +11,7 @@ class GameResources {
     GameResources();
     void init();
     void loadSprite(string key, string filename);
-    void loadInventorySprite(InventoryItemType inventoryItemType);
+    void loadInventorySprite(InventoryItemType inventoryItemType, bool isMasked = true);
     string inventoryItemTypeToKey(InventoryItemType inventoryItemType);
     static GameResources& getInstance();
     sf::Texture* getTexture(string key) { return textures[key]; }

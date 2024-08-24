@@ -100,7 +100,7 @@ void GameResources::loadSprite(string key, string filename) {
     sprites[key] = new sf::Sprite(*textures[key]);
 }
 
-void GameResources::loadInventorySprite(InventoryItemType inventoryItemType) {
+void GameResources::loadInventorySprite(InventoryItemType inventoryItemType, bool isMasked) {
     string key = inventoryItemTypeToKey(inventoryItemType);
     textures[key] = new sf::Texture();
     if (!textures[key]->loadFromFile(inventoryItemTypeToFilename(inventoryItemType)))
@@ -109,7 +109,9 @@ void GameResources::loadInventorySprite(InventoryItemType inventoryItemType) {
         cout << "Failed to load texture" << endl;
     }
     sprites[key] = new sf::Sprite(*textures[key]);
-    sprites[key]->setTextureRect(sf::IntRect(64, 0, 32, 32));
+    if (isMasked) {
+        sprites[key]->setTextureRect(sf::IntRect(64, 0, 32, 32));
+    }
 }
 
 void GameResources::init() {
@@ -130,7 +132,7 @@ void GameResources::init() {
     loadInventorySprite(InventoryItemType::COPPER_PLATE);
     loadInventorySprite(InventoryItemType::STONE_BRICK);
     loadInventorySprite(InventoryItemType::STONE_FURNACE);
-    loadInventorySprite(InventoryItemType::WOODEN_CHEST);
+    loadInventorySprite(InventoryItemType::WOODEN_CHEST, /* isMasked= */ false);
     loadInventorySprite(InventoryItemType::IRON_CHEST);
     loadInventorySprite(InventoryItemType::TRANSPORT_BELT);
     loadInventorySprite(InventoryItemType::IRON_GEAR_WHEEL);
