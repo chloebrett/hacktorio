@@ -11,13 +11,13 @@ Player::Player() : SceneNode(
     /* onClick= */ []() {
         std::cout << "Player clicked" << std::endl;
     },
-    /* onRender= */ [](
+    /* onRender= */ [this](
         SceneNode &node,
         sf::RenderWindow &window,
         sf::Vector2f parentPos
     ) {
-        sf::RectangleShape playerRect(node.getSize());
-        playerRect.setPosition(parentPos + node.getPos());
+        sf::RectangleShape playerRect(this->getSize());
+        playerRect.setPosition(parentPos + this->getPos());
         playerRect.setFillColor(sf::Color::Blue);
         window.draw(playerRect);
     }

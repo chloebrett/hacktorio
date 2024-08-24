@@ -55,13 +55,12 @@ void Game::start()
         /* onRender= */ nullptr
     ));
     root->addChild(background.get());
-    unique_ptr<ResourcePatch> patch(new ResourcePatch(sf::Vector2f(5 * GRID_SIZE, 5 * GRID_SIZE), ResourcePatchType::COPPER, 10));
-    root->addChild(patch.get());
-    root->addChild(player.get());
-    root->addChild(chest.get());
 
     unique_ptr<Environment> environment(new Environment());
     environment->initResourcePatches(*root);
+
+    root->addChild(player.get());
+    root->addChild(chest.get());
 
     unique_ptr<Renderer> renderer(
         new Renderer(window, *player, *environment, *chest, *root, *cursorState)

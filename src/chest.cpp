@@ -15,7 +15,7 @@ Chest::Chest(int capacity, sf::Vector2f pos) : SceneNode(
     /* onClick= */ []() {
         std::cout << "Chest clicked" << std::endl;
     },
-    /* onRender= */ [](
+    /* onRender= */ [this](
         SceneNode &node,
         sf::RenderWindow &window,
         sf::Vector2f parentPos
@@ -27,7 +27,7 @@ Chest::Chest(int capacity, sf::Vector2f pos) : SceneNode(
             cout << "Failed to load texture" << endl;
         }
         sf::Sprite sprite(texture);
-        sprite.setPosition(parentPos + node.getPos());
+        sprite.setPosition(parentPos + this->getPos());
         window.draw(sprite);
     }
 ) {

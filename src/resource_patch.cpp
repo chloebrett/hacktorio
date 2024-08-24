@@ -32,23 +32,18 @@ ResourcePatch::ResourcePatch(sf::Vector2f position, ResourcePatchType resourcePa
         sf::RenderWindow &window,
         sf::Vector2f parentPos
     ) {
-        auto& thisNode = static_cast<ResourcePatch&>(node);
         if (this->getRemaining() > 0)
         {
             std::map<ResourcePatchType, sf::Color> resourcePatchColors = getResourcePatchColors();
             sf::RectangleShape resourcePatchRect;
-            resourcePatchRect.setSize(node.getSize());
-            sf::Vector2f resourcePatchPosition = node.getPos();
+            resourcePatchRect.setSize(this->getSize());
+            sf::Vector2f resourcePatchPosition = this->getPos();
             resourcePatchRect.setPosition(resourcePatchPosition);
             resourcePatchRect.setFillColor(resourcePatchColors[this->getResourcePatchType()]);
             window.draw(resourcePatchRect);
         }
     }
-)
-{
-    cout << "Created resource patch with type " << static_cast<int>(resourcePatchType) << endl;
-    cout << "Created resource patch with this->type " << static_cast<int>(this->resourcePatchType) << endl;
-}
+) {}
 
 float ResourcePatch::getRemaining()
 {

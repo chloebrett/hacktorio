@@ -26,7 +26,6 @@ void Environment::addPatches(
                 continue;
             }
             int amount = rand() % (amountMax - amountMin) + amountMin;
-            cout << "Adding resource patch with type " << static_cast<int>(type) << endl;
             ResourcePatch* resourcePatch = new ResourcePatch(sf::Vector2f(i * GRID_SIZE, j * GRID_SIZE), type, amount);
             rootSceneNode.addChild(resourcePatch);
         }
