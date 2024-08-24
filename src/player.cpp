@@ -16,7 +16,6 @@ Player::Player() : SceneNode(
         sf::RenderWindow &window,
         sf::Vector2f parentPos
     ) {
-        std::cout << "Player rendered" << std::endl;
         sf::RectangleShape playerRect(node.getSize());
         playerRect.setPosition(parentPos + node.getPos());
         playerRect.setFillColor(sf::Color::Blue);

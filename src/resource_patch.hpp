@@ -8,14 +8,13 @@
 class ResourcePatch : public SceneNode
 {
 public:
-    ResourcePatch(sf::Vector2f position);
-    void init(ResourcePatchType type, int amount);
+    ResourcePatch(sf::Vector2f position, ResourcePatchType resourcePatchType, int amount);
     float getRemaining();
     bool mine(float amount);
-    ResourcePatchType getType();
+    ResourcePatchType getResourcePatchType();
     InventoryItemType getInventoryItemType();
 
 private:
     float remaining;
-    ResourcePatchType type;
+    ResourcePatchType resourcePatchType;
 };

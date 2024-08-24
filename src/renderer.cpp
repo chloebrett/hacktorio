@@ -28,17 +28,6 @@ Renderer::Renderer(sf::RenderWindow &window,
         sf::Color blue = sf::Color(81.0f, 168.0f, 194.0f, 255.0f);
 };
 
-std::map<ResourcePatchType, sf::Color> getResourcePatchColors()
-{
-    std::map<ResourcePatchType, sf::Color> resourcePatchColors;
-    resourcePatchColors[ResourcePatchType::IRON] = sf::Color(80, 81, 84, 255);
-    resourcePatchColors[ResourcePatchType::COAL] = sf::Color(23, 21, 16, 255);
-    resourcePatchColors[ResourcePatchType::COPPER] = sf::Color(150, 104, 68, 255);
-    resourcePatchColors[ResourcePatchType::STONE] = sf::Color(145, 145, 108, 255);
-    resourcePatchColors[ResourcePatchType::WOOD] = sf::Color(84, 64, 48, 255);
-    return resourcePatchColors;
-}
-
 std::string inventoryItemTypeToString(InventoryItemType inventoryItemType)
 {
     switch (static_cast<int>(inventoryItemType))
@@ -245,23 +234,6 @@ void Renderer::render(bool isInventoryOpen, int selectedInventoryItemIndex, int 
     // renderScene();
     // renderGui(isInventoryOpen, selectedInventoryItemIndex, selectedOtherItemIndex, mousePosition);
     window.display();
-}
-
-void Renderer::renderScene()
-{
-    std::map<ResourcePatchType, sf::Color> resourcePatchColors = getResourcePatchColors();
-    for (ResourcePatch& resourcePatch : environment.getResourcePatches())
-    {
-        if (resourcePatch.getRemaining() > 0)
-        {
-            sf::RectangleShape resourcePatchRect;
-            resourcePatchRect.setSize(sf::Vector2f(1 * GRID_SIZE, 1 * GRID_SIZE));
-            sf::Vector2f resourcePatchPosition = resourcePatch.getPos();
-            resourcePatchRect.setPosition(resourcePatchPosition);
-            resourcePatchRect.setFillColor(resourcePatchColors[resourcePatch.getType()]);
-            window.draw(resourcePatchRect);
-        }
-    }
 }
 
 void drawCursor(sf::RenderWindow &window, sf::Vector2i mousePosition)

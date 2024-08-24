@@ -2,6 +2,7 @@
 #include "resource_patch.hpp"
 #include "constants.hpp"
 #include <vector>
+#include <iostream>
 
 using namespace std;
 
@@ -23,20 +24,21 @@ void Environment::addPatches(
             if (rand() % 100 > probabilityPercent) {
                 continue;
             }
-            ResourcePatch resourcePatch = ResourcePatch(sf::Vector2f(i * GRID_SIZE, j * GRID_SIZE));
             int amount = rand() % (amountMax - amountMin) + amountMin;
-            resourcePatch.init(type, amount);
+            cout << "Adding resource patch with type " << static_cast<int>(type) << endl;
+            ResourcePatch resourcePatch = ResourcePatch(sf::Vector2f(i * GRID_SIZE, j * GRID_SIZE), type, amount);
             resourcePatches.push_back(resourcePatch);
         }
     }
 }
 
 void Environment::initResourcePatches() {
-    addPatches(ResourcePatchType::IRON, 5, 11, 7, 15, 50, 5, 10);
-    addPatches(ResourcePatchType::COAL, 30, 40, 20, 30, 50, 5, 10);
-    addPatches(ResourcePatchType::COPPER, 15, 18, 15, 19, 50, 5, 10);
-    addPatches(ResourcePatchType::STONE, 4, 9, 20, 25, 50, 5, 10);
-    addPatches(ResourcePatchType::WOOD, 20, 50, 5, 25, 3, 1, 1);
+    // addPatches(ResourcePatchType::IRON, 5, 11, 7, 15, 50, 5, 10);
+    // addPatches(ResourcePatchType::COAL, 30, 40, 20, 30, 50, 5, 10);
+    // addPatches(ResourcePatchType::COPPER, 15, 18, 15, 19, 50, 5, 10);
+    // addPatches(ResourcePatchType::STONE, 4, 9, 20, 25, 50, 5, 10);
+    // addPatches(ResourcePatchType::WOOD, 20, 50, 5, 25, 3, 1, 1);
+    // addPatches(ResourcePatchType::COPPER, 5, 6, 5, 6, 100, 1, 1);
 }
 
 vector<ResourcePatch>& Environment::getResourcePatches() {

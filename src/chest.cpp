@@ -29,7 +29,6 @@ Chest::Chest(int capacity, sf::Vector2f pos) : SceneNode(
         sf::Sprite sprite(texture);
         sprite.setPosition(parentPos + node.getPos());
         window.draw(sprite);
-        cout << "Chest rendered" << endl;
     }
 ) {
     this->capacity = capacity;

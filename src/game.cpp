@@ -62,6 +62,8 @@ void Game::start()
     {
         root->addChild(&patch);
     }
+    unique_ptr<ResourcePatch> patch(new ResourcePatch(sf::Vector2f(5 * GRID_SIZE, 5 * GRID_SIZE), ResourcePatchType::COPPER, 10));
+    root->addChild(patch.get());
     root->addChild(player.get());
     root->addChild(chest.get());
 

@@ -8,28 +8,50 @@
 #include <iostream>
 #include <cstdlib>
 
-ResourcePatch::ResourcePatch(sf::Vector2f position) : SceneNode(
+using namespace std;
+
+std::map<ResourcePatchType, sf::Color> getResourcePatchColors()
+{
+    std::map<ResourcePatchType, sf::Color> resourcePatchColors;
+    resourcePatchColors[ResourcePatchType::IRON] = sf::Color(80, 81, 84, 255);
+    resourcePatchColors[ResourcePatchType::COAL] = sf::Color(23, 21, 16, 255);
+    resourcePatchColors[ResourcePatchType::COPPER] = sf::Color(150, 104, 68, 255);
+    resourcePatchColors[ResourcePatchType::STONE] = sf::Color(145, 145, 108, 255);
+    resourcePatchColors[ResourcePatchType::WOOD] = sf::Color(84, 64, 48, 255);
+    return resourcePatchColors;
+}
+
+ResourcePatch::ResourcePatch(sf::Vector2f position, ResourcePatchType resourcePatchType, int remaining) : resourcePatchType(resourcePatchType), remaining(remaining), SceneNode(
     /* position= */ position,
-    /* size= */ sf::Vector2f(GRID_SIZE, GRID_SIZE),
+    /* size= */ sf::Vector2f(1 * GRID_SIZE, 1 * GRID_SIZE),
     /* onClick= */ []() {
         std::cout << "Resource patch clicked" << std::endl;
     },
-    /* onRender= */ [](
+    /* onRender= */ [this](
         SceneNode &node,
         sf::RenderWindow &window,
         sf::Vector2f parentPos
     ) {
-        std::cout << "Resource patch rendered" << std::endl;
+        auto& thisNode = static_cast<ResourcePatch&>(node);
+        if (this->getRemaining() > 0)
+        {
+            std::map<ResourcePatchType, sf::Color> resourcePatchColors = getResourcePatchColors();
+            sf::RectangleShape resourcePatchRect;
+            resourcePatchRect.setSize(node.getSize());
+            sf::Vector2f resourcePatchPosition = node.getPos();
+            resourcePatchRect.setPosition(resourcePatchPosition);
+            resourcePatchRect.setFillColor(resourcePatchColors[thisNode.getResourcePatchType()]);
+            cout << "Resource patch color: " << static_cast<int>(thisNode.getResourcePatchType()) << endl;
+            // cout << "Resource patch color: " << static_cast<int>(resourcePatchColors[this->getType()].r) << endl;
+            window.draw(resourcePatchRect);
+        }
+
+        // std::cout << "Resource patch rendered" << std::endl;
     }
 )
 {
-    remaining = 0;
-}
-
-void ResourcePatch::init(ResourcePatchType type, int amount)
-{
-    this->type = type;
-    remaining = amount;
+    cout << "Created resource patch with type " << static_cast<int>(resourcePatchType) << endl;
+    cout << "Created resource patch with this->type " << static_cast<int>(this->resourcePatchType) << endl;
 }
 
 float ResourcePatch::getRemaining()
@@ -37,14 +59,15 @@ float ResourcePatch::getRemaining()
     return remaining;
 }
 
-ResourcePatchType ResourcePatch::getType()
+ResourcePatchType ResourcePatch::getResourcePatchType()
 {
-    return type;
+    // cout << "Get type " << static_cast<int>(type) << endl;
+    return resourcePatchType;
 }
 
 InventoryItemType ResourcePatch::getInventoryItemType()
 {
-    switch (static_cast<int>(type))
+    switch (static_cast<int>(resourcePatchType))
     {
     case static_cast<int>(ResourcePatchType::IRON):
         return InventoryItemType::IRON_ORE;
