@@ -18,7 +18,7 @@ Chest::Chest(int capacity, sf::Vector2f pos) : capacity(capacity), SceneNode(
     /* onRender= */ [this](
         SceneNode &node,
         sf::RenderWindow &window,
-        sf::Vector2f parentPos
+        sf::Vector2f absolutePos
     ) {
         sf::Texture texture;
         if (!texture.loadFromFile("data/base/graphics/entity/wooden-chest/wooden-chest.png"))
@@ -27,7 +27,7 @@ Chest::Chest(int capacity, sf::Vector2f pos) : capacity(capacity), SceneNode(
             cout << "Failed to load texture" << endl;
         }
         sf::Sprite sprite(texture);
-        sprite.setPosition(parentPos + this->getPos());
+        sprite.setPosition(absolutePos);
         window.draw(sprite);
     }
 ) {}

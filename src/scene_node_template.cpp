@@ -14,7 +14,7 @@ SceneNodeTemplate::SceneNodeTemplate() : SceneNode(
     /* onRender= */ [this](
         SceneNode &node,
         sf::RenderWindow &window,
-        sf::Vector2f parentPos
+        sf::Vector2f absolutePos
     ) {
     }
 ) {}

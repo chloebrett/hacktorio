@@ -25,19 +25,19 @@
 #include "cursor_state.hpp"
 
 Inventory::Inventory() : SceneNode(
-    /* position= */ sf::Vector2f(0, 0),
-    /* size= */ sf::Vector2f(GRID_SIZE, GRID_SIZE),
+    /* position= */ sf::Vector2f(INVENTORY_H_MARGIN, INVENTORY_V_MARGIN),
+    /* size= */ sf::Vector2f(INVENTORY_WIDTH * 2 + INVENTORY_PADDING * 3, INVENTORY_HEIGHT + INVENTORY_PADDING * 2),
     /* onClick= */ []() {
         std::cout << "Inventory clicked" << std::endl;
     },
     /* onRender= */ [this](
         SceneNode &node,
         sf::RenderWindow &window,
-        sf::Vector2f parentPos
+        sf::Vector2f absolutePos
     ) {
         sf::RectangleShape mainRect;
-        mainRect.setSize(sf::Vector2f(INVENTORY_WIDTH * 2 + INVENTORY_PADDING * 3, INVENTORY_HEIGHT + INVENTORY_PADDING * 2));
-        mainRect.setPosition(INVENTORY_H_MARGIN, INVENTORY_V_MARGIN);
+        mainRect.setSize(size);
+        mainRect.setPosition(absolutePos);
         mainRect.setFillColor(sf::Color(120, 120, 120, 255));
 
         window.draw(mainRect);

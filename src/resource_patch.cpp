@@ -30,15 +30,14 @@ ResourcePatch::ResourcePatch(sf::Vector2f position, ResourcePatchType resourcePa
     /* onRender= */ [this](
         SceneNode &node,
         sf::RenderWindow &window,
-        sf::Vector2f parentPos
+        sf::Vector2f absolutePos
     ) {
         if (this->getRemaining() > 0)
         {
             std::map<ResourcePatchType, sf::Color> resourcePatchColors = getResourcePatchColors();
             sf::RectangleShape resourcePatchRect;
-            resourcePatchRect.setSize(this->getSize());
-            sf::Vector2f resourcePatchPosition = this->getPos();
-            resourcePatchRect.setPosition(resourcePatchPosition);
+            resourcePatchRect.setSize(size);
+            resourcePatchRect.setPosition(absolutePos);
             resourcePatchRect.setFillColor(resourcePatchColors[this->getResourcePatchType()]);
             window.draw(resourcePatchRect);
         }

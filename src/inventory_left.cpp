@@ -26,19 +26,19 @@
 #include "cursor_state.hpp"
 
 InventoryLeft::InventoryLeft(Player &player) : player(player), SceneNode(
-    /* position= */ sf::Vector2f(0, 0),
-    /* size= */ sf::Vector2f(GRID_SIZE, GRID_SIZE),
+    /* position= */ sf::Vector2f(INVENTORY_PADDING, INVENTORY_PADDING),
+    /* size= */ sf::Vector2f(INVENTORY_WIDTH, INVENTORY_HEIGHT),
     /* onClick= */ []() {
         std::cout << "Inventory left clicked" << std::endl;
     },
     /* onRender= */ [this](
         SceneNode &node,
         sf::RenderWindow &window,
-        sf::Vector2f parentPos
+        sf::Vector2f absolutePos
     ) {
         sf::RectangleShape leftRect;
-        leftRect.setSize(sf::Vector2f(INVENTORY_WIDTH, INVENTORY_HEIGHT));
-        leftRect.setPosition(INVENTORY_H_MARGIN + INVENTORY_PADDING, INVENTORY_V_MARGIN + INVENTORY_PADDING);
+        leftRect.setSize(size);
+        leftRect.setPosition(absolutePos);
         leftRect.setOutlineColor(sf::Color(40, 40, 40, 255));
         leftRect.setOutlineThickness(2.0);
         leftRect.setFillColor(sf::Color(80, 80, 80, 255));

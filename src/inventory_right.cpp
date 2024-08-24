@@ -27,19 +27,19 @@
 #include "inventory_right.hpp"
 
 InventoryRight::InventoryRight(Chest &chest) : chest(chest), SceneNode(
-    /* position= */ sf::Vector2f(0, 0),
-    /* size= */ sf::Vector2f(GRID_SIZE, GRID_SIZE),
+    /* position= */ sf::Vector2f(INVENTORY_WIDTH + INVENTORY_PADDING * 2, INVENTORY_PADDING),
+    /* size= */ sf::Vector2f(INVENTORY_WIDTH, INVENTORY_HEIGHT),
     /* onClick= */ []() {
         std::cout << "Inventory right clicked" << std::endl;
     },
     /* onRender= */ [this](
         SceneNode &node,
         sf::RenderWindow &window,
-        sf::Vector2f parentPos
+        sf::Vector2f absolutePos
     ) {
         sf::RectangleShape rightRect;
-        rightRect.setSize(sf::Vector2f(INVENTORY_WIDTH, INVENTORY_HEIGHT));
-        rightRect.setPosition(INVENTORY_H_MARGIN + INVENTORY_WIDTH + INVENTORY_PADDING * 2, INVENTORY_V_MARGIN + INVENTORY_PADDING);
+        rightRect.setSize(size);
+        rightRect.setPosition(absolutePos);
         rightRect.setOutlineColor(sf::Color(40, 40, 40, 255));
         rightRect.setOutlineThickness(1.0);
         rightRect.setFillColor(sf::Color(80, 80, 80, 255));
