@@ -70,6 +70,7 @@ void Gui::setContainerInventoryGrid(InventoryGrid *containerInventoryGrid) {
     this->containerInventoryGrid = containerInventoryGrid;
 }
 
+// TODO: give this its own class (CraftingQueue?)
 void Gui::startCraftingRecipe(Recipe *recipe) {
     cout << "Crafting recipe: " << recipe->getName() << endl;
     cout << "Inputs: " << endl;

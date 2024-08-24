@@ -37,6 +37,7 @@ void Input::handleQueuedEvents() {
             for (SceneNode* node : nodes)
             {
                 if (node->isTransitivelyVisible() && clickedNodes.find(node) == clickedNodes.end()){
+                    // TODO: use override instead of lambda?
                     node->click(cursor);
                     clickedNodes.insert(node);
                 }
@@ -60,6 +61,25 @@ void Input::handleQueuedEvents() {
 }
 
 void Input::handleOngoingEvents() {
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
+    {
+        sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
+        vector<SceneNode*> nodes = spatialIndex.nodesAt(mousePosition);
+
+        set<SceneNode*> clickedNodes;
+
+        for (SceneNode* node : nodes)
+        {
+            if (node->isTransitivelyVisible() && clickedNodes.find(node) == clickedNodes.end()){
+                // Note: would need dynamic_cast if this was polymorphic (virtual functions)
+                if(ResourcePatch* resourcePatch = static_cast<ResourcePatch*>(node)) {
+                    resourcePatch->handleMine();
+                }
+                clickedNodes.insert(node);
+            }
+        }
+    }
+
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
     {
         // vector<ResourcePatch>& resourcePatches = environment.getResourcePatches();

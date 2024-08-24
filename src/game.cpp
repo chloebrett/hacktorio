@@ -73,7 +73,7 @@ void Game::start()
     root->addChild(background.get());
 
     unique_ptr<Environment> environment(new Environment());
-    environment->initResourcePatches(*root);
+    environment->initResourcePatches(*player, *root);
 
     // Panel for showing two inventory grids - e.g. player inventory and chest inventory.
     // Hidden by default.

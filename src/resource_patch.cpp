@@ -5,6 +5,7 @@
 #include "SFML/Graphics.hpp"
 #include "cursor.hpp"
 #include "constants.hpp"
+#include "player.hpp"
 
 #include <iostream>
 #include <cstdlib>
@@ -22,10 +23,11 @@ std::map<ResourcePatchType, sf::Color> getResourcePatchColors()
     return resourcePatchColors;
 }
 
-ResourcePatch::ResourcePatch(sf::Vector2f position, ResourcePatchType resourcePatchType, int remaining) : resourcePatchType(resourcePatchType), remaining(remaining), SceneNode(
+ResourcePatch::ResourcePatch(Player &player, sf::Vector2f position, ResourcePatchType resourcePatchType, int remaining) :
+    player(player), resourcePatchType(resourcePatchType), remaining(remaining), SceneNode(
     /* position= */ position,
     /* size= */ sf::Vector2f(1 * GRID_SIZE, 1 * GRID_SIZE),
-    /* onClick= */ [](Cursor &cursor) {
+    /* onClick= */ [this](Cursor &cursor) {
         std::cout << "Resource patch clicked" << std::endl;
     },
     /* onRender= */ [this](
@@ -44,6 +46,19 @@ ResourcePatch::ResourcePatch(sf::Vector2f position, ResourcePatchType resourcePa
         }
     }
 ) {}
+
+void ResourcePatch::handleMine() {
+    if (this->getRemaining() > 0)
+        {
+            bool didMine = this->mine(this->player.getMiningSpeed() / FRAMES_PER_SECOND);
+            std::cout << "Mined: " << didMine << std::endl;
+            if (didMine)
+            {
+                this->player.addItem(this->getInventoryItemType(), 1);
+                this->player.updateItems();
+            }
+        }
+    }
 
 float ResourcePatch::getRemaining()
 {
