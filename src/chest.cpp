@@ -5,6 +5,7 @@
 #include "chest.hpp"
 #include "scene_node.hpp"
 #include "SFML/Graphics.hpp"
+#include "game_resources.hpp"
 #include <functional>
 #include <vector>
 #include "constants.hpp"
@@ -20,13 +21,7 @@ Chest::Chest(int capacity, sf::Vector2f pos) : capacity(capacity), SceneNode(
         sf::RenderWindow &window,
         sf::Vector2f absolutePos
     ) {
-        sf::Texture texture;
-        if (!texture.loadFromFile("data/base/graphics/entity/wooden-chest/wooden-chest.png"))
-        {
-            // Handle loading error
-            cout << "Failed to load texture" << endl;
-        }
-        sf::Sprite sprite(texture);
+        sf::Sprite sprite = *GameResources::getInstance().getSprite("chest");
         sprite.setPosition(absolutePos);
         window.draw(sprite);
     }

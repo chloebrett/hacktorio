@@ -15,6 +15,7 @@
 #include "resource_patch.hpp"
 #include "inventory_left.hpp"
 #include "game.hpp"
+#include "game_resources.hpp"
 #include "resource_patch.hpp"
 #include "inventory_item_type.hpp"
 #include "resource_patch_type.hpp"
@@ -25,35 +26,6 @@
 #include <vector>
 #include "cursor_state.hpp"
 #include "inventory_slot.hpp"
-
-std::string inventoryItemTypeToFilename(InventoryItemType inventoryItemType)
-{
-    switch (static_cast<int>(inventoryItemType))
-    {
-    case static_cast<int>(InventoryItemType::IRON_ORE):
-        return "data/base/graphics/icons/iron-ore.png";
-    case static_cast<int>(InventoryItemType::COAL):
-        return "data/base/graphics/icons/coal.png";
-    case static_cast<int>(InventoryItemType::COPPER_ORE):
-        return "data/base/graphics/icons/copper-ore.png";
-    case static_cast<int>(InventoryItemType::STONE):
-        return "data/base/graphics/icons/stone.png";
-    case static_cast<int>(InventoryItemType::WOOD):
-        return "data/base/graphics/icons/wood.png";
-    case static_cast<int>(InventoryItemType::IRON_PLATE):
-        return "data/base/graphics/icons/iron-plate.png";
-    case static_cast<int>(InventoryItemType::STEEL):
-        return "data/base/graphics/icons/steel.png";
-    case static_cast<int>(InventoryItemType::COPPER_PLATE):
-        return "data/base/graphics/icons/copper-plate.png";
-    case static_cast<int>(InventoryItemType::STONE_BRICK):
-        return "data/base/graphics/icons/stone-brick.png";
-    case static_cast<int>(InventoryItemType::STONE_FURNACE):
-        return "data/base/graphics/icons/stone-furnace.png";
-    default:
-        return "data/core/graphics/cancel.png";
-    }
-}
 
 std::string inventoryItemTypeToString(InventoryItemType inventoryItemType)
 {
@@ -76,7 +48,7 @@ std::string inventoryItemTypeToString(InventoryItemType inventoryItemType)
     case static_cast<int>(InventoryItemType::COPPER_PLATE):
         return "Copper Plate";
     case static_cast<int>(InventoryItemType::STONE_BRICK):
-        return "Stone Bricket";
+        return "Stone Brick";
     case static_cast<int>(InventoryItemType::STONE_FURNACE):
         return "Stone Furnace";
     default:
@@ -108,25 +80,13 @@ InventorySlot::InventorySlot(int row, int column, ItemStack *itemStack) : row(ro
             return;
         }
 
-        InventoryItemType inventoryItemType = itemStack->getType();
         int count = itemStack->getAmount();
 
-        sf::Texture texture;
-        if (!texture.loadFromFile(inventoryItemTypeToFilename(inventoryItemType)))
-        {
-            // Handle loading error
-            cout << "Failed to load texture" << endl;
-        }
-        sf::Sprite sprite(texture);
-        sprite.setTextureRect(sf::IntRect(64, 0, 32, 32));
+        sf::Sprite sprite = *GameResources::getInstance().getInventorySprite(itemStack->getType());
         sprite.setPosition(absolutePos);
         window.draw(sprite);
 
-        sf::Font font;
-        if (!font.loadFromFile("res/Inconsolata-Regular.ttf"))
-        {
-            std::cout << "Failed to load font" << std::endl;
-        }
+        sf::Font font = *GameResources::getInstance().getFont("main");
         sf::Text text;
         text.setFont(font);
         text.setString(to_string(count));
