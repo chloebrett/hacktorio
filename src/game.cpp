@@ -12,6 +12,7 @@
 #include <vector>
 #include "input.hpp"
 #include "inventory.hpp"
+#include "cursor.hpp"
 #include "environment.hpp"
 #include "cursor_state.hpp"
 #include "scene_node.hpp"
@@ -60,10 +61,12 @@ void Game::start()
     unique_ptr<Environment> environment(new Environment());
     environment->initResourcePatches(*root);
     unique_ptr<Inventory> inventory(new Inventory(*player, *chest));
+    unique_ptr<Cursor> cursor(new Cursor());
 
     root->addChild(player.get());
     root->addChild(chest.get());
     root->addChild(inventory.get());
+    root->addChild(cursor.get());
 
     unique_ptr<Renderer> renderer(
         new Renderer(window, *player, *environment, *chest, *root, *cursorState)

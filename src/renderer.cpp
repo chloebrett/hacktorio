@@ -94,32 +94,6 @@ void drawInventory(sf::RenderWindow &window, Player &player, int selectedIndex)
         std::cout << "Failed to load font" << std::endl;
     }
 
-    float margin = 50.0;
-    float padding = 20.0;
-
-    sf::RectangleShape mainRect;
-    mainRect.setSize(sf::Vector2f(INVENTORY_WIDTH * 2 + INVENTORY_PADDING * 3, INVENTORY_HEIGHT + INVENTORY_PADDING * 2));
-    mainRect.setPosition(INVENTORY_H_MARGIN, INVENTORY_V_MARGIN);
-    mainRect.setFillColor(sf::Color(120, 120, 120, 255));
-
-    sf::RectangleShape leftRect;
-    leftRect.setSize(sf::Vector2f(INVENTORY_WIDTH, INVENTORY_HEIGHT));
-    leftRect.setPosition(INVENTORY_H_MARGIN + INVENTORY_PADDING, INVENTORY_V_MARGIN + INVENTORY_PADDING);
-    leftRect.setOutlineColor(sf::Color(40, 40, 40, 255));
-    leftRect.setOutlineThickness(2.0);
-    leftRect.setFillColor(sf::Color(80, 80, 80, 255));
-
-    sf::RectangleShape rightRect;
-    rightRect.setSize(sf::Vector2f(INVENTORY_WIDTH, INVENTORY_HEIGHT));
-    rightRect.setPosition(INVENTORY_H_MARGIN + INVENTORY_WIDTH + INVENTORY_PADDING * 2, INVENTORY_V_MARGIN + INVENTORY_PADDING);
-    rightRect.setOutlineColor(sf::Color(40, 40, 40, 255));
-    rightRect.setOutlineThickness(1.0);
-    rightRect.setFillColor(sf::Color(80, 80, 80, 255));
-
-    window.draw(mainRect);
-    window.draw(leftRect);
-    window.draw(rightRect);
-
     // Left inventory
     player.updateItems();
     vector<ItemStack>& items = player.getItems();
@@ -188,43 +162,6 @@ void drawInventory(sf::RenderWindow &window, Player &player, int selectedIndex)
     window.draw(text);
 }
 
-void drawChestContentsIfNear(sf::RenderWindow &window, Chest &chest, Player &player, int selectedIndex)
-{
-    sf::Font font;
-    if (!font.loadFromFile("res/Inconsolata-Regular.ttf"))
-    {
-        std::cout << "Failed to load font" << std::endl;
-    }
-
-    sf::Vector2f playerPosition = player.getPos();
-    sf::Vector2f chestPosition = chest.getPos();
-    sf::Vector2f diff = playerPosition - chestPosition;
-    if (abs(diff.x) < 2 * GRID_SIZE && abs(diff.y) < 2 * GRID_SIZE)
-    {
-        std::map<InventoryItemType, int> chestContents = chest.getContents();
-
-        int i = 0;
-        for (const auto &item : chestContents) // TODO: Be careful about ordering - is this deterministic?
-        {
-            InventoryItemType inventoryItemType = item.first;
-            int count = item.second;
-
-            sf::Texture texture;
-            if (!texture.loadFromFile(inventoryItemTypeToFilename(inventoryItemType)))
-            {
-                // Handle loading error
-                cout << "Failed to load texture" << endl;
-            }
-            sf::Sprite sprite(texture);
-            sprite.setTextureRect(sf::IntRect(0, 0, 64, 64));
-            sprite.setPosition(200, 10 + 64 * (i + 1));
-
-            window.draw(sprite);
-            i++;
-        }
-    }
-}
-
 void Renderer::render(bool isInventoryOpen, int selectedInventoryItemIndex, int selectedOtherItemIndex, sf::Vector2i mousePosition)
 {
     window.clear();
@@ -236,21 +173,10 @@ void Renderer::render(bool isInventoryOpen, int selectedInventoryItemIndex, int 
     window.display();
 }
 
-void drawCursor(sf::RenderWindow &window, sf::Vector2i mousePosition)
-{
-    sf::RectangleShape cursorRect;
-    cursorRect.setSize(sf::Vector2f(1 * GRID_SIZE, 1 * GRID_SIZE));
-    cursorRect.setPosition(mousePosition.x, mousePosition.y);
-    cursorRect.setFillColor(sf::Color(255, 255, 255, 255));
-    window.draw(cursorRect);
-}
-
 void Renderer::renderGui(bool isInventoryOpen, int selectedInventoryItemIndex, int selectedOtherItemIndex, sf::Vector2i mousePosition)
 {
     if (isInventoryOpen)
     {
         drawInventory(window, player, selectedInventoryItemIndex);
     }
-    drawChestContentsIfNear(window, chest, player, selectedOtherItemIndex);
-    drawCursor(window, mousePosition);
 }
