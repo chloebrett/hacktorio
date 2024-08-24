@@ -21,4 +21,13 @@ class RecipeConfiguration {
 
     private:
     map<RecipePosition, Recipe*, cmpByRecipePosition> recipeMap;
+    map<InventoryItemType, Recipe*> recipeByOutputType;
+    map<RecipePosition, InventoryItemType, cmpByRecipePosition> recipeOutputTypeByPosition;
+    void initPositions();
+    void initRecipes();
+    void initRecipeMap();
+    void initLogisticsRecipes();
+    void initProductionRecipes();
+    void initIntermediateProductsRecipes();
+    void initCombatRecipes();
 };

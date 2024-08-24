@@ -10,6 +10,7 @@ enum class InventoryItemType
     INSERTER,
     SMALL_ELECTRIC_POLE,
     PIPE,
+    PIPE_TO_GROUND,
     STONE_BRICK,
     // Production
     REPAIR_PACK,
@@ -17,6 +18,7 @@ enum class InventoryItemType
     STEAM_ENGINE,
     BURNER_MINING_DRILL,
     ELECTRIC_MINING_DRILL,
+    OFFSHORE_PUMP,
     STONE_FURNACE,
     LAB,
     // Intermediate products (raw)
@@ -32,6 +34,7 @@ enum class InventoryItemType
     COPPER_CABLE,
     IRON_STICK,
     IRON_GEAR_WHEEL,
+    ELECTRONIC_CIRCUIT,
     RED_SCIENCE_PACK,
     // Combat
     PISTOL,
