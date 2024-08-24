@@ -9,7 +9,7 @@ using namespace std;
 class SceneNode {
     public:
     SceneNode(
-        sf::Vector2f position,
+        sf::Vector2f pos,
         sf::Vector2f size,
         std::function<void()> onClick,
         std::function<void(SceneNode&, sf::RenderWindow&, sf::Vector2f)> onRender

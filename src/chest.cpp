@@ -9,8 +9,8 @@
 #include <vector>
 #include "constants.hpp"
 
-Chest::Chest(int capacity, sf::Vector2f position) : SceneNode(
-    /* position= */ position,
+Chest::Chest(int capacity, sf::Vector2f pos) : SceneNode(
+    /* position= */ pos,
     /* size= */ sf::Vector2f(GRID_SIZE, GRID_SIZE),
     /* onClick= */ []() {
         std::cout << "Chest clicked" << std::endl;
@@ -18,9 +18,18 @@ Chest::Chest(int capacity, sf::Vector2f position) : SceneNode(
     /* onRender= */ [](
         SceneNode &node,
         sf::RenderWindow &window,
-        sf::Vector2f absolutePos
+        sf::Vector2f parentPos
     ) {
-        std::cout << "Chest rendered" << std::endl;
+        sf::Texture texture;
+        if (!texture.loadFromFile("data/base/graphics/entity/wooden-chest/wooden-chest.png"))
+        {
+            // Handle loading error
+            cout << "Failed to load texture" << endl;
+        }
+        sf::Sprite sprite(texture);
+        sprite.setPosition(parentPos + node.getPos());
+        window.draw(sprite);
+        cout << "Chest rendered" << endl;
     }
 ) {
     this->capacity = capacity;

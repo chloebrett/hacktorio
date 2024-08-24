@@ -14,13 +14,13 @@ Player::Player() : SceneNode(
     /* onRender= */ [](
         SceneNode &node,
         sf::RenderWindow &window,
-        sf::Vector2f absolutePos
+        sf::Vector2f parentPos
     ) {
         std::cout << "Player rendered" << std::endl;
-        // sf::RectangleShape playerRect(size);
-        // playerRect.setPosition(position);
-        // playerRect.setFillColor(sf::Color::Green);
-        // window.draw(playerRect);
+        sf::RectangleShape playerRect(node.getSize());
+        playerRect.setPosition(parentPos + node.getPos());
+        playerRect.setFillColor(sf::Color::Blue);
+        window.draw(playerRect);
     }
 ) {
 };

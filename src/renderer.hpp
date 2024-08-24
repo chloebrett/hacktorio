@@ -19,7 +19,6 @@ public:
                 Chest &chest,
              SceneNode &rootSceneNode,
              CursorState &cursorState);
-    void renderBackground();
     void renderScene();
     void renderGui(bool isInventoryOpen, int selectedInventoryItemIndex, int selectedOtherItemIndex, sf::Vector2i mousePosition);
     void render(bool isInventoryOpen, int selectedInventoryItemIndex, int selectedOtherItemIndex, sf::Vector2i mousePosition);
@@ -30,7 +29,6 @@ private:
     Environment &environment;
     Chest &chest;
     SceneNode &rootSceneNode;
-    sf::RectangleShape background;
     sf::RectangleShape playerRect;
     CursorState &cursorState;
 };

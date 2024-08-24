@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include "scene_node.hpp"
 #include <functional>
+#include <iostream>
 
 using namespace std;
 
@@ -78,13 +79,13 @@ void SceneNode::setVisible(bool visible) {
     this->visible = visible;
 }
 
-void SceneNode::render(sf::RenderWindow& window, sf::Vector2f absolutePos) {
+void SceneNode::render(sf::RenderWindow& window, sf::Vector2f parentPos) {
     if (visible) {
         if (onRender != nullptr) {
-            onRender(*this, window, absolutePos);
+            onRender(*this, window, parentPos + pos);
         }
         for (auto& child : children) {
-            child->render(window, absolutePos + pos);
+            child->render(window, parentPos + pos);
         }
     }
 }

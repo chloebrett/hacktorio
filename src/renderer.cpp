@@ -26,12 +26,6 @@ Renderer::Renderer(sf::RenderWindow &window,
       chest(chest), rootSceneNode(rootSceneNode), cursorState(cursorState) {
         sf::Vector2f SCREEN_SIZE = sf::Vector2f(SCREEN_WIDTH, SCREEN_HEIGHT);
         sf::Color blue = sf::Color(81.0f, 168.0f, 194.0f, 255.0f);
-
-        sf::RectangleShape playerRect;
-        playerRect.setSize(sf::Vector2f(1 * GRID_SIZE, 1 * GRID_SIZE));
-        playerRect.setPosition(2 * GRID_SIZE, 2 * GRID_SIZE);
-        playerRect.setFillColor(blue);
-        this->playerRect = playerRect;
 };
 
 std::map<ResourcePatchType, sf::Color> getResourcePatchColors()
@@ -43,19 +37,6 @@ std::map<ResourcePatchType, sf::Color> getResourcePatchColors()
     resourcePatchColors[ResourcePatchType::STONE] = sf::Color(145, 145, 108, 255);
     resourcePatchColors[ResourcePatchType::WOOD] = sf::Color(84, 64, 48, 255);
     return resourcePatchColors;
-}
-
-void drawChest(sf::RenderWindow &window, Chest &chest)
-{
-    sf::Texture texture;
-    if (!texture.loadFromFile("data/base/graphics/entity/wooden-chest/wooden-chest.png"))
-    {
-        // Handle loading error
-        cout << "Failed to load texture" << endl;
-    }
-    sf::Sprite sprite(texture);
-    sprite.setPosition(chest.getPos());
-    window.draw(sprite);
 }
 
 std::string inventoryItemTypeToString(InventoryItemType inventoryItemType)
@@ -261,7 +242,6 @@ void Renderer::render(bool isInventoryOpen, int selectedInventoryItemIndex, int 
 
     rootSceneNode.render(window, sf::Vector2f(0, 0));
 
-    // renderBackground();
     // renderScene();
     // renderGui(isInventoryOpen, selectedInventoryItemIndex, selectedOtherItemIndex, mousePosition);
     window.display();
@@ -282,8 +262,6 @@ void Renderer::renderScene()
             window.draw(resourcePatchRect);
         }
     }
-    playerRect.setPosition(player.getPos());
-    window.draw(playerRect);
 }
 
 void drawCursor(sf::RenderWindow &window, sf::Vector2i mousePosition)
@@ -301,7 +279,6 @@ void Renderer::renderGui(bool isInventoryOpen, int selectedInventoryItemIndex, i
     {
         drawInventory(window, player, selectedInventoryItemIndex);
     }
-    drawChest(window, chest);
     drawChestContentsIfNear(window, chest, player, selectedOtherItemIndex);
     drawCursor(window, mousePosition);
 }

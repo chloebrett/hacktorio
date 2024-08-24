@@ -17,7 +17,7 @@ ResourcePatch::ResourcePatch(sf::Vector2f position) : SceneNode(
     /* onRender= */ [](
         SceneNode &node,
         sf::RenderWindow &window,
-        sf::Vector2f absolutePos
+        sf::Vector2f parentPos
     ) {
         std::cout << "Resource patch rendered" << std::endl;
     }

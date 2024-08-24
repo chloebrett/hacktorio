@@ -32,7 +32,7 @@ void Game::start()
     unique_ptr<Environment> environment(new Environment());
     environment->initResourcePatches();
 
-    unique_ptr<Chest> chest(new Chest(10, sf::Vector2f(25 * GRID_SIZE, 2 * GRID_SIZE)));
+    unique_ptr<Chest> chest(new Chest(10, sf::Vector2f(2 * GRID_SIZE, 2 * GRID_SIZE)));
     chest->addItem(InventoryItemType::STONE_FURNACE, 2);
     chest->addItem(InventoryItemType::IRON_PLATE, 5);
 
@@ -40,11 +40,11 @@ void Game::start()
         sf::Vector2f(0.0f, 0.0f),
         sf::Vector2f(SCREEN_WIDTH, SCREEN_HEIGHT),
         /* onClick= */ nullptr,
-        /* onRender= */ [](SceneNode &node, sf::RenderWindow &window, sf::Vector2f absolutePos) {
+        /* onRender= */ [](SceneNode &node, sf::RenderWindow &window, sf::Vector2f parentPos) {
             sf::Color green = sf::Color(85.0f, 107.0f, 95.0f, 255.0f);
             sf::RectangleShape backgroundShape;
             backgroundShape.setSize(node.getSize());
-            backgroundShape.setPosition(absolutePos);
+            backgroundShape.setPosition(parentPos);
             backgroundShape.setFillColor(green);
             window.draw(backgroundShape);
         }
