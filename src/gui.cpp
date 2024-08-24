@@ -71,13 +71,14 @@ void Gui::setContainerInventoryGrid(InventoryGrid *containerInventoryGrid) {
 
 void Gui::startCraftingRecipe(Recipe *recipe) {
     cout << "Crafting recipe: " << recipe->getName() << endl;
-    cout << "Ingredients: " << endl;
+    cout << "Inputs: " << endl;
     GameResources &gameResources = GameResources::getInstance();
-    // for (ItemStack* input : recipe->getInputs()) {
-        // cout << "  " << (*input).getAmount() << "x " << gameResources.inventoryItemTypeToKey((*input).getType()) << endl;
-    // }
-    // for (ItemStack* output : recipe->getOutputs()) {
-        // cout << "  " << output->getAmount() << "x " << gameResources.inventoryItemTypeToKey(output->getType()) << endl;
-    // }
+    for (ItemStack* input : recipe->getInputs()) {
+        cout << "  " << input->getAmount() << " x " << gameResources.inventoryItemTypeToKey(input->getType()) << endl;
+    }
+    cout << "Outputs: " << endl;
+    for (ItemStack* output : recipe->getOutputs()) {
+        cout << "  " << output->getAmount() << " x " << gameResources.inventoryItemTypeToKey(output->getType()) << endl;
+    }
     cout << "Crafting time: " << recipe->getTime() << "s" << endl;
 }

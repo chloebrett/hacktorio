@@ -11,37 +11,33 @@
 using namespace std;
 
 RecipeConfiguration::RecipeConfiguration() {
-    vector<ItemStack*> woodenChestInputs = vector<ItemStack*>();
-    vector<ItemStack*> woodenChestOutputs = vector<ItemStack*>();
-    woodenChestInputs.push_back(new ItemStack(InventoryItemType::WOOD, 2));
-    woodenChestOutputs.push_back(new ItemStack(InventoryItemType::WOODEN_CHEST, 1));
-    Recipe* woodenChestRecipe = new Recipe("Wooden chest", woodenChestInputs, woodenChestOutputs, 0.5);
+    vector<ItemStack*>* woodenChestInputs = new vector<ItemStack*>();
+    vector<ItemStack*>* woodenChestOutputs = new vector<ItemStack*>();
+    ItemStack* woodStack = new ItemStack(InventoryItemType::WOOD, 2);
+    ItemStack* woodenChestStack = new ItemStack(InventoryItemType::IRON_PLATE, 1);
+    woodenChestInputs->push_back(woodStack);
+    woodenChestOutputs->push_back(woodenChestStack);
+    Recipe* woodenChestRecipe = new Recipe("Wooden chest", *woodenChestInputs, *woodenChestOutputs, 0.5);
     recipeMap[RecipePosition(RecipeTabType::LOGISTICS, 0, 0)] = woodenChestRecipe;
 
-    vector<ItemStack*> ironChestInputs = vector<ItemStack*>();
-    vector<ItemStack*> ironChestOutputs = vector<ItemStack*>();
-    ironChestInputs.push_back(new ItemStack(InventoryItemType::IRON_PLATE, 8));
-    ironChestOutputs.push_back(new ItemStack(InventoryItemType::IRON_CHEST, 1));
-    Recipe* ironChestRecipe = new Recipe("Iron chest", ironChestInputs, ironChestOutputs, 0.5);
+    vector<ItemStack*>* ironChestInputs = new vector<ItemStack*>();
+    vector<ItemStack*>* ironChestOutputs = new vector<ItemStack*>();
+    ItemStack* ironPlateStack = new ItemStack(InventoryItemType::IRON_PLATE, 8);
+    ItemStack* ironChestStack = new ItemStack(InventoryItemType::IRON_CHEST, 1);
+    ironChestInputs->push_back(ironPlateStack);
+    ironChestOutputs->push_back(ironChestStack);
+    Recipe* ironChestRecipe = new Recipe("Iron chest", *ironChestInputs, *ironChestOutputs, 0.5);
     recipeMap[RecipePosition(RecipeTabType::LOGISTICS, 0, 1)] = ironChestRecipe;
-    
-    vector<ItemStack*> transportBeltInputs = vector<ItemStack*>();
-    vector<ItemStack*> transportBeltOutputs = vector<ItemStack*>();
-    transportBeltInputs.push_back(new ItemStack(InventoryItemType::IRON_GEAR_WHEEL, 1));
-    transportBeltInputs.push_back(new ItemStack(InventoryItemType::IRON_PLATE, 1));
-    transportBeltOutputs.push_back(new ItemStack(InventoryItemType::TRANSPORT_BELT, 2));
-    Recipe* transportBeltRecipe = new Recipe("Transport belt", transportBeltInputs, transportBeltOutputs, 0.5);
-    recipeMap[RecipePosition(RecipeTabType::LOGISTICS, 1, 0)] = transportBeltRecipe;
 
-    // cout << "Defined recipe: " << transportBeltRecipe->getName() << endl;
-    // cout << "Ingredients: " << endl;
-    // for (ItemStack* input : transportBeltRecipe->getInputs()) {
-    //     cout << "  " << (*input).getAmount() << "x " << ((*input).getType() << endl;
-    // }
-    // for (ItemStack* output : transportBeltRecipe->getOutputs()) {
-    //     cout << "  " << output->getAmount() << "x " << gameResources.inventoryItemTypeToKey(output->getType()) << endl;
-    // }
-    // cout << "Crafting time: " << transportBeltRecipe->getTime() << "s" << endl;
+    vector<ItemStack*>* transportBeltInputs = new vector<ItemStack*>();
+    vector<ItemStack*>* transportBeltOutputs = new vector<ItemStack*>();
+    ItemStack* ironGearWheelStack = new ItemStack(InventoryItemType::IRON_GEAR_WHEEL, 1);
+    ItemStack* ironPlateStack2 = new ItemStack(InventoryItemType::IRON_PLATE, 1);
+    ItemStack* transportBeltStack = new ItemStack(InventoryItemType::TRANSPORT_BELT, 2);
+    transportBeltInputs->push_back(ironGearWheelStack);
+    transportBeltInputs->push_back(ironPlateStack2);
+    transportBeltOutputs->push_back(transportBeltStack);
+    Recipe* transportBeltRecipe = new Recipe("Transport belt", *transportBeltInputs, *transportBeltOutputs, 0.5);
 }
 
 Recipe* RecipeConfiguration::getRecipeAtPosition(RecipePosition &position) {
