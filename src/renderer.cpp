@@ -61,7 +61,7 @@ void drawChest(sf::RenderWindow &window, Chest &chest)
         cout << "Failed to load texture" << endl;
     }
     sf::Sprite sprite(texture);
-    sprite.setPosition(chest.getPosition());
+    sprite.setPosition(chest.getPos());
     window.draw(sprite);
 }
 
@@ -233,8 +233,8 @@ void drawChestContentsIfNear(sf::RenderWindow &window, Chest &chest, Player &pla
         std::cout << "Failed to load font" << std::endl;
     }
 
-    sf::Vector2f playerPosition = player.getPosition();
-    sf::Vector2f chestPosition = chest.getPosition();
+    sf::Vector2f playerPosition = player.getPos();
+    sf::Vector2f chestPosition = chest.getPos();
     sf::Vector2f diff = playerPosition - chestPosition;
     if (abs(diff.x) < 2 * GRID_SIZE && abs(diff.y) < 2 * GRID_SIZE)
     {
@@ -285,13 +285,13 @@ void Renderer::renderScene()
         {
             sf::RectangleShape resourcePatchRect;
             resourcePatchRect.setSize(sf::Vector2f(1 * GRID_SIZE, 1 * GRID_SIZE));
-            sf::Vector2f resourcePatchPosition = resourcePatch.getPosition();
+            sf::Vector2f resourcePatchPosition = resourcePatch.getPos();
             resourcePatchRect.setPosition(resourcePatchPosition);
             resourcePatchRect.setFillColor(resourcePatchColors[resourcePatch.getType()]);
             window.draw(resourcePatchRect);
         }
     }
-    playerRect.setPosition(player.getPosition());
+    playerRect.setPosition(player.getPos());
     window.draw(playerRect);
 }
 

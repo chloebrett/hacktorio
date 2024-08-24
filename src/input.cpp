@@ -110,12 +110,12 @@ void Input::handleOngoingEvents() {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
     {
         vector<ResourcePatch>& resourcePatches = environment.getResourcePatches();
-        sf::Vector2f playerPosition = player.getPosition();
+        sf::Vector2f playerPosition = player.getPos();
         std::cout << "playerPosition: " << playerPosition.x << ", " << playerPosition.y << std::endl;
         std::cout << "rps" << resourcePatches.size() << std::endl;
         for (ResourcePatch& resourcePatch : resourcePatches)
         {
-            sf::Vector2f resourcePatchPosition = resourcePatch.getPosition();
+            sf::Vector2f resourcePatchPosition = resourcePatch.getPos();
             sf::Vector2f diff = playerPosition - resourcePatchPosition;
             if (abs(diff.x) < 0.5 * GRID_SIZE && abs(diff.y) < 0.5 * GRID_SIZE)
             {
@@ -134,19 +134,19 @@ void Input::handleOngoingEvents() {
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
     {
-        player.setPosition(sf::Vector2f(player.getPosition().x, player.getPosition().y - player.getMoveSpeed()));
+        player.setPos(sf::Vector2f(player.getPos().x, player.getPos().y - player.getMoveSpeed()));
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
     {
-        player.setPosition(sf::Vector2f(player.getPosition().x, player.getPosition().y + player.getMoveSpeed()));
+        player.setPos(sf::Vector2f(player.getPos().x, player.getPos().y + player.getMoveSpeed()));
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
     {
-        player.setPosition(sf::Vector2f(player.getPosition().x - player.getMoveSpeed(), player.getPosition().y));
+        player.setPos(sf::Vector2f(player.getPos().x - player.getMoveSpeed(), player.getPos().y));
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
     {
-        player.setPosition(sf::Vector2f(player.getPosition().x + player.getMoveSpeed(), player.getPosition().y));
+        player.setPos(sf::Vector2f(player.getPos().x + player.getMoveSpeed(), player.getPos().y));
     }
 }
 

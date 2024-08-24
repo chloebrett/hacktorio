@@ -7,21 +7,21 @@
 using namespace std;
 
 SceneNode::SceneNode(
-    sf::Vector2f position,
+    sf::Vector2f pos,
     sf::Vector2f size,
     std::function<void()> onClick,
     std::function<void()> onRender
 ) {
-    this->position = position;
+    this->pos = pos;
     this->size = size;
     this->onClick = onClick;
     this->onRender = onRender;
     this->children = vector<SceneNode*>();
-    this->zIndex = 0;
+    this->z = 0;
 }
 
-sf::Vector2f SceneNode::getPosition() {
-    return position;
+sf::Vector2f SceneNode::getPos() {
+    return pos;
 }
 
 sf::Vector2f SceneNode::getSize() {
@@ -40,8 +40,8 @@ vector<SceneNode*> &SceneNode::getChildren() {
     return children;
 }
 
-void SceneNode::setPosition(sf::Vector2f position) {
-    this->position = position;
+void SceneNode::setPos(sf::Vector2f pos) {
+    this->pos = pos;
 }
 
 void SceneNode::setSize(sf::Vector2f size) {
@@ -68,4 +68,20 @@ void SceneNode::removeChild(SceneNode* child) {
     if (it != children.end()) {
         children.erase(it);
     }
+}
+
+int SceneNode::getZ() {
+    return z;
+}
+
+void SceneNode::setZ(int z) {
+    this->z = z;
+}
+
+bool SceneNode::isVisible() {
+    return visible;
+}
+
+void SceneNode::setVisible(bool visible) {
+    this->visible = visible;
 }
