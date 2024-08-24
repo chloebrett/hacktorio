@@ -17,6 +17,7 @@
 #include "cursor_state.hpp"
 #include "scene_node.hpp"
 #include "inventory_left.hpp"
+#include "inventory_right.hpp"
 
 using namespace std;
 
@@ -61,9 +62,13 @@ void Game::start()
 
     unique_ptr<Environment> environment(new Environment());
     environment->initResourcePatches(*root);
+
     unique_ptr<Inventory> inventory(new Inventory());
     unique_ptr<InventoryLeft> inventoryLeft(new InventoryLeft(*player));
+    unique_ptr<InventoryRight> inventoryRight(new InventoryRight(*chest));
     inventory.get()->addChild(inventoryLeft.get());
+    inventory.get()->addChild(inventoryRight.get());
+
     unique_ptr<Cursor> cursor(new Cursor());
 
     root->addChild(player.get());

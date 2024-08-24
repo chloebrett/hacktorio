@@ -24,25 +24,26 @@
 #include "item_stack.hpp"
 #include <vector>
 #include "cursor_state.hpp"
+#include "inventory_right.hpp"
 
-InventoryLeft::InventoryLeft(Player &player) : player(player), SceneNode(
+InventoryRight::InventoryRight(Chest &chest) : chest(chest), SceneNode(
     /* position= */ sf::Vector2f(0, 0),
     /* size= */ sf::Vector2f(GRID_SIZE, GRID_SIZE),
     /* onClick= */ []() {
-        std::cout << "Inventory left clicked" << std::endl;
+        std::cout << "Inventory right clicked" << std::endl;
     },
     /* onRender= */ [this](
         SceneNode &node,
         sf::RenderWindow &window,
         sf::Vector2f parentPos
     ) {
-        sf::RectangleShape leftRect;
-        leftRect.setSize(sf::Vector2f(INVENTORY_WIDTH, INVENTORY_HEIGHT));
-        leftRect.setPosition(INVENTORY_H_MARGIN + INVENTORY_PADDING, INVENTORY_V_MARGIN + INVENTORY_PADDING);
-        leftRect.setOutlineColor(sf::Color(40, 40, 40, 255));
-        leftRect.setOutlineThickness(2.0);
-        leftRect.setFillColor(sf::Color(80, 80, 80, 255));
+        sf::RectangleShape rightRect;
+        rightRect.setSize(sf::Vector2f(INVENTORY_WIDTH, INVENTORY_HEIGHT));
+        rightRect.setPosition(INVENTORY_H_MARGIN + INVENTORY_WIDTH + INVENTORY_PADDING * 2, INVENTORY_V_MARGIN + INVENTORY_PADDING);
+        rightRect.setOutlineColor(sf::Color(40, 40, 40, 255));
+        rightRect.setOutlineThickness(1.0);
+        rightRect.setFillColor(sf::Color(80, 80, 80, 255));
 
-        window.draw(leftRect);
+        window.draw(rightRect);
     }
 ) {}

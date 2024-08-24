@@ -40,14 +40,6 @@ Inventory::Inventory() : SceneNode(
         mainRect.setPosition(INVENTORY_H_MARGIN, INVENTORY_V_MARGIN);
         mainRect.setFillColor(sf::Color(120, 120, 120, 255));
 
-        sf::RectangleShape rightRect;
-        rightRect.setSize(sf::Vector2f(INVENTORY_WIDTH, INVENTORY_HEIGHT));
-        rightRect.setPosition(INVENTORY_H_MARGIN + INVENTORY_WIDTH + INVENTORY_PADDING * 2, INVENTORY_V_MARGIN + INVENTORY_PADDING);
-        rightRect.setOutlineColor(sf::Color(40, 40, 40, 255));
-        rightRect.setOutlineThickness(1.0);
-        rightRect.setFillColor(sf::Color(80, 80, 80, 255));
-
         window.draw(mainRect);
-        window.draw(rightRect);
     }
 ) {}
