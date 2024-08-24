@@ -41,8 +41,10 @@ void Game::start()
     sf::Time timePerFrame = sf::seconds(1.0f / FRAMES_PER_SECOND);
 
     unique_ptr<Player> player(new Player());
+    player->addItem(InventoryItemType::STONE, 1);
     player->addItem(InventoryItemType::STONE_FURNACE, 1);
-    player->addItem(InventoryItemType::WOOD, 5);
+    player->addItem(InventoryItemType::WOOD, 50);
+    player->addItem(InventoryItemType::IRON_PLATE, 10);
     player->updateItems();
 
     unique_ptr<SceneNode> background(new SceneNode(
@@ -115,7 +117,7 @@ void Game::start()
     root->addChild(researchPanel.get());
     root->addChild(escapeMenuPanel.get());
 
-    unique_ptr<Gui> gui(new Gui(*doubleInventoryGridPanel, *craftingPanel, *researchPanel, *escapeMenuPanel));
+    unique_ptr<Gui> gui(new Gui(*doubleInventoryGridPanel, *craftingPanel, *researchPanel, *escapeMenuPanel, *player));
 
     unique_ptr<Button> resumeButton(new Button(
             /* position= */ sf::Vector2f(ESCAPE_MENU_ITEM_PADDING, ESCAPE_MENU_ITEM_PADDING),

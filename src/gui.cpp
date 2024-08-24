@@ -12,11 +12,12 @@
 
 using namespace std;
 
-Gui::Gui(Panel &doubleInventoryGridPanel, Panel &craftingPanel, Panel &researchPanel, Panel &escapeMenuPanel) :
+Gui::Gui(Panel &doubleInventoryGridPanel, Panel &craftingPanel, Panel &researchPanel, Panel &escapeMenuPanel, Container &playerInventory) :
     doubleInventoryGridPanel(doubleInventoryGridPanel),
     craftingPanel(craftingPanel),
     researchPanel(researchPanel),
     escapeMenuPanel(escapeMenuPanel),
+    playerInventory(playerInventory),
     containerInventoryGrid(nullptr), targetContainer(nullptr) {}
 
 void Gui::closeOpenPanels() {
@@ -81,4 +82,21 @@ void Gui::startCraftingRecipe(Recipe *recipe) {
         cout << "  " << output->getAmount() << " x " << gameResources.inventoryItemTypeToKey(output->getType()) << endl;
     }
     cout << "Crafting time: " << recipe->getTime() << "s" << endl;
+
+    // Check if player has the required items
+    for (ItemStack* input : recipe->getInputs()) {
+        if (playerInventory.getItemCount(input->getType()) < input->getAmount()) {
+            cout << "Player does not have enough " << gameResources.inventoryItemTypeToKey(input->getType()) << " (had " << playerInventory.getItemCount(input->getType()) << ", needed " << input->getAmount() << ")" << endl;
+            return;
+        }
+    }
+
+    // Craft it! For now this is instant.
+    for (ItemStack* input : recipe->getInputs()) {
+        playerInventory.removeItem(input->getType(), input->getAmount());
+    }
+    for (ItemStack* output : recipe->getOutputs()) {
+        playerInventory.addItem(output->getType(), output->getAmount());
+    }
+    playerInventory.updateItems();
 }

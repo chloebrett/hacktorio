@@ -10,6 +10,7 @@
 #include <iostream>
 #include "recipe.hpp"
 #include "recipe_configuration.hpp"
+#include "game_resources.hpp"
 
 using namespace std;
 
@@ -34,11 +35,14 @@ RecipeGridSlot::RecipeGridSlot(
             std::cout << "No recipe found" << std::endl;
         }
     },
-    /* onRender= */ [this](
+    /* onRender= */ [this, &recipeConfiguration, &position](
         SceneNode &node,
         sf::RenderWindow &window,
         sf::Vector2f absolutePos
     ) {
+        // TODO: figure out why the normal visibility check isn't working
+        if (!isVisible()) return;
+
         sf::RectangleShape itemRect;
         itemRect.setPosition(absolutePos);
         itemRect.setSize(size);
@@ -46,6 +50,16 @@ RecipeGridSlot::RecipeGridSlot(
         itemRect.setOutlineColor(sf::Color(40, 40, 40, 255));
         itemRect.setOutlineThickness(1.0);
         window.draw(itemRect);
+
+        Recipe *recipe = recipeConfiguration.getRecipeAtPosition(position);
+        if (recipe == nullptr) {
+            return;
+        }
+        ItemStack *itemStack = recipe->getOutputs().front(); // first element of vector
+
+        sf::Sprite sprite = *GameResources::getInstance().getInventorySprite(itemStack->getType());
+        sprite.setPosition(absolutePos);
+        window.draw(sprite);
     }
 ) {}
 

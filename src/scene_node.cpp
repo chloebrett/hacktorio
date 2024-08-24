@@ -92,7 +92,7 @@ bool SceneNode::isVisible() {
 bool SceneNode::isTransitivelyVisible() {
     // Returns true if the node itself is directly visible, and at least one of its parents is transitively visible.
     // For the root node, there are no parents to check.
-    if (!visible) {
+    if (!isVisible()) {
         return false;
     }
     for (auto& parent : parents) {
@@ -108,7 +108,7 @@ void SceneNode::setVisible(bool visible) {
 }
 
 void SceneNode::render(sf::RenderWindow& window, sf::Vector2f parentPos) {
-    if (visible) {
+    if (isVisible()) {
         if (onRender != nullptr) {
             onRender(*this, window, parentPos + pos);
         }

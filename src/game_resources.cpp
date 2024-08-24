@@ -14,6 +14,22 @@ string GameResources::inventoryItemTypeToFilename(InventoryItemType inventoryIte
 {
     switch (static_cast<int>(inventoryItemType))
     {
+    case static_cast<int>(InventoryItemType::WOODEN_CHEST):
+        return "data/base/graphics/entity/wooden-chest/wooden-chest.png";
+    case static_cast<int>(InventoryItemType::IRON_CHEST):
+        return "data/base/graphics/icons/iron-chest.png";
+    case static_cast<int>(InventoryItemType::TRANSPORT_BELT):
+        return "data/base/graphics/icons/transport-belt.png";
+    case static_cast<int>(InventoryItemType::IRON_GEAR_WHEEL):
+        return "data/base/graphics/icons/iron-gear-wheel.png";
+    case static_cast<int>(InventoryItemType::ELECTRIC_MINING_DRILL):
+        return "data/base/graphics/icons/electric-mining-drill.png";
+    case static_cast<int>(InventoryItemType::BURNER_MINING_DRILL):
+        return "data/base/graphics/icons/burner-mining-drill.png";
+    case static_cast<int>(InventoryItemType::BOILER):
+        return "data/base/graphics/icons/boiler.png";
+    case static_cast<int>(InventoryItemType::STONE_FURNACE):
+        return "data/base/graphics/icons/stone-furnace.png";
     case static_cast<int>(InventoryItemType::IRON_ORE):
         return "data/base/graphics/icons/iron-ore.png";
     case static_cast<int>(InventoryItemType::COAL):
@@ -32,8 +48,6 @@ string GameResources::inventoryItemTypeToFilename(InventoryItemType inventoryIte
         return "data/base/graphics/icons/copper-plate.png";
     case static_cast<int>(InventoryItemType::STONE_BRICK):
         return "data/base/graphics/icons/stone-brick.png";
-    case static_cast<int>(InventoryItemType::STONE_FURNACE):
-        return "data/base/graphics/icons/stone-furnace.png";
     default:
         return "data/core/graphics/cancel.png";
     }
@@ -43,6 +57,12 @@ std::string GameResources::inventoryItemTypeToKey(InventoryItemType inventoryIte
 {
     switch (static_cast<int>(inventoryItemType))
     {
+    case static_cast<int>(InventoryItemType::WOODEN_CHEST):
+        return "wooden-chest";
+    case static_cast<int>(InventoryItemType::IRON_CHEST):
+        return "iron-chest";
+    case static_cast<int>(InventoryItemType::TRANSPORT_BELT):
+        return "transport-belt";
     case static_cast<int>(InventoryItemType::IRON_ORE):
         return "iron-ore";
     case static_cast<int>(InventoryItemType::COAL):
@@ -63,6 +83,8 @@ std::string GameResources::inventoryItemTypeToKey(InventoryItemType inventoryIte
         return "stone-brick";
     case static_cast<int>(InventoryItemType::STONE_FURNACE):
         return "stone-furnace";
+    case static_cast<int>(InventoryItemType::IRON_GEAR_WHEEL):
+        return "iron-gear-wheel";
     default:
         return "unknown";
     }
@@ -108,6 +130,15 @@ void GameResources::init() {
     loadInventorySprite(InventoryItemType::COPPER_PLATE);
     loadInventorySprite(InventoryItemType::STONE_BRICK);
     loadInventorySprite(InventoryItemType::STONE_FURNACE);
+    loadInventorySprite(InventoryItemType::WOODEN_CHEST);
+    loadInventorySprite(InventoryItemType::IRON_CHEST);
+    loadInventorySprite(InventoryItemType::TRANSPORT_BELT);
+    loadInventorySprite(InventoryItemType::IRON_GEAR_WHEEL);
+    loadInventorySprite(InventoryItemType::ELECTRIC_MINING_DRILL);
+    loadInventorySprite(InventoryItemType::BURNER_MINING_DRILL);
+    loadInventorySprite(InventoryItemType::BOILER);
+    loadInventorySprite(InventoryItemType::IRON_GEAR_WHEEL);
+
 }
 
 GameResources* instance = nullptr;
