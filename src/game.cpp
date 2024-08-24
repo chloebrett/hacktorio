@@ -17,6 +17,7 @@
 #include "cursor_state.hpp"
 #include "scene_node.hpp"
 #include "inventory_left.hpp"
+#include "spatial_index.hpp"
 #include "inventory_right.hpp"
 
 using namespace std;
@@ -79,8 +80,9 @@ void Game::start()
     unique_ptr<Renderer> renderer(
         new Renderer(window)
     );
+    unique_ptr<SpatialIndex> spatialIndex(new SpatialIndex());
     unique_ptr<Input> input(new Input(
-        window, *player, *chest, *environment, *cursorState
+        window, *player, *spatialIndex, *cursorState
     ));
 
     while (window.isOpen())
@@ -90,6 +92,7 @@ void Game::start()
         {
             timeSinceLastUpdate -= timePerFrame;
 
+            spatialIndex->refresh(*root);
             input->handleQueuedEvents();
             input->handleOngoingEvents();
         }

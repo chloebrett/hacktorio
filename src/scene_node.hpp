@@ -28,6 +28,7 @@ class SceneNode {
     bool isVisible();
     void setVisible(bool visible);
     void render(sf::RenderWindow &window, sf::Vector2f);
+    void click();
 
     protected:
     sf::Vector2f pos; // top-left, relative

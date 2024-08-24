@@ -89,3 +89,9 @@ void SceneNode::render(sf::RenderWindow& window, sf::Vector2f parentPos) {
         }
     }
 }
+
+void SceneNode::click() {
+    if (onClick != nullptr) {
+        onClick();
+    }
+}

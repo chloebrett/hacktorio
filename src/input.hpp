@@ -1,5 +1,6 @@
 #pragma once
 
+#include "spatial_index.hpp"
 #include "SFML/Graphics.hpp"
 #include <iostream>
 #include <memory>
@@ -16,8 +17,7 @@ class Input {
     Input(
         sf::RenderWindow &window,
         Player &player,
-        Chest &chest,
-        Environment &environment,
+        SpatialIndex &spatialIndex,
         CursorState &cursorState
     );
     void handleQueuedEvents();
@@ -30,8 +30,7 @@ class Input {
     private:
     sf::RenderWindow &window;
     Player &player;
-    Chest &chest;
-    Environment &environment;
+    SpatialIndex &spatialIndex;
     bool isInventoryOpen;
     int selectedInventoryItemIndex;
     int selectedOtherItemIndex;

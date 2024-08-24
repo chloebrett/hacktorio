@@ -6,16 +6,16 @@
 #include "environment.hpp"
 #include "resource_patch.hpp"
 #include "cursor_state.hpp"
+#include "spatial_index.hpp"
 
 using namespace std;
 
 Input::Input(
     sf::RenderWindow &window,
     Player &player,
-    Chest &chest,
-    Environment &environment,
+    SpatialIndex &spatialIndex,
     CursorState &cursorState
-) : window(window), player(player), chest(chest), environment(environment), cursorState(cursorState),
+) : window(window), player(player), spatialIndex(spatialIndex), cursorState(cursorState),
 isInventoryOpen(false),
 selectedInventoryItemIndex(0),
 selectedOtherItemIndex(0) {};
@@ -25,6 +25,16 @@ void Input::handleQueuedEvents() {
     while (window.pollEvent(event)) {
         if (event.type == sf::Event::Closed) {
             window.close();
+        }
+
+        if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
+        {
+            sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
+            vector<SceneNode*> nodes = spatialIndex.nodesAt(mousePosition);
+            for (SceneNode* node : nodes)
+            {
+                node->click();
+            }
         }
 
         if (event.type == sf::Event::KeyPressed)
@@ -50,46 +60,46 @@ void Input::handleQueuedEvents() {
             {
                 selectedOtherItemIndex++;
             }
-            if (event.key.code == sf::Keyboard::Right)
-            {
-                InventoryItemType itemType;
-                int i = 0;
-                for (auto& item : player.getContents()) {
-                    if ((selectedInventoryItemIndex % player.getContents().size()) == i) {
-                        itemType = item.first;
-                        break;
-                    }
-                    i++;
-                }
+            // if (event.key.code == sf::Keyboard::Right)
+            // {
+            //     InventoryItemType itemType;
+            //     int i = 0;
+            //     for (auto& item : player.getContents()) {
+            //         if ((selectedInventoryItemIndex % player.getContents().size()) == i) {
+            //             itemType = item.first;
+            //             break;
+            //         }
+            //         i++;
+            //     }
 
-                int count = player.getItemCount(itemType);
-                if (count > 0 && chest.getFreeSpace() > 0)
-                {
-                    std::cout << "Moving item from player to chest" << std::endl;
-                    std::cout << chest.getFreeSpace() << std::endl;
-                    player.removeItem(itemType, 1);
-                    chest.addItem(itemType, 1);
-                }
-            }
-            if (event.key.code == sf::Keyboard::Left)
-            {
-                InventoryItemType itemType;
-                int i = 0;
-                for (auto& item : chest.getContents()) {
-                    if ((selectedOtherItemIndex % chest.getContents().size()) == i) {
-                        itemType = item.first;
-                        break;
-                    }
-                    i++;
-                }
+            //     int count = player.getItemCount(itemType);
+            //     if (count > 0 && chest.getFreeSpace() > 0)
+            //     {
+            //         std::cout << "Moving item from player to chest" << std::endl;
+            //         std::cout << chest.getFreeSpace() << std::endl;
+            //         player.removeItem(itemType, 1);
+            //         chest.addItem(itemType, 1);
+            //     }
+            // }
+            // if (event.key.code == sf::Keyboard::Left)
+            // {
+            //     InventoryItemType itemType;
+            //     int i = 0;
+            //     for (auto& item : chest.getContents()) {
+            //         if ((selectedOtherItemIndex % chest.getContents().size()) == i) {
+            //             itemType = item.first;
+            //             break;
+            //         }
+            //         i++;
+            //     }
 
-                int count = chest.getItemCount(itemType);
-                if (count > 0)
-                {
-                    chest.removeItem(itemType, 1);
-                    player.addItem(itemType, 1);
-                }
-            }
+            //     int count = chest.getItemCount(itemType);
+            //     if (count > 0)
+            //     {
+            //         chest.removeItem(itemType, 1);
+            //         player.addItem(itemType, 1);
+            //     }
+            // }
         }
     }
 }
@@ -148,10 +158,4 @@ void Input::handleOngoingEvents() {
     {
         player.setPos(sf::Vector2f(player.getPos().x + player.getMoveSpeed(), player.getPos().y));
     }
-}
-
-
-sf::Vector2i Input::getMousePosition() {
-    sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
-    return sf::Vector2i(mousePosition.x, mousePosition.y);
 }
