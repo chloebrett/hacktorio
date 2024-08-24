@@ -9,6 +9,7 @@
 #include "environment.hpp"
 #include "resource_patch.hpp"
 #include "cursor.hpp"
+#include "gui.hpp"
 
 using namespace std;
 
@@ -18,21 +19,16 @@ class Input {
         sf::RenderWindow &window,
         Player &player,
         Cursor &cursor,
+        Gui &gui,
         SpatialIndex &spatialIndex
     );
     void handleQueuedEvents();
     void handleOngoingEvents();
-    bool getIsInventoryOpen();
-    int getSelectedInventoryItemIndex();
-    int getSelectedOtherItemIndex();
-    sf::Vector2i getMousePosition();
 
     private:
     sf::RenderWindow &window;
     Player &player;
     Cursor &cursor;
+    Gui &gui;
     SpatialIndex &spatialIndex;
-    bool isInventoryOpen;
-    int selectedInventoryItemIndex;
-    int selectedOtherItemIndex;
 };

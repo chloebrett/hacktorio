@@ -24,6 +24,7 @@
 #include "item_stack.hpp"
 #include <vector>
 #include "inventory_slot.hpp"
+#include "inventory_grid.hpp"
 
 std::string inventoryItemTypeToString(InventoryItemType inventoryItemType)
 {
@@ -54,15 +55,15 @@ std::string inventoryItemTypeToString(InventoryItemType inventoryItemType)
     }
 }
 
-InventorySlot::InventorySlot(int row, int column, int index, Container &container)
-    : row(row), column(column), index(index), container(container),
+InventorySlot::InventorySlot(int row, int column, int index, InventoryGrid &grid)
+    : row(row), column(column), index(index), grid(grid),
     SceneNode(
     /* position= */ sf::Vector2f(column * GRID_SIZE, row * GRID_SIZE),
     /* size= */ sf::Vector2f(GRID_SIZE, GRID_SIZE),
-    /* onClick= */ [row, column, index, &container](Cursor &cursor) {
+    /* onClick= */ [row, column, index, &grid](Cursor &cursor) {
         std::cout << "Inventory slot (" << column << "," << row << ") clicked" << std::endl;
 
-        vector<ItemStack>& containerItems = container.getItems();
+        vector<ItemStack>& containerItems = grid.getContainer()->getItems();
         ItemStack* cursorItemStack = cursor.getItemStack();
 
         if (index >= containerItems.size()) // empty slot
@@ -71,7 +72,7 @@ InventorySlot::InventorySlot(int row, int column, int index, Container &containe
                 return;
             }
 
-            container.addItem(cursorItemStack->getType(), cursorItemStack->getAmount());
+            grid.getContainer()->addItem(cursorItemStack->getType(), cursorItemStack->getAmount());
             cursor.setItemStack(nullptr);
         } else { // slot with items
             // Beware memory leaks, when we remove item from container, we need to delete it
@@ -81,15 +82,15 @@ InventorySlot::InventorySlot(int row, int column, int index, Container &containe
             cout << "Cursor item stack: " << (cursorItemStack == nullptr ? "null" : inventoryItemTypeToString(cursorItemStack->getType())) << endl;
 
             cursor.setItemStack(containerItemStackCopy);
-            container.removeItem(containerItemStackCopy->getType(), containerItemStackCopy->getAmount());
+            grid.getContainer()->removeItem(containerItemStackCopy->getType(), containerItemStackCopy->getAmount());
             if (cursorItemStack != nullptr) { // give to cursor
-                container.addItem(cursorItemStack->getType(), cursorItemStack->getAmount());
+                grid.getContainer()->addItem(cursorItemStack->getType(), cursorItemStack->getAmount());
             }
         }
 
-        container.updateItems();
+        grid.getContainer()->updateItems();
     },
-    /* onRender= */ [this, index, &container](
+    /* onRender= */ [this, index, &grid](
         SceneNode &node,
         sf::RenderWindow &window,
         sf::Vector2f absolutePos
@@ -102,7 +103,7 @@ InventorySlot::InventorySlot(int row, int column, int index, Container &containe
         itemRect.setOutlineThickness(1.0);
         window.draw(itemRect);
 
-        vector<ItemStack>& items = container.getItems();
+        vector<ItemStack>& items = grid.getContainer()->getItems();
         if (index >= items.size())
         {
             return;

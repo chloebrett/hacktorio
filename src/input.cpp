@@ -1,10 +1,10 @@
 #include "input.hpp"
 #include "player.hpp"
 #include "SFML/Graphics.hpp"
-#include "chest.hpp"
 #include "constants.hpp"
 #include "environment.hpp"
 #include "resource_patch.hpp"
+#include "gui.hpp"
 #include "spatial_index.hpp"
 
 using namespace std;
@@ -13,11 +13,9 @@ Input::Input(
     sf::RenderWindow &window,
     Player &player,
     Cursor &cursor,
+    Gui &gui,
     SpatialIndex &spatialIndex
-) : window(window), player(player), cursor(cursor), spatialIndex(spatialIndex),
-isInventoryOpen(false),
-selectedInventoryItemIndex(0),
-selectedOtherItemIndex(0) {};
+) : window(window), player(player), cursor(cursor), gui(gui), spatialIndex(spatialIndex) {};
 
 void Input::handleQueuedEvents() {
     sf::Event event;
@@ -36,83 +34,20 @@ void Input::handleQueuedEvents() {
             }
         }
 
-        if (event.type == sf::Event::KeyPressed)
-        {
-            if (event.key.code == sf::Keyboard::I)
-            {
-                isInventoryOpen = !isInventoryOpen;
+        if (event.type == sf::Event::KeyPressed) {
+            if (event.key.code == sf::Keyboard::E) {
+                gui.showCrafting();
+            } else if (event.key.code == sf::Keyboard::T) {
+                gui.showResearch();
+            } else if (event.key.code == sf::Keyboard::Escape) {
+                if (gui.isAnyPanelOpen()) {
+                    gui.closeOpenPanels();
+                } else {
+                    gui.showEscapeMenu();
+                }
             }
-
-            if (event.key.code == sf::Keyboard::Down)
-            {
-                selectedInventoryItemIndex++;
-            }
-            if (event.key.code == sf::Keyboard::Up)
-            {
-                selectedInventoryItemIndex--;
-            }
-            if (event.key.code == sf::Keyboard::U)
-            {
-                selectedOtherItemIndex--;
-            }
-            if (event.key.code == sf::Keyboard::J)
-            {
-                selectedOtherItemIndex++;
-            }
-            // if (event.key.code == sf::Keyboard::Right)
-            // {
-            //     InventoryItemType itemType;
-            //     int i = 0;
-            //     for (auto& item : player.getContents()) {
-            //         if ((selectedInventoryItemIndex % player.getContents().size()) == i) {
-            //             itemType = item.first;
-            //             break;
-            //         }
-            //         i++;
-            //     }
-
-            //     int count = player.getItemCount(itemType);
-            //     if (count > 0 && chest.getFreeSpace() > 0)
-            //     {
-            //         std::cout << "Moving item from player to chest" << std::endl;
-            //         std::cout << chest.getFreeSpace() << std::endl;
-            //         player.removeItem(itemType, 1);
-            //         chest.addItem(itemType, 1);
-            //     }
-            // }
-            // if (event.key.code == sf::Keyboard::Left)
-            // {
-            //     InventoryItemType itemType;
-            //     int i = 0;
-            //     for (auto& item : chest.getContents()) {
-            //         if ((selectedOtherItemIndex % chest.getContents().size()) == i) {
-            //             itemType = item.first;
-            //             break;
-            //         }
-            //         i++;
-            //     }
-
-            //     int count = chest.getItemCount(itemType);
-            //     if (count > 0)
-            //     {
-            //         chest.removeItem(itemType, 1);
-            //         player.addItem(itemType, 1);
-            //     }
-            // }
         }
     }
-}
-
-bool Input::getIsInventoryOpen() {
-    return isInventoryOpen;
-}
-
-int Input::getSelectedInventoryItemIndex() {
-    return selectedInventoryItemIndex;
-}
-
-int Input::getSelectedOtherItemIndex() {
-    return selectedOtherItemIndex;
 }
 
 void Input::handleOngoingEvents() {

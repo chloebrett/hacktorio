@@ -1,17 +1,15 @@
 #pragma once
 
-#include "container.hpp"
 #include "scene_node.hpp"
-#include "player.hpp"
-#include "chest.hpp"
+#include "inventory_grid.hpp"
 
 class InventorySlot : public SceneNode {
     public:
-    InventorySlot(int row, int column, int index, Container &container);
+    InventorySlot(int row, int column, int index, InventoryGrid &grid);
 
     private:
     int row;
     int column;
     int index;
-    Container &container;
+    InventoryGrid &grid;
 };

@@ -10,12 +10,14 @@
 #include <functional>
 #include <vector>
 #include "constants.hpp"
+#include "gui.hpp"
 
-Chest::Chest(int capacity, sf::Vector2f pos) : capacity(capacity), SceneNode(
+Chest::Chest(Gui &gui, int capacity, sf::Vector2f pos) : gui(gui), capacity(capacity), SceneNode(
     /* position= */ pos,
     /* size= */ sf::Vector2f(GRID_SIZE, GRID_SIZE),
-    /* onClick= */ [](Cursor &cursor) {
+    /* onClick= */ [this](Cursor &cursor) {
         std::cout << "Chest clicked" << std::endl;
+        this->gui.showPanelForContainer(this);
     },
     /* onRender= */ [this](
         SceneNode &node,

@@ -25,7 +25,7 @@
 #include <vector>
 #include "inventory_grid.hpp"
 
-InventoryGrid::InventoryGrid(sf::Vector2f pos) : SceneNode(
+InventoryGrid::InventoryGrid(sf::Vector2f pos, Container *container) : container(container), SceneNode(
     /* position= */ pos,
     /* size= */ sf::Vector2f(INVENTORY_WIDTH, INVENTORY_HEIGHT),
     /* onClick= */ [](Cursor &cursor) {
@@ -46,3 +46,11 @@ InventoryGrid::InventoryGrid(sf::Vector2f pos) : SceneNode(
         window.draw(rect);
     }
 ) {}
+
+void InventoryGrid::setContainer(Container *container) {
+    this->container = container;
+}
+
+Container *InventoryGrid::getContainer() {
+    return container;
+}

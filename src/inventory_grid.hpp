@@ -2,11 +2,14 @@
 
 #include "container.hpp"
 #include "scene_node.hpp"
-#include "player.hpp"
-#include "chest.hpp"
 #include <SFML/Graphics.hpp>
 
 class InventoryGrid : public SceneNode {
     public:
-    InventoryGrid(sf::Vector2f pos);
+    InventoryGrid(sf::Vector2f pos, Container *container);
+    void setContainer(Container *container);
+    Container *getContainer();
+
+    private:
+    Container *container;
 };

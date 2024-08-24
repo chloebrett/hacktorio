@@ -42,4 +42,6 @@ Inventory::Inventory() : SceneNode(
 
         window.draw(mainRect);
     }
-) {}
+) {
+    this->setVisible(false);
+}

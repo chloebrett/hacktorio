@@ -20,6 +20,7 @@
 #include "item_stack.hpp"
 #include "spatial_index.hpp"
 #include "inventory_grid.hpp"
+#include "gui.hpp"
 
 using namespace std;
 
@@ -37,11 +38,6 @@ void Game::start()
     player->addItem(InventoryItemType::STONE_FURNACE, 1);
     player->addItem(InventoryItemType::WOOD, 5);
     player->updateItems();
-
-    unique_ptr<Chest> chest(new Chest(10, sf::Vector2f(2 * GRID_SIZE, 2 * GRID_SIZE)));
-    chest->addItem(InventoryItemType::STONE_FURNACE, 2);
-    chest->addItem(InventoryItemType::IRON_PLATE, 5);
-    chest->updateItems();
 
     unique_ptr<SceneNode> background(new SceneNode(
         sf::Vector2f(0.0f, 0.0f),
@@ -69,8 +65,17 @@ void Game::start()
     environment->initResourcePatches(*root);
 
     unique_ptr<Inventory> inventory(new Inventory());
-    unique_ptr<InventoryGrid> inventoryLeft(new InventoryGrid(sf::Vector2f(INVENTORY_PADDING, INVENTORY_PADDING)));
-    unique_ptr<InventoryGrid> inventoryRight(new InventoryGrid(sf::Vector2f(INVENTORY_WIDTH + INVENTORY_PADDING * 2, INVENTORY_PADDING)));
+
+    unique_ptr<Gui> gui(new Gui(*inventory));
+
+    unique_ptr<Chest> chest(new Chest(*gui, 10, sf::Vector2f(2 * GRID_SIZE, 2 * GRID_SIZE)));
+    chest->addItem(InventoryItemType::STONE_FURNACE, 2);
+    chest->addItem(InventoryItemType::IRON_PLATE, 5);
+    chest->updateItems();
+    root->addChild(chest.get());
+
+    unique_ptr<InventoryGrid> inventoryLeft(new InventoryGrid(sf::Vector2f(INVENTORY_PADDING, INVENTORY_PADDING), player.get()));
+    unique_ptr<InventoryGrid> inventoryRight(new InventoryGrid(sf::Vector2f(INVENTORY_WIDTH + INVENTORY_PADDING * 2, INVENTORY_PADDING), chest.get() /* TODO: nullptr */));
     inventory.get()->addChild(inventoryLeft.get());
     inventory.get()->addChild(inventoryRight.get());
 
@@ -82,13 +87,12 @@ void Game::start()
         for (int column = 0; column < INVENTORY_WIDTH_CELLS; column++)
         {
             int index = row * INVENTORY_WIDTH_CELLS + column;
-            inventoryLeft.get()->addChild(new InventorySlot(row, column, index, *player));
-            inventoryRight.get()->addChild(new InventorySlot(row, column, index, *chest));
+            inventoryLeft.get()->addChild(new InventorySlot(row, column, index, *inventoryLeft));
+            inventoryRight.get()->addChild(new InventorySlot(row, column, index, *inventoryRight));
         }
     }
 
     root->addChild(player.get());
-    root->addChild(chest.get());
     root->addChild(inventory.get());
     root->addChild(cursorDisplay.get());
 
@@ -96,8 +100,9 @@ void Game::start()
         new Renderer(window)
     );
     unique_ptr<SpatialIndex> spatialIndex(new SpatialIndex());
+    gui->setContainerInventoryGrid(inventoryRight.get());
     unique_ptr<Input> input(new Input(
-        window, *player, *cursor, *spatialIndex
+        window, *player, *cursor, *gui, *spatialIndex
     ));
 
     while (window.isOpen())
