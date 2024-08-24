@@ -9,7 +9,7 @@
 #include <vector>
 #include "constants.hpp"
 
-Chest::Chest(int capacity, sf::Vector2f pos) : SceneNode(
+Chest::Chest(int capacity, sf::Vector2f pos) : capacity(capacity), SceneNode(
     /* position= */ pos,
     /* size= */ sf::Vector2f(GRID_SIZE, GRID_SIZE),
     /* onClick= */ []() {
@@ -30,9 +30,7 @@ Chest::Chest(int capacity, sf::Vector2f pos) : SceneNode(
         sprite.setPosition(parentPos + this->getPos());
         window.draw(sprite);
     }
-) {
-    this->capacity = capacity;
-}
+) {}
 
 int Chest::getCapacity() {
     return capacity;
