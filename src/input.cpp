@@ -109,27 +109,27 @@ int Input::getSelectedOtherItemIndex() {
 void Input::handleOngoingEvents() {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
     {
-        vector<ResourcePatch>& resourcePatches = environment.getResourcePatches();
-        sf::Vector2f playerPosition = player.getPos();
-        std::cout << "playerPosition: " << playerPosition.x << ", " << playerPosition.y << std::endl;
-        std::cout << "rps" << resourcePatches.size() << std::endl;
-        for (ResourcePatch& resourcePatch : resourcePatches)
-        {
-            sf::Vector2f resourcePatchPosition = resourcePatch.getPos();
-            sf::Vector2f diff = playerPosition - resourcePatchPosition;
-            if (abs(diff.x) < 0.5 * GRID_SIZE && abs(diff.y) < 0.5 * GRID_SIZE)
-            {
-                if (resourcePatch.getRemaining() > 0)
-                {
-                    bool didMine = resourcePatch.mine(player.getMiningSpeed() / FRAMES_PER_SECOND);
-                    std::cout << "Mined: " << didMine << std::endl;
-                    if (didMine)
-                    {
-                        player.addItem(resourcePatch.getInventoryItemType(), 1);
-                    }
-                }
-            }
-        }
+        // vector<ResourcePatch>& resourcePatches = environment.getResourcePatches();
+        // sf::Vector2f playerPosition = player.getPos();
+        // std::cout << "playerPosition: " << playerPosition.x << ", " << playerPosition.y << std::endl;
+        // std::cout << "rps" << resourcePatches.size() << std::endl;
+        // for (ResourcePatch& resourcePatch : resourcePatches)
+        // {
+        //     sf::Vector2f resourcePatchPosition = resourcePatch.getPos();
+        //     sf::Vector2f diff = playerPosition - resourcePatchPosition;
+        //     if (abs(diff.x) < 0.5 * GRID_SIZE && abs(diff.y) < 0.5 * GRID_SIZE)
+        //     {
+        //         if (resourcePatch.getRemaining() > 0)
+        //         {
+        //             bool didMine = resourcePatch.mine(player.getMiningSpeed() / FRAMES_PER_SECOND);
+        //             std::cout << "Mined: " << didMine << std::endl;
+        //             if (didMine)
+        //             {
+        //                 player.addItem(resourcePatch.getInventoryItemType(), 1);
+        //             }
+        //         }
+        //     }
+        // }
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))

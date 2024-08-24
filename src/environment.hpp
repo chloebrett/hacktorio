@@ -7,12 +7,11 @@ using namespace std;
 class Environment {
     public:
     Environment();
-    void initResourcePatches();
-    vector<ResourcePatch> &getResourcePatches();
+    void initResourcePatches(SceneNode& rootSceneNode);
 
     private:
-    vector<ResourcePatch> resourcePatches;
     void addPatches(
+        SceneNode& rootSceneNode,
         ResourcePatchType type,
         int xMin,
         int xMax,

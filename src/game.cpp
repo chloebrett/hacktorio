@@ -29,9 +29,6 @@ void Game::start()
     sf::Time timeSinceLastUpdate = sf::Time::Zero;
     sf::Time timePerFrame = sf::seconds(1.0f / FRAMES_PER_SECOND);
 
-    unique_ptr<Environment> environment(new Environment());
-    environment->initResourcePatches();
-
     unique_ptr<Chest> chest(new Chest(10, sf::Vector2f(2 * GRID_SIZE, 2 * GRID_SIZE)));
     chest->addItem(InventoryItemType::STONE_FURNACE, 2);
     chest->addItem(InventoryItemType::IRON_PLATE, 5);
@@ -58,14 +55,13 @@ void Game::start()
         /* onRender= */ nullptr
     ));
     root->addChild(background.get());
-    for (auto& patch : environment->getResourcePatches())
-    {
-        root->addChild(&patch);
-    }
     unique_ptr<ResourcePatch> patch(new ResourcePatch(sf::Vector2f(5 * GRID_SIZE, 5 * GRID_SIZE), ResourcePatchType::COPPER, 10));
     root->addChild(patch.get());
     root->addChild(player.get());
     root->addChild(chest.get());
+
+    unique_ptr<Environment> environment(new Environment());
+    environment->initResourcePatches(*root);
 
     unique_ptr<Renderer> renderer(
         new Renderer(window, *player, *environment, *chest, *root, *cursorState)
