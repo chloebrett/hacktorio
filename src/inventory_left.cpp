@@ -12,6 +12,7 @@
 #include "constants.hpp"
 #include "SFML/Graphics.hpp"
 #include "player.hpp"
+#include "cursor.hpp"
 #include "resource_patch.hpp"
 #include "inventory_left.hpp"
 #include "game.hpp"
@@ -23,12 +24,11 @@
 #include "chest.hpp"
 #include "item_stack.hpp"
 #include <vector>
-#include "cursor_state.hpp"
 
 InventoryLeft::InventoryLeft(Player &player) : player(player), SceneNode(
     /* position= */ sf::Vector2f(INVENTORY_PADDING, INVENTORY_PADDING),
     /* size= */ sf::Vector2f(INVENTORY_WIDTH, INVENTORY_HEIGHT),
-    /* onClick= */ []() {
+    /* onClick= */ [](Cursor &cursor) {
         std::cout << "Inventory left clicked" << std::endl;
     },
     /* onRender= */ [this](

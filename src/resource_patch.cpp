@@ -3,6 +3,7 @@
 #include "inventory_item_type.hpp"
 #include "scene_node.hpp"
 #include "SFML/Graphics.hpp"
+#include "cursor.hpp"
 #include "constants.hpp"
 
 #include <iostream>
@@ -24,7 +25,7 @@ std::map<ResourcePatchType, sf::Color> getResourcePatchColors()
 ResourcePatch::ResourcePatch(sf::Vector2f position, ResourcePatchType resourcePatchType, int remaining) : resourcePatchType(resourcePatchType), remaining(remaining), SceneNode(
     /* position= */ position,
     /* size= */ sf::Vector2f(1 * GRID_SIZE, 1 * GRID_SIZE),
-    /* onClick= */ []() {
+    /* onClick= */ [](Cursor &cursor) {
         std::cout << "Resource patch clicked" << std::endl;
     },
     /* onRender= */ [this](

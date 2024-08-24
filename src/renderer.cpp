@@ -12,7 +12,6 @@
 #include "chest.hpp"
 #include "item_stack.hpp"
 #include <vector>
-#include "cursor_state.hpp"
 
 Renderer::Renderer(sf::RenderWindow &window) : window(window) {}
 

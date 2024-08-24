@@ -5,7 +5,6 @@
 #include "constants.hpp"
 #include "environment.hpp"
 #include "resource_patch.hpp"
-#include "cursor_state.hpp"
 #include "spatial_index.hpp"
 
 using namespace std;
@@ -13,9 +12,9 @@ using namespace std;
 Input::Input(
     sf::RenderWindow &window,
     Player &player,
-    SpatialIndex &spatialIndex,
-    CursorState &cursorState
-) : window(window), player(player), spatialIndex(spatialIndex), cursorState(cursorState),
+    Cursor &cursor,
+    SpatialIndex &spatialIndex
+) : window(window), player(player), cursor(cursor), spatialIndex(spatialIndex),
 isInventoryOpen(false),
 selectedInventoryItemIndex(0),
 selectedOtherItemIndex(0) {};
@@ -33,7 +32,7 @@ void Input::handleQueuedEvents() {
             vector<SceneNode*> nodes = spatialIndex.nodesAt(mousePosition);
             for (SceneNode* node : nodes)
             {
-                node->click();
+                node->click(cursor);
             }
         }
 

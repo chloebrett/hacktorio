@@ -24,7 +24,6 @@
 #include "chest.hpp"
 #include "item_stack.hpp"
 #include <vector>
-#include "cursor_state.hpp"
 #include "inventory_slot.hpp"
 
 std::string inventoryItemTypeToString(InventoryItemType inventoryItemType)
@@ -56,11 +55,43 @@ std::string inventoryItemTypeToString(InventoryItemType inventoryItemType)
     }
 }
 
-InventorySlot::InventorySlot(int row, int column, int index, Container &container) : row(row), column(column), index(index), container(container), SceneNode(
+InventorySlot::InventorySlot(int row, int column, int index, Container &container)
+    : row(row), column(column), index(index), container(container),
+    SceneNode(
     /* position= */ sf::Vector2f(column * GRID_SIZE, row * GRID_SIZE),
     /* size= */ sf::Vector2f(GRID_SIZE, GRID_SIZE),
-    /* onClick= */ [row, column]() {
+    /* onClick= */ [row, column, index, &container](Cursor &cursor) {
         std::cout << "Inventory slot (" << column << "," << row << ") clicked" << std::endl;
+
+        vector<ItemStack>& containerItems = container.getItems();
+        ItemStack* cursorItemStack = cursor.getItemStack();
+
+        if (index >= containerItems.size()) // empty slot
+        {
+            if (cursorItemStack == nullptr) {
+                return;
+            }
+
+            container.addItem(cursorItemStack->getType(), cursorItemStack->getAmount());
+            cursor.setItemStack(nullptr);
+            container.updateItems();
+            return;
+        } else { // slot with items
+            ItemStack* itemStack = &containerItems[index];
+
+            if (cursorItemStack == nullptr) { // give to cursor
+                cursor.setItemStack(itemStack);
+                container.removeItem(itemStack->getType(), itemStack->getAmount());
+                container.updateItems();
+                return;
+            } else { // swap
+                ItemStack temp = *itemStack;
+                *itemStack = *cursorItemStack;
+                *cursorItemStack = temp;
+                container.updateItems();
+                return;
+            }
+        }
     },
     /* onRender= */ [this, index, &container](
         SceneNode &node,

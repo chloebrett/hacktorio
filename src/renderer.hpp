@@ -6,7 +6,6 @@
 #include <vector>
 #include "environment.hpp"
 #include "scene_node.hpp"
-#include "cursor_state.hpp"
 
 using namespace std;
 

@@ -3,12 +3,13 @@
 #include "scene_node.hpp"
 #include "SFML/Graphics.hpp"
 #include "constants.hpp"
+#include "cursor.hpp"
 #include <iostream>
 
 Player::Player() : SceneNode(
     /* pos= */ sf::Vector2f(0, 0),
     /* size= */ sf::Vector2f(GRID_SIZE, GRID_SIZE),
-    /* onClick= */ []() {
+    /* onClick= */ [](Cursor &cursor) {
         std::cout << "Player clicked" << std::endl;
     },
     /* onRender= */ [this](

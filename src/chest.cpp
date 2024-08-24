@@ -6,6 +6,7 @@
 #include "scene_node.hpp"
 #include "SFML/Graphics.hpp"
 #include "game_resources.hpp"
+#include "cursor.hpp"
 #include <functional>
 #include <vector>
 #include "constants.hpp"
@@ -13,7 +14,7 @@
 Chest::Chest(int capacity, sf::Vector2f pos) : capacity(capacity), SceneNode(
     /* position= */ pos,
     /* size= */ sf::Vector2f(GRID_SIZE, GRID_SIZE),
-    /* onClick= */ []() {
+    /* onClick= */ [](Cursor &cursor) {
         std::cout << "Chest clicked" << std::endl;
     },
     /* onRender= */ [this](

@@ -15,7 +15,6 @@
 #include "inventory_slot.hpp"
 #include "cursor.hpp"
 #include "environment.hpp"
-#include "cursor_state.hpp"
 #include "scene_node.hpp"
 #include "item_stack.hpp"
 #include "inventory_left.hpp"
@@ -58,7 +57,6 @@ void Game::start()
         }
     ));
 
-    unique_ptr<CursorState> cursorState(new CursorState());
     unique_ptr<SceneNode> root(new SceneNode(
         sf::Vector2f(0, 0),
         sf::Vector2f(SCREEN_WIDTH, SCREEN_HEIGHT),
@@ -76,6 +74,8 @@ void Game::start()
     inventory.get()->addChild(inventoryLeft.get());
     inventory.get()->addChild(inventoryRight.get());
 
+    unique_ptr<Cursor> cursor(new Cursor());
+
     for (int row = 0; row < INVENTORY_HEIGHT_CELLS; row++)
     {
         for (int column = 0; column < INVENTORY_WIDTH_CELLS; column++)
@@ -86,19 +86,16 @@ void Game::start()
         }
     }
 
-    unique_ptr<Cursor> cursor(new Cursor());
-
     root->addChild(player.get());
     root->addChild(chest.get());
     root->addChild(inventory.get());
-    root->addChild(cursor.get());
 
     unique_ptr<Renderer> renderer(
         new Renderer(window)
     );
     unique_ptr<SpatialIndex> spatialIndex(new SpatialIndex());
     unique_ptr<Input> input(new Input(
-        window, *player, *spatialIndex, *cursorState
+        window, *player, *cursor, *spatialIndex
     ));
 
     while (window.isOpen())

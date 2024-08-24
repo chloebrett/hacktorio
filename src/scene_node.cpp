@@ -10,7 +10,7 @@ using namespace std;
 SceneNode::SceneNode(
     sf::Vector2f pos,
     sf::Vector2f size,
-    std::function<void()> onClick,
+    std::function<void(Cursor&)> onClick,
     std::function<void(SceneNode&, sf::RenderWindow&, sf::Vector2f)> onRender
 ) {
     this->pos = pos;
@@ -29,10 +29,6 @@ sf::Vector2f SceneNode::getSize() {
     return size;
 }
 
-std::function<void()> SceneNode::getOnClick() {
-    return onClick;
-}
-
 vector<SceneNode*> &SceneNode::getChildren() {
     return children;
 }
@@ -45,7 +41,7 @@ void SceneNode::setSize(sf::Vector2f size) {
     this->size = size;
 }
 
-void SceneNode::setOnClick(std::function<void()> onClick) {
+void SceneNode::setOnClick(std::function<void(Cursor&)> onClick) {
     this->onClick = onClick;
 }
 
@@ -90,8 +86,8 @@ void SceneNode::render(sf::RenderWindow& window, sf::Vector2f parentPos) {
     }
 }
 
-void SceneNode::click() {
+void SceneNode::click(Cursor &cursor) {
     if (onClick != nullptr) {
-        onClick();
+        onClick(cursor);
     }
 }

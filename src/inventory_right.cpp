@@ -15,6 +15,7 @@
 #include "resource_patch.hpp"
 #include "inventory_left.hpp"
 #include "game.hpp"
+#include "cursor.hpp"
 #include "resource_patch.hpp"
 #include "inventory_item_type.hpp"
 #include "resource_patch_type.hpp"
@@ -23,13 +24,12 @@
 #include "chest.hpp"
 #include "item_stack.hpp"
 #include <vector>
-#include "cursor_state.hpp"
 #include "inventory_right.hpp"
 
 InventoryRight::InventoryRight(Chest &chest) : chest(chest), SceneNode(
     /* position= */ sf::Vector2f(INVENTORY_WIDTH + INVENTORY_PADDING * 2, INVENTORY_PADDING),
     /* size= */ sf::Vector2f(INVENTORY_WIDTH, INVENTORY_HEIGHT),
-    /* onClick= */ []() {
+    /* onClick= */ [](Cursor &cursor) {
         std::cout << "Inventory right clicked" << std::endl;
     },
     /* onRender= */ [this](

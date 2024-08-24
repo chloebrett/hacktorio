@@ -3,6 +3,7 @@
 #include "container.hpp"
 #include "inventory_item_type.hpp"
 #include "SFML/Graphics.hpp"
+#include "cursor.hpp"
 #include "scene_node.hpp"
 using namespace std;
 
