@@ -35,7 +35,7 @@ enum class InventoryItemType
     IRON_STICK,
     IRON_GEAR_WHEEL,
     ELECTRONIC_CIRCUIT,
-    RED_SCIENCE_PACK,
+    AUTOMATION_SCIENCE_PACK,
     // Combat
     PISTOL,
     FIREARM_MAGAZINE,

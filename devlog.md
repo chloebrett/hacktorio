@@ -1,3 +1,11 @@
+# 2024-08-25 Sun
+
+Got the crafting screen working, with instant crafts!
+
+![Screenshot](screenshots/2024-08-25.png)
+
+I also added all of the recipe types for starter-game items (i.e. things you don't need to research).
+
 # 2024-08-24 Sat
 
 Did a large overhaul of the UI, refactoring into a custom tree-based system with relative positions for each renderable element. This allows the rendering logic to exist in the classes that actually need to be rendered, with each node only concerned with its own rendering.

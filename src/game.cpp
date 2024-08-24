@@ -41,10 +41,13 @@ void Game::start()
     sf::Time timePerFrame = sf::seconds(1.0f / FRAMES_PER_SECOND);
 
     unique_ptr<Player> player(new Player());
-    player->addItem(InventoryItemType::STONE, 1);
+    player->addItem(InventoryItemType::STONE, 100);
     player->addItem(InventoryItemType::STONE_FURNACE, 1);
     player->addItem(InventoryItemType::WOOD, 50);
-    player->addItem(InventoryItemType::IRON_PLATE, 10);
+    player->addItem(InventoryItemType::IRON_PLATE, 100);
+    player->addItem(InventoryItemType::COPPER_PLATE, 100);
+    player->addItem(InventoryItemType::IRON_ORE, 100);
+    player->addItem(InventoryItemType::COPPER_ORE, 100);
     player->updateItems();
 
     unique_ptr<SceneNode> background(new SceneNode(
