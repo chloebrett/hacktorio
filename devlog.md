@@ -6,6 +6,12 @@ Also started supporting mouse actions, such as clicking on items to pick them up
 
 ![Screenshot](screenshots/2024-08-24.png)
 
+Next, I added a basic escape menu, and started working on the crafting panel:
+
+![Screenshot](screenshots/2024-08-24-escape-menu.png)
+
+![Screenshot](screenshots/2024-08-24-crafting-panel.png)
+
 # 2024-08-05 Mon
 
 Started rendering a basic grid inventory with item counts. Started factoring out a generalisation of items that will work for both rendering and interactivity - a "scene node" tree.
