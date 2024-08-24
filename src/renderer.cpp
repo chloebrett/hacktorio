@@ -14,76 +14,10 @@
 #include <vector>
 #include "cursor_state.hpp"
 
-Renderer::Renderer(sf::RenderWindow &window)
-    : window(window) {
-};
-
-std::string inventoryItemTypeToString(InventoryItemType inventoryItemType)
-{
-    switch (static_cast<int>(inventoryItemType))
-    {
-    case static_cast<int>(InventoryItemType::IRON_ORE):
-        return "Iron Ore";
-    case static_cast<int>(InventoryItemType::COAL):
-        return "Coal";
-    case static_cast<int>(InventoryItemType::COPPER_ORE):
-        return "Copper Ore";
-    case static_cast<int>(InventoryItemType::STONE):
-        return "Stone";
-    case static_cast<int>(InventoryItemType::WOOD):
-        return "Wood";
-    case static_cast<int>(InventoryItemType::IRON_PLATE):
-        return "Iron Plate";
-    case static_cast<int>(InventoryItemType::STEEL):
-        return "Steel";
-    case static_cast<int>(InventoryItemType::COPPER_PLATE):
-        return "Copper Plate";
-    case static_cast<int>(InventoryItemType::STONE_BRICK):
-        return "Stone Bricket";
-    case static_cast<int>(InventoryItemType::STONE_FURNACE):
-        return "Stone Furnace";
-    default:
-        return "Unknown";
-    }
-}
-
-std::string inventoryItemTypeToFilename(InventoryItemType inventoryItemType)
-{
-    switch (static_cast<int>(inventoryItemType))
-    {
-    case static_cast<int>(InventoryItemType::IRON_ORE):
-        return "data/base/graphics/icons/iron-ore.png";
-    case static_cast<int>(InventoryItemType::COAL):
-        return "data/base/graphics/icons/coal.png";
-    case static_cast<int>(InventoryItemType::COPPER_ORE):
-        return "data/base/graphics/icons/copper-ore.png";
-    case static_cast<int>(InventoryItemType::STONE):
-        return "data/base/graphics/icons/stone.png";
-    case static_cast<int>(InventoryItemType::WOOD):
-        return "data/base/graphics/icons/wood.png";
-    case static_cast<int>(InventoryItemType::IRON_PLATE):
-        return "data/base/graphics/icons/iron-plate.png";
-    case static_cast<int>(InventoryItemType::STEEL):
-        return "data/base/graphics/icons/steel.png";
-    case static_cast<int>(InventoryItemType::COPPER_PLATE):
-        return "data/base/graphics/icons/copper-plate.png";
-    case static_cast<int>(InventoryItemType::STONE_BRICK):
-        return "data/base/graphics/icons/stone-brick.png";
-    case static_cast<int>(InventoryItemType::STONE_FURNACE):
-        return "data/base/graphics/icons/stone-furnace.png";
-    default:
-        return "data/core/graphics/cancel.png";
-    }
-}
+Renderer::Renderer(sf::RenderWindow &window) : window(window) {}
 
 void drawInventory(sf::RenderWindow &window, Player &player, int selectedIndex)
 {
-    sf::Font font;
-    if (!font.loadFromFile("res/Inconsolata-Regular.ttf"))
-    {
-        std::cout << "Failed to load font" << std::endl;
-    }
-
     // Left inventory
     player.updateItems();
     vector<ItemStack>& items = player.getItems();
@@ -94,28 +28,6 @@ void drawInventory(sf::RenderWindow &window, Player &player, int selectedIndex)
         {
             int index = y * INVENTORY_WIDTH_CELLS + x;
             if (index < items.size()) {
-                InventoryItemType inventoryItemType = items[index].getType();
-                int count = items[index].getAmount();
-
-                sf::Texture texture;
-                if (!texture.loadFromFile(inventoryItemTypeToFilename(inventoryItemType)))
-                {
-                    // Handle loading error
-                    cout << "Failed to load texture" << endl;
-                }
-                sf::Sprite sprite(texture);
-                sprite.setTextureRect(sf::IntRect(64, 0, 32, 32));
-                sprite.setPosition(INVENTORY_H_MARGIN + INVENTORY_PADDING + x * GRID_SIZE, INVENTORY_V_MARGIN + INVENTORY_PADDING + y * GRID_SIZE);
-
-                window.draw(sprite);
-
-                sf::Text text;
-                text.setFont(font);
-                text.setString(to_string(count));
-                text.setCharacterSize(12);
-                text.setFillColor(sf::Color::White);
-                text.setPosition(INVENTORY_H_MARGIN + INVENTORY_PADDING + x * GRID_SIZE + 16, INVENTORY_V_MARGIN + INVENTORY_PADDING + y * GRID_SIZE + 16);
-                window.draw(text);
             }
         }
     }
@@ -134,14 +46,6 @@ void drawInventory(sf::RenderWindow &window, Player &player, int selectedIndex)
             window.draw(itemRect);
         }
     }
-
-    sf::Text text;
-    text.setFont(font);
-    text.setString("Hello, World!");
-    text.setCharacterSize(24);
-    text.setFillColor(sf::Color::White);
-    text.setPosition(10, 70);
-    window.draw(text);
 }
 
 void Renderer::render(SceneNode &rootSceneNode)

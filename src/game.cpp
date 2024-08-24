@@ -30,15 +30,19 @@ void Game::start()
 
     sf::RenderWindow window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Hacktorio");
 
-    unique_ptr<Player> player(new Player());
-
     sf::Clock clock;
     sf::Time timeSinceLastUpdate = sf::Time::Zero;
     sf::Time timePerFrame = sf::seconds(1.0f / FRAMES_PER_SECOND);
 
+    unique_ptr<Player> player(new Player());
+    player->addItem(InventoryItemType::STONE_FURNACE, 1);
+    player->addItem(InventoryItemType::WOOD, 5);
+    player->updateItems();
+
     unique_ptr<Chest> chest(new Chest(10, sf::Vector2f(2 * GRID_SIZE, 2 * GRID_SIZE)));
     chest->addItem(InventoryItemType::STONE_FURNACE, 2);
     chest->addItem(InventoryItemType::IRON_PLATE, 5);
+    chest->updateItems();
 
     unique_ptr<SceneNode> background(new SceneNode(
         sf::Vector2f(0.0f, 0.0f),
@@ -72,12 +76,25 @@ void Game::start()
     inventory.get()->addChild(inventoryLeft.get());
     inventory.get()->addChild(inventoryRight.get());
 
+    vector<ItemStack> playerItems = player->getItems();
+    vector<ItemStack> chestItems = chest->getItems();
     for (int row = 0; row < INVENTORY_HEIGHT_CELLS; row++)
     {
         for (int column = 0; column < INVENTORY_WIDTH_CELLS; column++)
         {
-            inventoryLeft.get()->addChild(new InventorySlot(row, column, new ItemStack(InventoryItemType::IRON_PLATE, 1)));
-            inventoryRight.get()->addChild(new InventorySlot(row, column, nullptr));
+            int index = row * INVENTORY_WIDTH_CELLS + column;
+
+            if (index < playerItems.size()) {
+                inventoryLeft.get()->addChild(new InventorySlot(row, column, &playerItems[index]));
+            } else {
+                inventoryLeft.get()->addChild(new InventorySlot(row, column, nullptr));
+            }
+
+            if (index < chestItems.size()) {
+                inventoryRight.get()->addChild(new InventorySlot(row, column, &chestItems[index]));
+            } else {
+                inventoryRight.get()->addChild(new InventorySlot(row, column, nullptr));
+            }
         }
     }
 
