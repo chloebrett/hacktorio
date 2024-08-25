@@ -6,6 +6,7 @@
 #include "../recipe.hpp"
 #include "../timer.hpp"
 #include "../crafting_queue.hpp"
+#include "../entity.hpp"
 
 /**
  * Wrappers for Gui functionality, mainly showing/hiding panels.
@@ -19,7 +20,7 @@ class Gui {
     void showResearch();
     void showEscapeMenu();
     void showPanelForContainer(Container *container);
-    void showPanelForInteractable(); // TODO: implement interactable (e.g. mining drill)
+    void showPanelForEntity(Entity *entity);
     void setContainerInventoryGrid(InventoryGrid *containerInventoryGrid);
     bool isAnyPanelOpen();
     void startCraftingRecipe(Recipe *recipe);

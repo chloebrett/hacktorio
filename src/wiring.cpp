@@ -75,6 +75,17 @@ void Wiring::initUi(SceneNode *root, Player *player) {
         /* visible= */ false
         );
 
+    // Panel for interacting with an entity, e.g. mining drill.
+    entityPanel = new Panel(
+        /* position= */ sf::Vector2f(INVENTORY_H_MARGIN, INVENTORY_V_MARGIN),
+        /* size= */ sf::Vector2f(
+            INVENTORY_WIDTH * 2 + INVENTORY_PADDING * 3,
+            INVENTORY_HEIGHT + INVENTORY_PADDING * 2
+        ),
+        /* fillColor= */ sf::Color(120, 120, 120, 255),
+        /* visible= */ false
+        );
+
     // Panel for showing the crafting screen.
     craftingPanel = new Panel(
         /* position= */ sf::Vector2f(INVENTORY_H_MARGIN, INVENTORY_V_MARGIN),
@@ -119,6 +130,7 @@ void Wiring::initUi(SceneNode *root, Player *player) {
 
     root->addChild(doubleInventoryGridPanel);
     root->addChild(craftingPanel);
+    root->addChild(entityPanel);
     root->addChild(researchPanel);
     root->addChild(escapeMenuPanel);
 
@@ -152,9 +164,18 @@ void Wiring::initUi(SceneNode *root, Player *player) {
     inventoryRight = new InventoryGrid(
         sf::Vector2f(INVENTORY_WIDTH + INVENTORY_PADDING * 2, INVENTORY_PADDING),
         /* initially null until player suggests a chest, etc. */ nullptr);
+
     doubleInventoryGridPanel->addChild(inventoryLeft);
     doubleInventoryGridPanel->addChild(inventoryRight);
     craftingPanel->addChild(inventoryLeft);
+    entityPanel->addChild(inventoryLeft);
+
+    // TODO: customize this to display differently for drills, furnaces, etc compared to how it
+    // displays for chests.
+    entityRight = new InventoryGrid(
+        sf::Vector2f(INVENTORY_WIDTH + INVENTORY_PADDING * 2, INVENTORY_PADDING),
+        /* initially null until player suggests a mining drill, etc. */ nullptr);
+    entityPanel->addChild(entityRight);
 
     cursor = new Cursor();
     CursorDisplay* cursorDisplay = new CursorDisplay(*cursor);
@@ -167,6 +188,14 @@ void Wiring::initUi(SceneNode *root, Player *player) {
             int index = row * INVENTORY_WIDTH_CELLS + column;
             inventoryLeft->addChild(new InventorySlot(row, column, index, *inventoryLeft));
             inventoryRight->addChild(new InventorySlot(row, column, index, *inventoryRight));
+
+            // First row: fuel.
+            // Second row: inputs.
+            // Third row: outputs.
+            // TODO: make the container implement this.
+            if (row < 3) {
+                entityRight->addChild(new InventorySlot(row, column, index, *entityRight));
+            }
         }
     }
 

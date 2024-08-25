@@ -21,7 +21,7 @@ class GameResources {
     sf::Font* getFont(string key) { return fonts[key]; }
     sf::Sprite* getSprite(string key) { return sprites[key]; }
     sf::Sprite* getInventorySprite(InventoryItemType inventoryItemType) { return sprites[inventoryItemTypeToKey(inventoryItemType)]; }
-    sf::Sprite* getEntitySprite(EntityType entityType) { return sprites[entityTypeToFilename(entityType)]; }
+    sf::Sprite* getEntitySprite(EntityType entityType) { return sprites[entityTypeToKey(entityType)]; }
     sf::Color* getColor(string key) { return colors[key]; }
 
     private:

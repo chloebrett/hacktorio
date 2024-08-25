@@ -22,6 +22,7 @@ class Wiring {
     Player* player;
     Panel *doubleInventoryGridPanel;
     Panel *craftingPanel;
+    Panel *entityPanel;
     Panel *researchPanel;
     Panel *escapeMenuPanel;
     Gui *gui;
@@ -31,6 +32,7 @@ class Wiring {
     RecipePanel *recipePanel;
     InventoryGrid *inventoryLeft;
     InventoryGrid *inventoryRight;
+    InventoryGrid *entityRight;
     Timer *timer;
 
     void initUi(SceneNode* root, Player* player);

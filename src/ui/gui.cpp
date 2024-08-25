@@ -68,7 +68,7 @@ void Gui::showPanelForContainer(Container *container) {
     containerInventoryGrid->setContainer(container);
 }
 
-void Gui::showPanelForInteractable() {
+void Gui::showPanelForEntity(Entity *entity) {
     // TODO
 }
 

@@ -8,6 +8,7 @@
 #include <iostream>
 #include "ui/gui.hpp"
 #include "wooden_chest.hpp"
+#include "stone_furnace.hpp"
 
 using namespace std;
 
@@ -21,6 +22,9 @@ bool EntityPlacementManager::tryPlaceEntity(InventoryItemType inventoryItemType,
             return true;
         case InventoryItemType::ELECTRIC_MINING_DRILL:
             rootSceneNode.addChild(new ElectricMiningDrill(position));
+            return true;
+        case InventoryItemType::STONE_FURNACE:
+            rootSceneNode.addChild(new StoneFurnace(gui, position));
             return true;
         default:
             return false;

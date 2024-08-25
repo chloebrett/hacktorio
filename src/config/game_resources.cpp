@@ -353,8 +353,26 @@ void GameResources::init() {
     loadInventorySprite(InventoryItemType::FIREARM_MAGAZINE);
     loadInventorySprite(InventoryItemType::LIGHT_ARMOR);
     loadInventorySprite(InventoryItemType::RADAR);
+
     loadEntitySprite(EntityType::WOODEN_CHEST);
+    loadEntitySprite(EntityType::IRON_CHEST);
+    loadEntitySprite(EntityType::TRANSPORT_BELT);
+    loadEntitySprite(EntityType::BURNER_INSERTER);
+    loadEntitySprite(EntityType::INSERTER);
+    loadEntitySprite(EntityType::SMALL_ELECTRIC_POLE);
+    loadEntitySprite(EntityType::PIPE);
+    loadEntitySprite(EntityType::PIPE_TO_GROUND);
+    loadEntitySprite(EntityType::STONE_BRICK);
+    loadEntitySprite(EntityType::BOILER);
+    loadEntitySprite(EntityType::STEAM_ENGINE);
+    loadEntitySprite(EntityType::BURNER_MINING_DRILL);
     loadEntitySprite(EntityType::ELECTRIC_MINING_DRILL);
+    loadEntitySprite(EntityType::STONE_FURNACE);
+    loadEntitySprite(EntityType::OFFSHORE_PUMP);
+    loadEntitySprite(EntityType::BOILER);
+    loadEntitySprite(EntityType::STEAM_ENGINE);
+    loadEntitySprite(EntityType::LAB);
+    loadEntitySprite(EntityType::RADAR);
 }
 
 GameResources* instance = nullptr;
