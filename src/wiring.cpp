@@ -50,19 +50,6 @@ Wiring::Wiring(sf::RenderWindow &window) : window(window) {
     player = new Player();
 
     root->addChild(background);
-
-    EntityPlacementManager* entityPlacementManager = new EntityPlacementManager(*root);
-
-    for (int y = 0; y < SCREEN_HEIGHT_CELLS; y++) {
-        for (int x = 0; x < SCREEN_WIDTH_CELLS; x++) {
-            EmptySpace* emptySpace(
-                new EmptySpace(sf::Vector2f(x * GRID_SIZE, y * GRID_SIZE), *entityPlacementManager));
-            // TODO: make a vector of empty spaces so that all the things
-            // added to root can be done at the same time.
-            root->addChild(emptySpace);
-        }
-    }
-
     root->addChild(player);
 
     Environment* environment = new Environment();
@@ -112,12 +99,24 @@ void Wiring::initUi(SceneNode *root, Player *player) {
         /* visible= */ false
         );
 
+    Gui* gui = new Gui(*doubleInventoryGridPanel, *craftingPanel, *researchPanel, *escapeMenuPanel, *player);
+    EntityPlacementManager* entityPlacementManager = new EntityPlacementManager(*root, *gui);
+
+    for (int y = 0; y < SCREEN_HEIGHT_CELLS; y++) {
+        for (int x = 0; x < SCREEN_WIDTH_CELLS; x++) {
+            EmptySpace* emptySpace(
+                new EmptySpace(sf::Vector2f(x * GRID_SIZE, y * GRID_SIZE), *entityPlacementManager));
+            // TODO: make a vector of empty spaces so that all the things
+            // added to root can be done at the same time.
+            root->addChild(emptySpace);
+        }
+    }
+
     root->addChild(doubleInventoryGridPanel);
     root->addChild(craftingPanel);
     root->addChild(researchPanel);
     root->addChild(escapeMenuPanel);
 
-    Gui* gui = new Gui(*doubleInventoryGridPanel, *craftingPanel, *researchPanel, *escapeMenuPanel, *player);
     this->gui = gui;
     resumeButton = new Button(
             /* position= */ sf::Vector2f(ESCAPE_MENU_ITEM_PADDING, ESCAPE_MENU_ITEM_PADDING),

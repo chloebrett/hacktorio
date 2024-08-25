@@ -161,7 +161,42 @@ std::string GameResources::entityTypeToFilename(EntityType entityType) {
 }
 
 std::string GameResources::entityTypeToKey(EntityType entityType) {
-    return "entity-electric-mining-drill"; // TODO: Implement for other entities
+    switch (static_cast<int>(entityType)) {
+        case static_cast<int>(EntityType::WOODEN_CHEST):
+            return "entity-wooden-chest";
+        case static_cast<int>(EntityType::IRON_CHEST):
+            return "entity-iron-chest";
+        case static_cast<int>(EntityType::TRANSPORT_BELT):
+            return "entity-transport-belt";
+        case static_cast<int>(EntityType::BURNER_INSERTER):
+            return "entity-burner-inserter";
+        case static_cast<int>(EntityType::INSERTER):
+            return "entity-inserter";
+        case static_cast<int>(EntityType::SMALL_ELECTRIC_POLE):
+            return "entity-small-electric-pole";
+        case static_cast<int>(EntityType::PIPE):
+            return "entity-pipe";
+        case static_cast<int>(EntityType::PIPE_TO_GROUND):
+            return "entity-pipe-to-ground";
+        case static_cast<int>(EntityType::STONE_BRICK):
+            return "entity-stone-brick";
+        case static_cast<int>(EntityType::BOILER):
+            return "entity-boiler";
+        case static_cast<int>(EntityType::STEAM_ENGINE):
+            return "entity-steam-engine";
+        case static_cast<int>(EntityType::BURNER_MINING_DRILL):
+            return "entity-burner-mining-drill";
+        case static_cast<int>(EntityType::ELECTRIC_MINING_DRILL):
+            return "entity-electric-mining-drill";
+        case static_cast<int>(EntityType::OFFSHORE_PUMP):
+            return "entity-offshore-pump";
+        case static_cast<int>(EntityType::STONE_FURNACE):
+            return "entity-stone-furnace";
+        case static_cast<int>(EntityType::LAB):
+            return "entity-lab";
+        case static_cast<int>(EntityType::RADAR):
+            return "entity-radar";
+    }
 }
 
 std::string GameResources::inventoryItemTypeToKey(InventoryItemType inventoryItemType)
