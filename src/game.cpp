@@ -31,6 +31,7 @@
 #include "entity_placement_manager.hpp"
 #include "entity_manager.hpp"
 #include "empty_space.hpp"
+#include "wiring.hpp"
 
 using namespace std;
 
@@ -54,27 +55,9 @@ void Game::start()
     player->addItem(InventoryItemType::COPPER_ORE, 100);
     player->updateItems();
 
-    unique_ptr<SceneNode> background(new SceneNode(
-        sf::Vector2f(0.0f, 0.0f),
-        sf::Vector2f(SCREEN_WIDTH, SCREEN_HEIGHT),
-        /* onClick= */ nullptr,
-        /* onRender= */ [](SceneNode &node, sf::RenderWindow &window, sf::Vector2f parentPos) {
-            sf::Color green = sf::Color(85.0f, 107.0f, 95.0f, 255.0f);
-            sf::RectangleShape backgroundShape;
-            backgroundShape.setSize(node.getSize());
-            backgroundShape.setPosition(parentPos);
-            backgroundShape.setFillColor(green);
-            window.draw(backgroundShape);
-        }
-    ));
-
-    unique_ptr<SceneNode> root(new SceneNode(
-        sf::Vector2f(0, 0),
-        sf::Vector2f(SCREEN_WIDTH, SCREEN_HEIGHT),
-        /* onClick= */ nullptr,
-        /* onRender= */ nullptr
-    ));
-    root->addChild(background.get());
+    Wiring* wiring = new Wiring();
+    SceneNode* root = wiring->getRoot();
+    SceneNode* background = wiring->getBackground();
 
     unique_ptr<EntityPlacementManager> entityPlacementManager(new EntityPlacementManager(*root));
 
