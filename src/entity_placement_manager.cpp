@@ -7,7 +7,7 @@
 #include "config/inventory_item_type.hpp"
 #include <iostream>
 #include "ui/gui.hpp"
-#include "chest.hpp"
+#include "wooden_chest.hpp"
 
 using namespace std;
 
@@ -17,7 +17,7 @@ EntityPlacementManager::EntityPlacementManager(SceneNode &rootSceneNode, Gui &gu
 bool EntityPlacementManager::tryPlaceEntity(InventoryItemType inventoryItemType, sf::Vector2f position) {
     switch (inventoryItemType) {
         case InventoryItemType::WOODEN_CHEST:
-            rootSceneNode.addChild(new Chest(gui, /* capacity= */ 10, position));
+            rootSceneNode.addChild(new WoodenChest(gui, /* capacity= */ 10, position));
             return true;
         case InventoryItemType::ELECTRIC_MINING_DRILL:
             rootSceneNode.addChild(new ElectricMiningDrill(position));

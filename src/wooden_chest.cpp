@@ -2,8 +2,8 @@
 
 #include <iostream>
 #include "container.hpp"
-#include "chest.hpp"
-#include "scene_node.hpp"
+#include "wooden_chest.hpp"
+#include "entity.hpp"
 #include "SFML/Graphics.hpp"
 #include "config/game_resources.hpp"
 #include "cursor.hpp"
@@ -12,7 +12,7 @@
 #include "config/constants.hpp"
 #include "ui/gui.hpp"
 
-Chest::Chest(Gui &gui, int capacity, sf::Vector2f pos) : gui(gui), capacity(capacity), SceneNode(
+WoodenChest::WoodenChest(Gui &gui, int capacity, sf::Vector2f pos) : gui(gui), capacity(capacity), Entity(
     /* position= */ pos,
     /* size= */ sf::Vector2f(GRID_SIZE, GRID_SIZE),
     /* onClick= */ [this](Cursor &cursor) {
@@ -30,10 +30,10 @@ Chest::Chest(Gui &gui, int capacity, sf::Vector2f pos) : gui(gui), capacity(capa
     }
 ) {}
 
-int Chest::getCapacity() {
+int WoodenChest::getCapacity() {
     return capacity;
 }
 
-int Chest::getFreeSpace() {
+int WoodenChest::getFreeSpace() {
     return capacity - getTotalItemCount();
 }

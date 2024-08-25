@@ -19,7 +19,7 @@
 #include "../config/resource_patch_type.hpp"
 #include <iostream>
 #include <memory>
-#include "../chest.hpp"
+#include "../wooden_chest.hpp"
 #include "../item_stack.hpp"
 #include <vector>
 #include "inventory_slot.hpp"

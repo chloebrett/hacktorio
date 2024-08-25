@@ -8,7 +8,7 @@
 
 ElectricMiningDrill::ElectricMiningDrill(
     sf::Vector2f pos
-) : SceneNode(
+) : Entity(
     /* position= */ pos,
     /* size= */ sf::Vector2f(3 * GRID_SIZE, 3 * GRID_SIZE),
     /* onClick= */ nullptr,

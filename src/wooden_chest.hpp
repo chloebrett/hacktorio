@@ -3,10 +3,11 @@
 #include "container.hpp"
 #include "scene_node.hpp"
 #include "ui/gui.hpp"
+#include "entity.hpp"
 
-class Chest : public SceneNode, public Container {
+class WoodenChest : public Entity, public Container {
     public:
-    Chest(Gui &gui, int capacity, sf::Vector2f position);
+    WoodenChest(Gui &gui, int capacity, sf::Vector2f position);
     int getCapacity();
     int getFreeSpace();
 

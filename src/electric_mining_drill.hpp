@@ -1,10 +1,10 @@
 #pragma once
 
 #include "container.hpp"
-#include "scene_node.hpp"
+#include "entity.hpp"
 #include <SFML/Graphics.hpp>
 
-class ElectricMiningDrill : public SceneNode {
+class ElectricMiningDrill : public Entity {
     public:
     ElectricMiningDrill(sf::Vector2f pos);
 };

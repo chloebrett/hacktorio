@@ -2,7 +2,7 @@
 #include "SFML/Graphics.hpp"
 #include "player.hpp"
 #include "resource_patch.hpp"
-#include "chest.hpp"
+#include "wooden_chest.hpp"
 #include <vector>
 #include "environment.hpp"
 #include "scene_node.hpp"

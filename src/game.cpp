@@ -8,7 +8,7 @@
 #include <iostream>
 #include <memory>
 #include "renderer.hpp"
-#include "chest.hpp"
+#include "wooden_chest.hpp"
 #include <vector>
 #include "input.hpp"
 #include "ui/panel.hpp"
@@ -68,11 +68,11 @@ void Game::start()
     player->addItem(InventoryItemType::COPPER_ORE, 100);
     player->updateItems();
 
-    Chest* chest = new Chest(*gui, 10, sf::Vector2f(2 * GRID_SIZE, 2 * GRID_SIZE));
-    chest->addItem(InventoryItemType::STONE_FURNACE, 2);
-    chest->addItem(InventoryItemType::IRON_PLATE, 5);
-    chest->updateItems();
-    root->addChild(chest);
+    WoodenChest* woodenChest = new WoodenChest(*gui, 10, sf::Vector2f(2 * GRID_SIZE, 2 * GRID_SIZE));
+    woodenChest->addItem(InventoryItemType::STONE_FURNACE, 2);
+    woodenChest->addItem(InventoryItemType::IRON_PLATE, 5);
+    woodenChest->updateItems();
+    root->addChild(woodenChest);
 
     RecipeConfiguration* recipeConfiguration = new RecipeConfiguration();
     for (int row = 0; row < RECIPE_GRID_HEIGHT_CELLS; row++)
