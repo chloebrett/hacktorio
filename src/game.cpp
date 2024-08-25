@@ -52,6 +52,10 @@ void Game::start()
     Gui* gui = wiring->gui;
     Panel* craftingPanel = wiring->craftingPanel;
     Panel* doubleInventoryGridPanel = wiring->doubleInventoryGridPanel;
+    RecipePanel* recipePanel = wiring->recipePanel;
+    InventoryGrid* inventoryLeft = wiring->inventoryLeft;
+    InventoryGrid* inventoryRight = wiring->inventoryRight;
+    Cursor *cursor = wiring->cursor;
 
     player->addItem(InventoryItemType::STONE, 100);
     player->addItem(InventoryItemType::STONE_FURNACE, 1);
@@ -62,49 +66,11 @@ void Game::start()
     player->addItem(InventoryItemType::COPPER_ORE, 100);
     player->updateItems();
 
-    Environment* environment = new Environment();
-    environment->initResourcePatches(*player, *root);
-
     Chest* chest = new Chest(*gui, 10, sf::Vector2f(2 * GRID_SIZE, 2 * GRID_SIZE));
     chest->addItem(InventoryItemType::STONE_FURNACE, 2);
     chest->addItem(InventoryItemType::IRON_PLATE, 5);
     chest->updateItems();
     root->addChild(chest);
-
-    InventoryGrid* inventoryLeft = 
-        new InventoryGrid(sf::Vector2f(INVENTORY_PADDING, INVENTORY_PADDING), player);
-    InventoryGrid* inventoryRight = new InventoryGrid(sf::Vector2f(INVENTORY_WIDTH + INVENTORY_PADDING * 2, INVENTORY_PADDING), chest /* TODO: nullptr */);
-    doubleInventoryGridPanel->addChild(inventoryLeft);
-    doubleInventoryGridPanel->addChild(inventoryRight);
-    craftingPanel->addChild(inventoryLeft);
-
-    // TODO: fix cyclic dep that causes this to need to be two separate classes.
-    Cursor* cursor = new Cursor(/**entityPlacementManager*/);
-    CursorDisplay* cursorDisplay = new CursorDisplay(*cursor);
-
-    for (int row = 0; row < INVENTORY_HEIGHT_CELLS; row++)
-    {
-        for (int column = 0; column < INVENTORY_WIDTH_CELLS; column++)
-        {
-            int index = row * INVENTORY_WIDTH_CELLS + column;
-            inventoryLeft->addChild(new InventorySlot(row, column, index, *inventoryLeft));
-            inventoryRight->addChild(new InventorySlot(row, column, index, *inventoryRight));
-        }
-    }
-
-    RecipePanel* recipePanel = new RecipePanel(
-        /* position= */ sf::Vector2f(INVENTORY_WIDTH + INVENTORY_PADDING * 2, INVENTORY_PADDING)
-    );
-    RecipeTab* logisticsTab = new RecipeTab(0, RecipeTabType::LOGISTICS, *recipePanel);
-    RecipeTab* productionTab = new RecipeTab(1, RecipeTabType::PRODUCTION, *recipePanel);
-    RecipeTab* intermediateProductsTab = new RecipeTab(2, RecipeTabType::INTERMEDIATE_PRODUCTS, *recipePanel);
-    RecipeTab* combatTab = new RecipeTab(3, RecipeTabType::COMBAT, *recipePanel);
-
-    craftingPanel->addChild(recipePanel);
-    recipePanel->addChild(logisticsTab);
-    recipePanel->addChild(productionTab);
-    recipePanel->addChild(intermediateProductsTab);
-    recipePanel->addChild(combatTab);
 
     RecipeConfiguration* recipeConfiguration = new RecipeConfiguration();
     for (int row = 0; row < RECIPE_GRID_HEIGHT_CELLS; row++)
@@ -122,8 +88,6 @@ void Game::start()
             recipePanel->addChild(new RecipeGridSlot(*gui, *recipePanel, *recipeConfiguration, *combatPosition));
         }
     }
-
-    root->addChild(cursorDisplay);
 
     Renderer* renderer = new Renderer(window);
     SpatialIndex* spatialIndex = new SpatialIndex();

@@ -6,6 +6,9 @@
 #include "ui/panel.hpp"
 #include "ui/button.hpp"
 #include <SFML/Graphics.hpp>
+#include "cursor.hpp"
+#include "ui/recipe_panel.hpp"
+#include "ui/inventory_grid.hpp"
 
 /**
  * Wires dependencies for game classes and attaches them to the scene tree.
@@ -23,6 +26,10 @@ class Wiring {
     Gui *gui;
     Button *resumeButton;
     Button *quitButton;
+    Cursor *cursor;
+    RecipePanel *recipePanel;
+    InventoryGrid *inventoryLeft;
+    InventoryGrid *inventoryRight;
 
     void initUi(SceneNode* root, Player* player);
 

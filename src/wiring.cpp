@@ -6,6 +6,7 @@
 #include "wiring.hpp"
 #include <SFML/Graphics.hpp>
 #include <memory>
+#include "environment.hpp"
 #include "config/constants.hpp"
 #include "empty_space.hpp"
 #include "entity_placement_manager.hpp"
@@ -13,6 +14,13 @@
 #include "ui/panel.hpp"
 #include "ui/button.hpp"
 #include <SFML/Graphics.hpp>
+#include "ui/inventory_grid.hpp"
+#include "ui/inventory_slot.hpp"
+#include "ui/recipe_panel.hpp"
+#include "ui/recipe_tab.hpp"
+#include "ui/recipe_tab_type.hpp"
+#include "ui/cursor_display.hpp"
+#include "ui/recipe_panel.hpp"
 
 /**
  * Wires dependencies for game classes and attaches them to the scene tree.
@@ -43,7 +51,7 @@ Wiring::Wiring(sf::RenderWindow &window) : window(window) {
 
     root->addChild(background);
 
-    unique_ptr<EntityPlacementManager> entityPlacementManager(new EntityPlacementManager(*root));
+    EntityPlacementManager* entityPlacementManager = new EntityPlacementManager(*root);
 
     for (int y = 0; y < SCREEN_HEIGHT_CELLS; y++) {
         for (int x = 0; x < SCREEN_WIDTH_CELLS; x++) {
@@ -56,6 +64,9 @@ Wiring::Wiring(sf::RenderWindow &window) : window(window) {
     }
 
     root->addChild(player);
+
+    Environment* environment = new Environment();
+    environment->initResourcePatches(*player, *root);
 
     initUi(root, player);
 }
@@ -131,4 +142,41 @@ void Wiring::initUi(SceneNode *root, Player *player) {
 
     escapeMenuPanel->addChild(resumeButton);
     escapeMenuPanel->addChild(quitButton);
+
+    inventoryLeft = 
+        new InventoryGrid(sf::Vector2f(INVENTORY_PADDING, INVENTORY_PADDING), player);
+    inventoryRight = new InventoryGrid(
+        sf::Vector2f(INVENTORY_WIDTH + INVENTORY_PADDING * 2, INVENTORY_PADDING),
+        /* initially null until player suggests a chest, etc. */ nullptr);
+    doubleInventoryGridPanel->addChild(inventoryLeft);
+    doubleInventoryGridPanel->addChild(inventoryRight);
+    craftingPanel->addChild(inventoryLeft);
+
+    cursor = new Cursor();
+    CursorDisplay* cursorDisplay = new CursorDisplay(*cursor);
+    root->addChild(cursorDisplay);
+
+    for (int row = 0; row < INVENTORY_HEIGHT_CELLS; row++)
+    {
+        for (int column = 0; column < INVENTORY_WIDTH_CELLS; column++)
+        {
+            int index = row * INVENTORY_WIDTH_CELLS + column;
+            inventoryLeft->addChild(new InventorySlot(row, column, index, *inventoryLeft));
+            inventoryRight->addChild(new InventorySlot(row, column, index, *inventoryRight));
+        }
+    }
+
+    recipePanel = new RecipePanel(
+        /* position= */ sf::Vector2f(INVENTORY_WIDTH + INVENTORY_PADDING * 2, INVENTORY_PADDING)
+    );
+    RecipeTab* logisticsTab = new RecipeTab(0, RecipeTabType::LOGISTICS, *recipePanel);
+    RecipeTab* productionTab = new RecipeTab(1, RecipeTabType::PRODUCTION, *recipePanel);
+    RecipeTab* intermediateProductsTab = new RecipeTab(2, RecipeTabType::INTERMEDIATE_PRODUCTS, *recipePanel);
+    RecipeTab* combatTab = new RecipeTab(3, RecipeTabType::COMBAT, *recipePanel);
+
+    craftingPanel->addChild(recipePanel);
+    recipePanel->addChild(logisticsTab);
+    recipePanel->addChild(productionTab);
+    recipePanel->addChild(intermediateProductsTab);
+    recipePanel->addChild(combatTab);
 }
