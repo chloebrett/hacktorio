@@ -4,7 +4,7 @@
 #include "electric_mining_drill.hpp"
 #include "constants.hpp"
 #include <SFML/Graphics.hpp>
-#include "game_resources.hpp"
+#include "config/game_resources.hpp"
 
 ElectricMiningDrill::ElectricMiningDrill(
     sf::Vector2f pos

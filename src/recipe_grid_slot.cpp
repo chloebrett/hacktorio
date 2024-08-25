@@ -9,8 +9,8 @@
 #include "cursor.hpp"
 #include <iostream>
 #include "recipe.hpp"
-#include "recipe_configuration.hpp"
-#include "game_resources.hpp"
+#include "config/recipe_configuration.hpp"
+#include "config/game_resources.hpp"
 
 using namespace std;
 

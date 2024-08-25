@@ -3,7 +3,7 @@
 #include "scene_node.hpp"
 #include "recipe_position.hpp"
 #include "gui.hpp"
-#include "recipe_configuration.hpp"
+#include "config/recipe_configuration.hpp"
 #include "recipe_panel.hpp"
 
 class RecipeGridSlot : public SceneNode {

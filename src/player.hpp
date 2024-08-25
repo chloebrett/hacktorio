@@ -1,7 +1,7 @@
 #pragma once
 
 #include "container.hpp"
-#include "inventory_item_type.hpp"
+#include "config/inventory_item_type.hpp"
 #include "SFML/Graphics.hpp"
 #include "cursor.hpp"
 #include "scene_node.hpp"

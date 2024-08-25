@@ -5,7 +5,7 @@
 #include "chest.hpp"
 #include "scene_node.hpp"
 #include "SFML/Graphics.hpp"
-#include "game_resources.hpp"
+#include "config/game_resources.hpp"
 #include "cursor.hpp"
 #include <functional>
 #include <vector>

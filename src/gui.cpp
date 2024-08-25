@@ -6,7 +6,7 @@
 #include "gui.hpp"
 #include <iostream>
 #include <string>
-#include "game_resources.hpp"
+#include "config/game_resources.hpp"
 #include "recipe.hpp"
 #include "item_stack.hpp"
 

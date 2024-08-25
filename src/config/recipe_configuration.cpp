@@ -1,12 +1,12 @@
 #pragma once
 
-#include "recipe.hpp"
+#include "../recipe.hpp"
 #include "recipe_configuration.hpp"
-#include "recipe_position.hpp"
+#include "../recipe_position.hpp"
 #include <map>
 #include <vector>
 #include "inventory_item_type.hpp"
-#include "item_stack.hpp"
+#include "../item_stack.hpp"
 
 using namespace std;
 

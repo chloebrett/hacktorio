@@ -1,6 +1,6 @@
 #pragma once
 
-#include "inventory_item_type.hpp"
+#include "config/inventory_item_type.hpp"
 #include "item_stack.hpp"
 
 /** Class should be immutable! Don't pass around references/pointers. */

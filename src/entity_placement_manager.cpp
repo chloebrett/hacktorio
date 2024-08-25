@@ -4,7 +4,7 @@
 #include "scene_node.hpp"
 #include "electric_mining_drill.hpp"
 #include "entity_placement_manager.hpp"
-#include "inventory_item_type.hpp"
+#include "config/inventory_item_type.hpp"
 #include <iostream>
 
 using namespace std;

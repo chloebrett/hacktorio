@@ -5,7 +5,7 @@
 #include <SFML/Graphics.hpp>
 #include <functional>
 #include "scene_node.hpp"
-#include "game_resources.hpp"
+#include "config/game_resources.hpp"
 #include "gui.hpp"
 #include "cursor.hpp"
 

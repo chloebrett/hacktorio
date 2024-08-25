@@ -1,6 +1,6 @@
 #pragma once
 
-#include "inventory_item_type.hpp"
+#include "config/inventory_item_type.hpp"
 
 class ItemStack {
     public:

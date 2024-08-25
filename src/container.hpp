@@ -1,7 +1,7 @@
 #pragma once
 
 #include <map>
-#include "inventory_item_type.hpp"
+#include "config/inventory_item_type.hpp"
 #include <vector>
 #include "item_stack.hpp"
 #include <iostream>

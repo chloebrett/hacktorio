@@ -1,8 +1,8 @@
 #include "game.hpp"
 #include "player.hpp"
 #include "resource_patch.hpp"
-#include "inventory_item_type.hpp"
-#include "resource_patch_type.hpp"
+#include "config/inventory_item_type.hpp"
+#include "config/resource_patch_type.hpp"
 #include "constants.hpp"
 #include "SFML/Graphics.hpp"
 #include <iostream>
@@ -12,7 +12,7 @@
 #include <vector>
 #include "input.hpp"
 #include "panel.hpp"
-#include "recipe_configuration.hpp"
+#include "config/recipe_configuration.hpp"
 #include "recipe_grid_slot.hpp"
 #include "inventory_slot.hpp"
 #include "cursor.hpp"

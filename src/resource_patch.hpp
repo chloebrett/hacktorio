@@ -1,7 +1,7 @@
 #pragma once
 
-#include "resource_patch_type.hpp"
-#include "inventory_item_type.hpp"
+#include "config/resource_patch_type.hpp"
+#include "config/inventory_item_type.hpp"
 #include "SFML/Graphics.hpp"
 #include "scene_node.hpp"
 #include "player.hpp"

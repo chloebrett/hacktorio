@@ -1,7 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include "inventory_item_type.hpp"
+#include "config/inventory_item_type.hpp"
 #include <iostream>
 
 using namespace std;

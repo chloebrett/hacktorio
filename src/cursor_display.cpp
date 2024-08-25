@@ -4,7 +4,7 @@
 #include "item_stack.hpp"
 #include "cursor.hpp"
 #include "constants.hpp"
-#include "game_resources.hpp"
+#include "config/game_resources.hpp"
 #include "cursor_display.hpp"
 #include "scene_node.hpp"
 

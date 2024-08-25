@@ -1,8 +1,8 @@
 #pragma once
 
-#include "recipe.hpp"
+#include "../recipe.hpp"
 #include <map>
-#include "recipe_position.hpp"
+#include "../recipe_position.hpp"
 
 using namespace std;
 

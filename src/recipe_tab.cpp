@@ -6,7 +6,7 @@
 #include <functional>
 #include "scene_node.hpp"
 #include "recipe_tab_type.hpp"
-#include "game_resources.hpp"
+#include "config/game_resources.hpp"
 #include "recipe_tab.hpp"
 
 string RecipeTab::getName() {

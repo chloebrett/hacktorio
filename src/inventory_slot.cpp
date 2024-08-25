@@ -14,10 +14,10 @@
 #include "player.hpp"
 #include "resource_patch.hpp"
 #include "game.hpp"
-#include "game_resources.hpp"
+#include "config/game_resources.hpp"
 #include "resource_patch.hpp"
-#include "inventory_item_type.hpp"
-#include "resource_patch_type.hpp"
+#include "config/inventory_item_type.hpp"
+#include "config/resource_patch_type.hpp"
 #include <iostream>
 #include <memory>
 #include "chest.hpp"
