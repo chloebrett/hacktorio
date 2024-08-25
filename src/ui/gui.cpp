@@ -10,18 +10,20 @@
 #include "../recipe.hpp"
 #include "../item_stack.hpp"
 #include "../timer.hpp"
+#include "../crafting_queue.hpp"
 
 using namespace std;
 
 Gui::Gui(Panel &doubleInventoryGridPanel,
 Panel &craftingPanel, Panel &researchPanel, Panel &escapeMenuPanel, Container &playerInventory,
-Timer &timer) :
+Timer &timer, CraftingQueue &craftingQueue) :
     doubleInventoryGridPanel(doubleInventoryGridPanel),
     craftingPanel(craftingPanel),
     researchPanel(researchPanel),
     escapeMenuPanel(escapeMenuPanel),
     playerInventory(playerInventory),
     timer(timer),
+    craftingQueue(craftingQueue),
     containerInventoryGrid(nullptr), targetContainer(nullptr) {}
 
 void Gui::closeOpenPanels() {
@@ -74,7 +76,7 @@ void Gui::setContainerInventoryGrid(InventoryGrid *containerInventoryGrid) {
     this->containerInventoryGrid = containerInventoryGrid;
 }
 
-// TODO: give this its own class (CraftingQueue?)
+// TODO: put the "startCraftingRecipe" method in the crafting queue as well
 void Gui::startCraftingRecipe(Recipe *recipe) {
     cout << "Crafting recipe: " << recipe->getName() << endl;
     cout << "Inputs: " << endl;
@@ -96,15 +98,10 @@ void Gui::startCraftingRecipe(Recipe *recipe) {
         }
     }
 
-    // Queue the crafting event
-    timer.addFutureEvent(recipe->getTime(), new TimerEvent([this, recipe]() {
-        cout << "Crafting complete" << endl;
-        for (ItemStack* input : recipe->getInputs()) {
-            playerInventory.removeItem(input->getType(), input->getAmount());
-        }
-        for (ItemStack* output : recipe->getOutputs()) {
-            playerInventory.addItem(output->getType(), output->getAmount());
-        }
-        playerInventory.updateItems();
-    }));
+    for (ItemStack* input : recipe->getInputs()) {
+        playerInventory.removeItem(input->getType(), input->getAmount());
+    }
+    playerInventory.updateItems();
+
+    craftingQueue.queueRecipe(recipe);
 }

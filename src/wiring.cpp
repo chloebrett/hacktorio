@@ -22,6 +22,7 @@
 #include "ui/cursor_display.hpp"
 #include "ui/recipe_panel.hpp"
 #include "timer.hpp"
+#include "crafting_queue.hpp"
 
 /**
  * Wires dependencies for game classes and attaches them to the scene tree.
@@ -102,7 +103,8 @@ void Wiring::initUi(SceneNode *root, Player *player) {
         /* visible= */ false
         );
 
-    Gui* gui = new Gui(*doubleInventoryGridPanel, *craftingPanel, *researchPanel, *escapeMenuPanel, *player, *timer);
+    CraftingQueue *craftingQueue = new CraftingQueue(*player, *timer);
+    Gui* gui = new Gui(*doubleInventoryGridPanel, *craftingPanel, *researchPanel, *escapeMenuPanel, *player, *timer, *craftingQueue);
     EntityPlacementManager* entityPlacementManager = new EntityPlacementManager(*root, *gui);
 
     for (int y = 0; y < SCREEN_HEIGHT_CELLS; y++) {
