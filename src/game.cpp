@@ -30,6 +30,7 @@
 #include "electric_mining_drill.hpp"
 #include "entity_placement_manager.hpp"
 #include "entity_manager.hpp"
+#include "empty_space.hpp"
 
 using namespace std;
 
@@ -74,6 +75,16 @@ void Game::start()
         /* onRender= */ nullptr
     ));
     root->addChild(background.get());
+
+    unique_ptr<EntityPlacementManager> entityPlacementManager(new EntityPlacementManager(*root));
+
+    for (int y = 0; y < SCREEN_HEIGHT_CELLS; y++) {
+        for (int x = 0; x < SCREEN_WIDTH_CELLS; x++) {
+            EmptySpace* emptySpace(
+                new EmptySpace(sf::Vector2f(x * GRID_SIZE, y * GRID_SIZE), *entityPlacementManager));
+            root->addChild(emptySpace);
+        }
+    }
 
     unique_ptr<Environment> environment(new Environment());
     environment->initResourcePatches(*player, *root);
@@ -163,8 +174,7 @@ void Game::start()
     craftingPanel.get()->addChild(inventoryLeft.get());
 
     // TODO: fix cyclic dep that causes this to need to be two separate classes.
-    unique_ptr<EntityManager> entityPlacementManager(new EntityPlacementManager(*root));
-    unique_ptr<Cursor> cursor(new Cursor(*entityPlacementManager));
+    unique_ptr<Cursor> cursor(new Cursor(/**entityPlacementManager*/));
     unique_ptr<CursorDisplay> cursorDisplay(new CursorDisplay(*cursor));
 
     for (int row = 0; row < INVENTORY_HEIGHT_CELLS; row++)
@@ -207,11 +217,6 @@ void Game::start()
             recipePanel.get()->addChild(new RecipeGridSlot(*gui, *recipePanel, *recipeConfiguration, *combatPosition));
         }
     }
-
-    unique_ptr<ElectricMiningDrill> electricMiningDrill(new ElectricMiningDrill(
-        sf::Vector2f(10 * GRID_SIZE, 10 * GRID_SIZE)
-    ));
-    root->addChild(electricMiningDrill.get());
 
     root->addChild(player.get());
     root->addChild(cursorDisplay.get());

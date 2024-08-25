@@ -37,18 +37,22 @@ void Input::handleQueuedEvents() {
 
             for (SceneNode* node : nodes)
             {
-                if (node->isTransitivelyVisible() && clickedNodes.find(node) == clickedNodes.end()){
+                if (node->isInteractive() && node->isTransitivelyVisible() && clickedNodes.find(node) == clickedNodes.end()){
                     // TODO: use override instead of lambda?
                     node->click(cursor);
                     clickedNodes.insert(node);
                 }
             }
 
-            cout << "Clicked " << nodes.size() << " nodes" << endl;
-            if (nodes.size() <= 2) { // TODO change to 0
+            cout << "Clicked " << clickedNodes.size() << " nodes" << endl;
+            if (clickedNodes.size() == 0) {
                 if (!gui.isAnyPanelOpen()) {
-                    cout << "Clicked empty space" << endl;
-                    cursor.handleLeftClickOnEmptySpace(mousePosition);
+                    for (SceneNode* node : nodes) {
+                        if (node->canPlaceItem()) {
+                            node->click(cursor);
+                            break;
+                        }
+                    }
                 }
             }
         }

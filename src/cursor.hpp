@@ -3,16 +3,15 @@
 #include "container.hpp"
 #include "item_stack.hpp"
 #include <SFML/Graphics.hpp>
-#include "entity_manager.hpp"
 
 class Cursor {
     public:
-    Cursor(EntityManager &entityManager);
+    Cursor(/*sf::RenderWindow &window*/);
     ItemStack* getItemStack();
     void setItemStack(ItemStack *itemStack);
-    void handleLeftClickOnEmptySpace(sf::Vector2i mousePosition);
+    // sf::Vector2i getMousePosition();
 
     private:
     ItemStack* itemStack;
-    EntityManager &entityManager;
+    // sf::RenderWindow &window;
 };

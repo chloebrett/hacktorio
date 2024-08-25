@@ -27,6 +27,8 @@ class SceneNode {
     void setZ(int zIndex);
     bool isVisible();
     bool isTransitivelyVisible();
+    bool isInteractive();
+    bool canPlaceItem();
     void setVisible(bool visible);
     void render(sf::RenderWindow &window, sf::Vector2f);
     void click(Cursor &cursor);

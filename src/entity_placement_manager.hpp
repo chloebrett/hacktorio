@@ -8,7 +8,7 @@
 class EntityPlacementManager : public EntityManager {
     public:
     EntityPlacementManager(SceneNode &rootSceneNode);
-    bool tryPlaceEntity(InventoryItemType inventoryItemType, sf::Vector2i position);
+    bool tryPlaceEntity(InventoryItemType inventoryItemType, sf::Vector2f position);
 
     private:
     SceneNode &rootSceneNode;

@@ -7,26 +7,16 @@
 
 using namespace std;
 
-Cursor::Cursor(EntityManager &entityManager) :
-    entityManager(entityManager), itemStack(nullptr) {}
+Cursor::Cursor(/*sf::RenderWindow &window*/) : /*window(window),*/ itemStack(nullptr) {}
 
 ItemStack* Cursor::getItemStack() {
     return itemStack;
 }
 
+/*sf::Vector2i Cursor::getMousePosition() {
+    return sf::Mouse::getPosition(window);
+}*/
+
 void Cursor::setItemStack(ItemStack *itemStack) {
     this->itemStack = itemStack;
-}
-
-void Cursor::handleLeftClickOnEmptySpace(sf::Vector2i pos) {
-    cout << "Cursor::handleLeftClickOnEmptySpace" << endl;
-    if (itemStack != nullptr) {
-        cout << "Cursor::handleLeftClickOnEmptySpace itemStack != null" << endl;
-        bool success = entityManager.tryPlaceEntity(itemStack->getType(), pos);
-        cout << "Cursor::handleLeftClickOnEmptySpace success: " << success << endl;
-        if (success) {
-            // TODO: memory leak
-            this->itemStack = new ItemStack(itemStack->getType(), itemStack->getAmount() - 1);
-        }
-    }
 }

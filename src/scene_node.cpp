@@ -85,8 +85,16 @@ void SceneNode::setZ(int z) {
     this->z = z;
 }
 
+bool SceneNode::isInteractive() {
+    return onClick != nullptr;
+}
+
 bool SceneNode::isVisible() {
     return visible;
+}
+
+bool SceneNode::canPlaceItem() {
+    return false;
 }
 
 bool SceneNode::isTransitivelyVisible() {
