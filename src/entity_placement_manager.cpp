@@ -9,11 +9,13 @@
 #include "ui/gui.hpp"
 #include "wooden_chest.hpp"
 #include "stone_furnace.hpp"
+#include "config/recipe_configuration.hpp"
 
 using namespace std;
 
-EntityPlacementManager::EntityPlacementManager(SceneNode &rootSceneNode, Gui &gui) : rootSceneNode(rootSceneNode), gui(gui) {
-};
+EntityPlacementManager::EntityPlacementManager(
+        SceneNode &rootSceneNode, RecipeConfiguration &recipeConfiguration, Gui &gui
+    ) : rootSceneNode(rootSceneNode), recipeConfiguration(recipeConfiguration), gui(gui) {};
 
 bool EntityPlacementManager::tryPlaceEntity(InventoryItemType inventoryItemType, sf::Vector2f position) {
     switch (inventoryItemType) {
@@ -24,7 +26,7 @@ bool EntityPlacementManager::tryPlaceEntity(InventoryItemType inventoryItemType,
             rootSceneNode.addChild(new ElectricMiningDrill(position));
             return true;
         case InventoryItemType::STONE_FURNACE:
-            rootSceneNode.addChild(new StoneFurnace(gui, position));
+            rootSceneNode.addChild(new StoneFurnace(gui, recipeConfiguration, position));
             return true;
         default:
             return false;

@@ -18,6 +18,7 @@ class RecipeConfiguration {
     public:
     RecipeConfiguration();
     Recipe* getRecipeAtPosition(RecipePosition &position);
+    Recipe* getRecipeByOutputType(InventoryItemType outputType);
 
     private:
     map<RecipePosition, Recipe*, cmpByRecipePosition> recipeMap;

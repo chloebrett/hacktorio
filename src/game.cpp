@@ -58,6 +58,7 @@ void Game::start()
     InventoryGrid* inventoryRight = wiring->inventoryRight;
     InventoryGrid* entityRight = wiring->entityRight;
     Cursor *cursor = wiring->cursor;
+    RecipeConfiguration* recipeConfiguration = wiring->recipeConfiguration;
     Timer *timer = wiring->timer;
 
     gui->setContainerInventoryGrid(inventoryRight);
@@ -78,7 +79,6 @@ void Game::start()
     woodenChest->updateItems();
     root->addChild(woodenChest);
 
-    RecipeConfiguration* recipeConfiguration = new RecipeConfiguration();
     for (int row = 0; row < RECIPE_GRID_HEIGHT_CELLS; row++)
     {
         for (int column = 0; column < RECIPE_GRID_WIDTH_CELLS; column++)

@@ -371,3 +371,7 @@ void RecipeConfiguration::initRecipeMap() {
 Recipe* RecipeConfiguration::getRecipeAtPosition(RecipePosition &position) {
     return recipeMap[position];
 }
+
+Recipe* RecipeConfiguration::getRecipeByOutputType(InventoryItemType outputType) {
+    return recipeByOutputType[outputType];
+}

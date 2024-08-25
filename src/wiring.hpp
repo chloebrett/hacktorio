@@ -9,6 +9,7 @@
 #include "cursor.hpp"
 #include "ui/recipe_panel.hpp"
 #include "ui/inventory_grid.hpp"
+#include "config/recipe_configuration.hpp"
 #include "timer.hpp"
 
 /**
@@ -34,6 +35,7 @@ class Wiring {
     InventoryGrid *inventoryRight;
     InventoryGrid *entityRight;
     Timer *timer;
+    RecipeConfiguration *recipeConfiguration;
 
     void initUi(SceneNode* root, Player* player);
 
