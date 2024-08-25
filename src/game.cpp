@@ -62,51 +62,51 @@ void Game::start()
     player->addItem(InventoryItemType::COPPER_ORE, 100);
     player->updateItems();
 
-    unique_ptr<Environment> environment(new Environment());
+    Environment* environment = new Environment();
     environment->initResourcePatches(*player, *root);
 
-    unique_ptr<Chest> chest(new Chest(*gui, 10, sf::Vector2f(2 * GRID_SIZE, 2 * GRID_SIZE)));
+    Chest* chest = new Chest(*gui, 10, sf::Vector2f(2 * GRID_SIZE, 2 * GRID_SIZE));
     chest->addItem(InventoryItemType::STONE_FURNACE, 2);
     chest->addItem(InventoryItemType::IRON_PLATE, 5);
     chest->updateItems();
-    root->addChild(chest.get());
+    root->addChild(chest);
 
-    unique_ptr<InventoryGrid> inventoryLeft(
-        new InventoryGrid(sf::Vector2f(INVENTORY_PADDING, INVENTORY_PADDING), player));
-    unique_ptr<InventoryGrid> inventoryRight(new InventoryGrid(sf::Vector2f(INVENTORY_WIDTH + INVENTORY_PADDING * 2, INVENTORY_PADDING), chest.get() /* TODO: nullptr */));
-    doubleInventoryGridPanel->addChild(inventoryLeft.get());
-    doubleInventoryGridPanel->addChild(inventoryRight.get());
-    craftingPanel->addChild(inventoryLeft.get());
+    InventoryGrid* inventoryLeft = 
+        new InventoryGrid(sf::Vector2f(INVENTORY_PADDING, INVENTORY_PADDING), player);
+    InventoryGrid* inventoryRight = new InventoryGrid(sf::Vector2f(INVENTORY_WIDTH + INVENTORY_PADDING * 2, INVENTORY_PADDING), chest /* TODO: nullptr */);
+    doubleInventoryGridPanel->addChild(inventoryLeft);
+    doubleInventoryGridPanel->addChild(inventoryRight);
+    craftingPanel->addChild(inventoryLeft);
 
     // TODO: fix cyclic dep that causes this to need to be two separate classes.
-    unique_ptr<Cursor> cursor(new Cursor(/**entityPlacementManager*/));
-    unique_ptr<CursorDisplay> cursorDisplay(new CursorDisplay(*cursor));
+    Cursor* cursor = new Cursor(/**entityPlacementManager*/);
+    CursorDisplay* cursorDisplay = new CursorDisplay(*cursor);
 
     for (int row = 0; row < INVENTORY_HEIGHT_CELLS; row++)
     {
         for (int column = 0; column < INVENTORY_WIDTH_CELLS; column++)
         {
             int index = row * INVENTORY_WIDTH_CELLS + column;
-            inventoryLeft.get()->addChild(new InventorySlot(row, column, index, *inventoryLeft));
-            inventoryRight.get()->addChild(new InventorySlot(row, column, index, *inventoryRight));
+            inventoryLeft->addChild(new InventorySlot(row, column, index, *inventoryLeft));
+            inventoryRight->addChild(new InventorySlot(row, column, index, *inventoryRight));
         }
     }
 
-    unique_ptr<RecipePanel> recipePanel(new RecipePanel(
+    RecipePanel* recipePanel = new RecipePanel(
         /* position= */ sf::Vector2f(INVENTORY_WIDTH + INVENTORY_PADDING * 2, INVENTORY_PADDING)
-    ));
-    unique_ptr<RecipeTab> logisticsTab(new RecipeTab(0, RecipeTabType::LOGISTICS, *recipePanel));
-    unique_ptr<RecipeTab> productionTab(new RecipeTab(1, RecipeTabType::PRODUCTION, *recipePanel));
-    unique_ptr<RecipeTab> intermediateProductsTab(new RecipeTab(2, RecipeTabType::INTERMEDIATE_PRODUCTS, *recipePanel));
-    unique_ptr<RecipeTab> combatTab(new RecipeTab(3, RecipeTabType::COMBAT, *recipePanel));
+    );
+    RecipeTab* logisticsTab = new RecipeTab(0, RecipeTabType::LOGISTICS, *recipePanel);
+    RecipeTab* productionTab = new RecipeTab(1, RecipeTabType::PRODUCTION, *recipePanel);
+    RecipeTab* intermediateProductsTab = new RecipeTab(2, RecipeTabType::INTERMEDIATE_PRODUCTS, *recipePanel);
+    RecipeTab* combatTab = new RecipeTab(3, RecipeTabType::COMBAT, *recipePanel);
 
-    craftingPanel->addChild(recipePanel.get());
-    recipePanel->addChild(logisticsTab.get());
-    recipePanel->addChild(productionTab.get());
-    recipePanel->addChild(intermediateProductsTab.get());
-    recipePanel->addChild(combatTab.get());
+    craftingPanel->addChild(recipePanel);
+    recipePanel->addChild(logisticsTab);
+    recipePanel->addChild(productionTab);
+    recipePanel->addChild(intermediateProductsTab);
+    recipePanel->addChild(combatTab);
 
-    unique_ptr<RecipeConfiguration> recipeConfiguration(new RecipeConfiguration());
+    RecipeConfiguration* recipeConfiguration = new RecipeConfiguration();
     for (int row = 0; row < RECIPE_GRID_HEIGHT_CELLS; row++)
     {
         for (int column = 0; column < RECIPE_GRID_WIDTH_CELLS; column++)
@@ -123,16 +123,12 @@ void Game::start()
         }
     }
 
-    root->addChild(cursorDisplay.get());
+    root->addChild(cursorDisplay);
 
-    unique_ptr<Renderer> renderer(
-        new Renderer(window)
-    );
-    unique_ptr<SpatialIndex> spatialIndex(new SpatialIndex());
-    gui->setContainerInventoryGrid(inventoryRight.get());
-    unique_ptr<Input> input(new Input(
-        window, *player, *cursor, *gui, *spatialIndex
-    ));
+    Renderer* renderer = new Renderer(window);
+    SpatialIndex* spatialIndex = new SpatialIndex();
+    gui->setContainerInventoryGrid(inventoryRight);
+    Input* input = new Input(window, *player, *cursor, *gui, *spatialIndex);
 
     while (window.isOpen())
     {
