@@ -115,7 +115,7 @@ void Wiring::initUi(SceneNode *root, Player *player) {
         );
 
     CraftingQueue *craftingQueue = new CraftingQueue(*player, *timer);
-    Gui* gui = new Gui(*doubleInventoryGridPanel, *craftingPanel, *researchPanel, *escapeMenuPanel, *player, *timer, *craftingQueue);
+    Gui* gui = new Gui(*doubleInventoryGridPanel, *craftingPanel, *entityPanel, *researchPanel, *escapeMenuPanel, *player, *timer, *craftingQueue);
     EntityPlacementManager* entityPlacementManager = new EntityPlacementManager(*root, *gui);
 
     for (int y = 0; y < SCREEN_HEIGHT_CELLS; y++) {

@@ -56,8 +56,12 @@ void Game::start()
     RecipePanel* recipePanel = wiring->recipePanel;
     InventoryGrid* inventoryLeft = wiring->inventoryLeft;
     InventoryGrid* inventoryRight = wiring->inventoryRight;
+    InventoryGrid* entityRight = wiring->entityRight;
     Cursor *cursor = wiring->cursor;
     Timer *timer = wiring->timer;
+
+    gui->setContainerInventoryGrid(inventoryRight);
+    gui->setEntityInventoryGrid(entityRight);
 
     player->addItem(InventoryItemType::STONE, 100);
     player->addItem(InventoryItemType::STONE_FURNACE, 1);
@@ -93,7 +97,6 @@ void Game::start()
 
     Renderer* renderer = new Renderer(window);
     SpatialIndex* spatialIndex = new SpatialIndex();
-    gui->setContainerInventoryGrid(inventoryRight);
     Input* input = new Input(window, *player, *cursor, *gui, *spatialIndex);
 
     int currentTick;

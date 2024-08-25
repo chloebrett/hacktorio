@@ -18,7 +18,7 @@ StoneFurnace::StoneFurnace(Gui &gui, sf::Vector2f pos) : gui(gui), Entity(
     /* size= */ sf::Vector2f(2 * GRID_SIZE, 2 * GRID_SIZE),
     /* onClick= */ [this](Cursor &cursor) {
         std::cout << "Stone furnace clicked" << std::endl;
-        this->gui.showPanelForEntity(this);
+        this->gui.showPanelForEntity(this->container);
     },
     /* onRender= */ [this](
         SceneNode &node,
@@ -29,4 +29,6 @@ StoneFurnace::StoneFurnace(Gui &gui, sf::Vector2f pos) : gui(gui), Entity(
         sprite.setPosition(absolutePos);
         window.draw(sprite);
     }
-) {}
+) {
+    container = new Container();
+}

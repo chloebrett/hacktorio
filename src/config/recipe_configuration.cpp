@@ -169,8 +169,10 @@ void RecipeConfiguration::initProductionRecipes() {
     vector<ItemStack*>* boilerOutputs = new vector<ItemStack*>();
     ItemStack* pipeStack3 = new ItemStack(InventoryItemType::PIPE, 4);
     ItemStack* stoneFurnaceStack = new ItemStack(InventoryItemType::STONE_FURNACE, 1);
+    ItemStack* boilerStack = new ItemStack(InventoryItemType::BOILER, 1);
     boilerInputs->push_back(pipeStack3);
-    boilerOutputs->push_back(stoneFurnaceStack);
+    boilerInputs->push_back(stoneFurnaceStack);
+    boilerOutputs->push_back(boilerStack);
     Recipe* boilerRecipe = new Recipe("Boiler", *boilerInputs, *boilerOutputs, 0.5);
     recipeByOutputType[InventoryItemType::BOILER] = boilerRecipe;
 

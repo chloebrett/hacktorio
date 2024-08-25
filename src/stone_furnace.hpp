@@ -5,10 +5,11 @@
 #include "ui/gui.hpp"
 #include "entity.hpp"
 
-class StoneFurnace : public Entity, public Container {
+class StoneFurnace : public Entity {
     public:
     StoneFurnace(Gui &gui, sf::Vector2f pos);
 
     private:
     Gui &gui;
+    Container *container;
 };

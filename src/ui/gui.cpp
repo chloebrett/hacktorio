@@ -15,28 +15,40 @@
 using namespace std;
 
 Gui::Gui(Panel &doubleInventoryGridPanel,
-Panel &craftingPanel, Panel &researchPanel, Panel &escapeMenuPanel, Container &playerInventory,
-Timer &timer, CraftingQueue &craftingQueue) :
+Panel &craftingPanel,
+Panel &entityPanel,
+Panel &researchPanel,
+Panel &escapeMenuPanel,
+Container &playerInventory,
+Timer &timer,
+CraftingQueue &craftingQueue) :
     doubleInventoryGridPanel(doubleInventoryGridPanel),
     craftingPanel(craftingPanel),
+    entityPanel(entityPanel),
     researchPanel(researchPanel),
     escapeMenuPanel(escapeMenuPanel),
     playerInventory(playerInventory),
     timer(timer),
     craftingQueue(craftingQueue),
-    containerInventoryGrid(nullptr), targetContainer(nullptr) {}
+    containerInventoryGrid(nullptr),
+    targetContainer(nullptr),
+    entityInventoryGrid(nullptr),
+    targetEntity(nullptr) {}
 
 void Gui::closeOpenPanels() {
     doubleInventoryGridPanel.setVisible(false);
     craftingPanel.setVisible(false);
+    entityPanel.setVisible(false);
     researchPanel.setVisible(false);
     escapeMenuPanel.setVisible(false);
     targetContainer = nullptr;
+    targetEntity = nullptr;
 }
 
 bool Gui::isAnyPanelOpen() {
     return doubleInventoryGridPanel.isVisible() ||
         craftingPanel.isVisible() ||
+        entityPanel.isVisible() ||
         researchPanel.isVisible() ||
         escapeMenuPanel.isVisible();
 }
@@ -68,12 +80,24 @@ void Gui::showPanelForContainer(Container *container) {
     containerInventoryGrid->setContainer(container);
 }
 
-void Gui::showPanelForEntity(Entity *entity) {
-    // TODO
+void Gui::showPanelForEntity(Container *entity) {
+    if (entityInventoryGrid == nullptr) {
+        cout << "Error: entityInventoryGrid is null" << endl;
+        return;
+    }
+
+    closeOpenPanels();
+    entityPanel.setVisible(true);
+    targetEntity = entity;
+    entityInventoryGrid->setContainer(entity);
 }
 
 void Gui::setContainerInventoryGrid(InventoryGrid *containerInventoryGrid) {
     this->containerInventoryGrid = containerInventoryGrid;
+}
+
+void Gui::setEntityInventoryGrid(InventoryGrid *entityInventoryGrid) {
+    this->entityInventoryGrid = entityInventoryGrid;
 }
 
 // TODO: put the "startCraftingRecipe" method in the crafting queue as well
