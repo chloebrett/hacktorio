@@ -21,11 +21,14 @@
 #include "ui/recipe_tab_type.hpp"
 #include "ui/cursor_display.hpp"
 #include "ui/recipe_panel.hpp"
+#include "timer.hpp"
 
 /**
  * Wires dependencies for game classes and attaches them to the scene tree.
  */
 Wiring::Wiring(sf::RenderWindow &window) : window(window) {
+    timer = new Timer();
+
     root = new SceneNode(
         sf::Vector2f(0, 0),
         sf::Vector2f(SCREEN_WIDTH, SCREEN_HEIGHT),
@@ -99,7 +102,7 @@ void Wiring::initUi(SceneNode *root, Player *player) {
         /* visible= */ false
         );
 
-    Gui* gui = new Gui(*doubleInventoryGridPanel, *craftingPanel, *researchPanel, *escapeMenuPanel, *player);
+    Gui* gui = new Gui(*doubleInventoryGridPanel, *craftingPanel, *researchPanel, *escapeMenuPanel, *player, *timer);
     EntityPlacementManager* entityPlacementManager = new EntityPlacementManager(*root, *gui);
 
     for (int y = 0; y < SCREEN_HEIGHT_CELLS; y++) {

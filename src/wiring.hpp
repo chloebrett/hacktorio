@@ -9,6 +9,7 @@
 #include "cursor.hpp"
 #include "ui/recipe_panel.hpp"
 #include "ui/inventory_grid.hpp"
+#include "timer.hpp"
 
 /**
  * Wires dependencies for game classes and attaches them to the scene tree.
@@ -30,6 +31,7 @@ class Wiring {
     RecipePanel *recipePanel;
     InventoryGrid *inventoryLeft;
     InventoryGrid *inventoryRight;
+    Timer *timer;
 
     void initUi(SceneNode* root, Player* player);
 

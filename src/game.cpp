@@ -32,6 +32,7 @@
 #include "entity_manager.hpp"
 #include "empty_space.hpp"
 #include "wiring.hpp"
+#include "timer.hpp"
 
 using namespace std;
 
@@ -56,6 +57,7 @@ void Game::start()
     InventoryGrid* inventoryLeft = wiring->inventoryLeft;
     InventoryGrid* inventoryRight = wiring->inventoryRight;
     Cursor *cursor = wiring->cursor;
+    Timer *timer = wiring->timer;
 
     player->addItem(InventoryItemType::STONE, 100);
     player->addItem(InventoryItemType::STONE_FURNACE, 1);
@@ -94,14 +96,17 @@ void Game::start()
     gui->setContainerInventoryGrid(inventoryRight);
     Input* input = new Input(window, *player, *cursor, *gui, *spatialIndex);
 
+    int currentTick;
     while (window.isOpen())
     {
         timeSinceLastUpdate += clock.restart();
         while (timeSinceLastUpdate > timePerFrame)
         {
+            currentTick++;
             timeSinceLastUpdate -= timePerFrame;
 
             spatialIndex->refresh(*root);
+            timer->runEvents(currentTick);
             input->handleQueuedEvents();
             input->handleOngoingEvents();
         }

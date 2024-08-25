@@ -4,13 +4,14 @@
 #include "inventory_grid.hpp"
 #include "../container.hpp"
 #include "../recipe.hpp"
+#include "../timer.hpp"
 
 /**
  * Wrappers for Gui functionality, mainly showing/hiding panels.
  */
 class Gui {
     public:
-    Gui(Panel &doubleInventoryGridPanel, Panel &craftingPanel, Panel &researchPanel, Panel &escapeMenuPanel, Container &playerInventory);
+    Gui(Panel &doubleInventoryGridPanel, Panel &craftingPanel, Panel &researchPanel, Panel &escapeMenuPanel, Container &playerInventory, Timer &timer);
     void closeOpenPanels();
     void showCrafting();
     void showResearch();
@@ -26,6 +27,7 @@ class Gui {
     Panel &craftingPanel;
     Panel &researchPanel;
     Panel &escapeMenuPanel;
+    Timer &timer;
     Container &playerInventory;
     InventoryGrid *containerInventoryGrid;
     Container *targetContainer;
