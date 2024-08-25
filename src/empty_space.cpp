@@ -19,7 +19,11 @@ EmptySpace::EmptySpace(sf::Vector2f pos, EntityPlacementManager &entityPlacement
             cout << "Cursor::handleLeftClickOnEmptySpace success: " << success << endl;
             if (success) {
                 // TODO: memory leak
-                cursor.setItemStack(new ItemStack(itemStack->getType(), itemStack->getAmount() - 1));
+                if (itemStack->getAmount() == 1) {
+                    cursor.setItemStack(nullptr);
+                } else {
+                    cursor.setItemStack(new ItemStack(itemStack->getType(), itemStack->getAmount() - 1));
+                }
             }
         }
     },
