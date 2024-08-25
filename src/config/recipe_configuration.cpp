@@ -2,7 +2,7 @@
 
 #include "../recipe.hpp"
 #include "recipe_configuration.hpp"
-#include "../recipe_position.hpp"
+#include "../ui/recipe_position.hpp"
 #include <map>
 #include <vector>
 #include "inventory_item_type.hpp"

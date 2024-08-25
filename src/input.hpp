@@ -9,7 +9,7 @@
 #include "environment.hpp"
 #include "resource_patch.hpp"
 #include "cursor.hpp"
-#include "gui.hpp"
+#include "ui/gui.hpp"
 
 using namespace std;
 

@@ -2,8 +2,8 @@
 
 #include "panel.hpp"
 #include "inventory_grid.hpp"
-#include "container.hpp"
-#include "recipe.hpp"
+#include "../container.hpp"
+#include "../recipe.hpp"
 
 /**
  * Wrappers for Gui functionality, mainly showing/hiding panels.

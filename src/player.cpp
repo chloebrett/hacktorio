@@ -2,7 +2,7 @@
 
 #include "scene_node.hpp"
 #include "SFML/Graphics.hpp"
-#include "constants.hpp"
+#include "config/constants.hpp"
 #include "cursor.hpp"
 #include <iostream>
 

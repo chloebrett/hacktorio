@@ -1,6 +1,6 @@
 #pragma once
 
-#include "scene_node.hpp"
+#include "../scene_node.hpp"
 
 class Panel : public SceneNode {
     public:

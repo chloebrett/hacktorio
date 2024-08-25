@@ -1,7 +1,7 @@
 #pragma once
 
 #include "scene_node.hpp"
-#include "gui.hpp"
+#include "ui/gui.hpp"
 #include <functional>
 #include <SFML/Graphics.hpp>
 #include "entity_placement_manager.hpp"

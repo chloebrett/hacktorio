@@ -2,7 +2,7 @@
 
 #include "scene_node.hpp"
 #include "electric_mining_drill.hpp"
-#include "constants.hpp"
+#include "config/constants.hpp"
 #include <SFML/Graphics.hpp>
 #include "config/game_resources.hpp"
 

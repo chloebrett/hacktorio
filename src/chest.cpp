@@ -9,8 +9,8 @@
 #include "cursor.hpp"
 #include <functional>
 #include <vector>
-#include "constants.hpp"
-#include "gui.hpp"
+#include "config/constants.hpp"
+#include "ui/gui.hpp"
 
 Chest::Chest(Gui &gui, int capacity, sf::Vector2f pos) : gui(gui), capacity(capacity), SceneNode(
     /* position= */ pos,

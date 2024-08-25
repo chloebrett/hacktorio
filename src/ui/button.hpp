@@ -1,6 +1,6 @@
 #pragma once
 
-#include "scene_node.hpp"
+#include "../scene_node.hpp"
 #include "gui.hpp"
 #include <functional>
 #include <SFML/Graphics.hpp>

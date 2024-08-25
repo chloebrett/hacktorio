@@ -1,12 +1,12 @@
 #pragma once
 
 #include "recipe_panel.hpp"
-#include "constants.hpp"
+#include "../config/constants.hpp"
 #include <SFML/Graphics.hpp>
 #include <functional>
-#include "scene_node.hpp"
+#include "../scene_node.hpp"
 #include "recipe_tab_type.hpp"
-#include "config/game_resources.hpp"
+#include "../config/game_resources.hpp"
 #include "recipe_tab.hpp"
 
 string RecipeTab::getName() {

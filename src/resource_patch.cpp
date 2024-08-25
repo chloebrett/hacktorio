@@ -4,7 +4,7 @@
 #include "scene_node.hpp"
 #include "SFML/Graphics.hpp"
 #include "cursor.hpp"
-#include "constants.hpp"
+#include "config/constants.hpp"
 #include "player.hpp"
 
 #include <iostream>

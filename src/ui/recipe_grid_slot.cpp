@@ -1,16 +1,16 @@
 #pragma once
 
-#include "scene_node.hpp"
+#include "../scene_node.hpp"
 #include "recipe_grid_slot.hpp"
-#include "constants.hpp"
+#include "../config/constants.hpp"
 #include <SFML/Graphics.hpp>
 #include "recipe_position.hpp"
 #include "gui.hpp"
-#include "cursor.hpp"
+#include "../cursor.hpp"
 #include <iostream>
-#include "recipe.hpp"
-#include "config/recipe_configuration.hpp"
-#include "config/game_resources.hpp"
+#include "../recipe.hpp"
+#include "../config/recipe_configuration.hpp"
+#include "../config/game_resources.hpp"
 
 using namespace std;
 

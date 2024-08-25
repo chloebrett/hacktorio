@@ -1,6 +1,6 @@
 #include "environment.hpp"
 #include "resource_patch.hpp"
-#include "constants.hpp"
+#include "config/constants.hpp"
 #include "player.hpp"
 #include <vector>
 #include <iostream>

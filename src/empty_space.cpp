@@ -3,7 +3,7 @@
 #include "scene_node.hpp"
 #include "empty_space.hpp"
 #include <SFML/Graphics.hpp>
-#include "constants.hpp"
+#include "config/constants.hpp"
 #include "entity_placement_manager.hpp"
 
 EmptySpace::EmptySpace(sf::Vector2f pos, EntityPlacementManager &entityPlacementManager) :

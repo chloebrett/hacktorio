@@ -1,10 +1,10 @@
 #include "input.hpp"
 #include "player.hpp"
 #include "SFML/Graphics.hpp"
-#include "constants.hpp"
+#include "config/constants.hpp"
 #include "environment.hpp"
 #include "resource_patch.hpp"
-#include "gui.hpp"
+#include "ui/gui.hpp"
 #include "spatial_index.hpp"
 #include <set>
 #include <iostream>

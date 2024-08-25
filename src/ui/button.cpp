@@ -1,13 +1,13 @@
 #pragma once
 
 #include "button.hpp"
-#include "constants.hpp"
+#include "../config/constants.hpp"
 #include <SFML/Graphics.hpp>
 #include <functional>
-#include "scene_node.hpp"
-#include "config/game_resources.hpp"
+#include "../scene_node.hpp"
+#include "../config/game_resources.hpp"
 #include "gui.hpp"
-#include "cursor.hpp"
+#include "../cursor.hpp"
 
 Button::Button(
     sf::Vector2f position,

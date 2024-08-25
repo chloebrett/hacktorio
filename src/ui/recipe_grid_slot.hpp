@@ -1,9 +1,9 @@
 #pragma once
 
-#include "scene_node.hpp"
+#include "../scene_node.hpp"
 #include "recipe_position.hpp"
 #include "gui.hpp"
-#include "config/recipe_configuration.hpp"
+#include "../config/recipe_configuration.hpp"
 #include "recipe_panel.hpp"
 
 class RecipeGridSlot : public SceneNode {

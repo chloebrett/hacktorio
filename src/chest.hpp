@@ -2,7 +2,7 @@
 
 #include "container.hpp"
 #include "scene_node.hpp"
-#include "gui.hpp"
+#include "ui/gui.hpp"
 
 class Chest : public SceneNode, public Container {
     public:

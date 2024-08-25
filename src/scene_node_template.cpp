@@ -2,7 +2,7 @@
 
 #include "scene_node.hpp"
 #include "scene_node_template.hpp"
-#include "constants.hpp"
+#include "config/constants.hpp"
 
 SceneNodeTemplate::SceneNodeTemplate() : SceneNode(
     /* position= */ sf::Vector2f(0, 0),

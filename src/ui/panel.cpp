@@ -1,10 +1,10 @@
 #pragma once
 
 #include "panel.hpp"
-#include "constants.hpp"
+#include "../config/constants.hpp"
 #include <SFML/Graphics.hpp>
 #include <functional>
-#include "scene_node.hpp"
+#include "../scene_node.hpp"
 
 Panel::Panel(sf::Vector2f position, sf::Vector2f size, sf::Color fillColor, bool visible) : SceneNode(
     /* position= */ position,

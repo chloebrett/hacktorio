@@ -1,6 +1,6 @@
 #pragma once
 
-#include "scene_node.hpp"
+#include "../scene_node.hpp"
 #include "inventory_grid.hpp"
 
 class InventorySlot : public SceneNode {

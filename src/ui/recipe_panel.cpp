@@ -1,10 +1,10 @@
 #pragma once
 
 #include "recipe_panel.hpp"
-#include "constants.hpp"
+#include "../config/constants.hpp"
 #include <SFML/Graphics.hpp>
 #include <functional>
-#include "scene_node.hpp"
+#include "../scene_node.hpp"
 #include <iostream>
 
 using namespace std;

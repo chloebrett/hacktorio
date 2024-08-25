@@ -1,5 +1,5 @@
 #include "renderer.hpp"
-#include "constants.hpp"
+#include "config/constants.hpp"
 #include "SFML/Graphics.hpp"
 #include "player.hpp"
 #include "resource_patch.hpp"

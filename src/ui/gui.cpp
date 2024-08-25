@@ -2,13 +2,13 @@
 
 #include "panel.hpp"
 #include "inventory_grid.hpp"
-#include "container.hpp"
+#include "../container.hpp"
 #include "gui.hpp"
 #include <iostream>
 #include <string>
-#include "config/game_resources.hpp"
-#include "recipe.hpp"
-#include "item_stack.hpp"
+#include "../config/game_resources.hpp"
+#include "../recipe.hpp"
+#include "../item_stack.hpp"
 
 using namespace std;
 

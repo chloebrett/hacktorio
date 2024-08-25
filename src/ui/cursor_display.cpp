@@ -1,12 +1,12 @@
 #pragma once
 
-#include "container.hpp"
-#include "item_stack.hpp"
-#include "cursor.hpp"
-#include "constants.hpp"
-#include "config/game_resources.hpp"
+#include "../container.hpp"
+#include "../item_stack.hpp"
+#include "../cursor.hpp"
+#include "../config/constants.hpp"
+#include "../config/game_resources.hpp"
 #include "cursor_display.hpp"
-#include "scene_node.hpp"
+#include "../scene_node.hpp"
 
 CursorDisplay::CursorDisplay(Cursor &cursor) : cursor(cursor), SceneNode(
     /* position= */ sf::Vector2f(0, 0),
