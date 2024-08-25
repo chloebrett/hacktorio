@@ -45,7 +45,14 @@ void Game::start()
     sf::Time timeSinceLastUpdate = sf::Time::Zero;
     sf::Time timePerFrame = sf::seconds(1.0f / FRAMES_PER_SECOND);
 
-    unique_ptr<Player> player(new Player());
+    Wiring* wiring = new Wiring(window);
+    SceneNode* root = wiring->root;
+    SceneNode* background = wiring->background;
+    Player* player = wiring->player;
+    Gui* gui = wiring->gui;
+    Panel* craftingPanel = wiring->craftingPanel;
+    Panel* doubleInventoryGridPanel = wiring->doubleInventoryGridPanel;
+
     player->addItem(InventoryItemType::STONE, 100);
     player->addItem(InventoryItemType::STONE_FURNACE, 1);
     player->addItem(InventoryItemType::WOOD, 50);
@@ -55,94 +62,8 @@ void Game::start()
     player->addItem(InventoryItemType::COPPER_ORE, 100);
     player->updateItems();
 
-    Wiring* wiring = new Wiring();
-    SceneNode* root = wiring->getRoot();
-    SceneNode* background = wiring->getBackground();
-
-    unique_ptr<EntityPlacementManager> entityPlacementManager(new EntityPlacementManager(*root));
-
-    for (int y = 0; y < SCREEN_HEIGHT_CELLS; y++) {
-        for (int x = 0; x < SCREEN_WIDTH_CELLS; x++) {
-            EmptySpace* emptySpace(
-                new EmptySpace(sf::Vector2f(x * GRID_SIZE, y * GRID_SIZE), *entityPlacementManager));
-            root->addChild(emptySpace);
-        }
-    }
-
     unique_ptr<Environment> environment(new Environment());
     environment->initResourcePatches(*player, *root);
-
-    // Panel for showing two inventory grids - e.g. player inventory and chest inventory.
-    // Hidden by default.
-    unique_ptr<Panel> doubleInventoryGridPanel(new Panel(
-        /* position= */ sf::Vector2f(INVENTORY_H_MARGIN, INVENTORY_V_MARGIN),
-        /* size= */ sf::Vector2f(
-            INVENTORY_WIDTH * 2 + INVENTORY_PADDING * 3,
-            INVENTORY_HEIGHT + INVENTORY_PADDING * 2
-        ),
-        /* fillColor= */ sf::Color(120, 120, 120, 255),
-        /* visible= */ false
-        ));
-
-    // Panel for showing the crafting screen.
-    unique_ptr<Panel> craftingPanel(new Panel(
-        /* position= */ sf::Vector2f(INVENTORY_H_MARGIN, INVENTORY_V_MARGIN),
-        /* size= */ sf::Vector2f(
-            INVENTORY_WIDTH * 2 + INVENTORY_PADDING * 3,
-            INVENTORY_HEIGHT + INVENTORY_PADDING * 2
-        ),
-        /* fillColor= */ sf::Color(120, 120, 120, 255),
-        /* visible= */ false
-        ));
-
-    unique_ptr<Panel> researchPanel(new Panel(
-        /* position= */ sf::Vector2f(INVENTORY_H_MARGIN, INVENTORY_V_MARGIN),
-        /* size= */ sf::Vector2f(
-            INVENTORY_WIDTH * 2 + INVENTORY_PADDING * 3,
-            INVENTORY_HEIGHT + INVENTORY_PADDING * 2
-        ),
-        /* fillColor= */ sf::Color(120, 120, 120, 255),
-        /* visible= */ false
-        ));
-
-    unique_ptr<Panel> escapeMenuPanel(new Panel(
-        /* position= */ sf::Vector2f(ESCAPE_MENU_LEFT, ESCAPE_MENU_TOP),
-        /* size= */ sf::Vector2f(ESCAPE_MENU_WIDTH, ESCAPE_MENU_HEIGHT),
-        /* fillColor= */ sf::Color(120, 120, 120, 255),
-        /* visible= */ false
-        ));
-
-    root->addChild(doubleInventoryGridPanel.get());
-    root->addChild(craftingPanel.get());
-    root->addChild(researchPanel.get());
-    root->addChild(escapeMenuPanel.get());
-
-    unique_ptr<Gui> gui(new Gui(*doubleInventoryGridPanel, *craftingPanel, *researchPanel, *escapeMenuPanel, *player));
-
-    unique_ptr<Button> resumeButton(new Button(
-            /* position= */ sf::Vector2f(ESCAPE_MENU_ITEM_PADDING, ESCAPE_MENU_ITEM_PADDING),
-            /* size= */ sf::Vector2f(ESCAPE_MENU_ITEM_WIDTH, ESCAPE_MENU_ITEM_HEIGHT),
-            /* fillColor= */ sf::Color(80, 80, 80, 255),
-            /* textString= */ "Resume",
-            /* onClick= */ [&gui](Cursor &cursor) {
-                gui->closeOpenPanels();
-            }
-        )
-    );
-
-    unique_ptr<Button> quitButton(new Button(
-            /* position= */ sf::Vector2f(ESCAPE_MENU_ITEM_PADDING, ESCAPE_MENU_ITEM_PADDING * 2 + ESCAPE_MENU_ITEM_HEIGHT),
-            /* size= */ sf::Vector2f(ESCAPE_MENU_ITEM_WIDTH, ESCAPE_MENU_ITEM_HEIGHT),
-            /* fillColor= */ sf::Color(200, 80, 80, 255),
-            /* textString= */ "Quit game",
-            /* onClick= */ [&window](Cursor &cursor) {
-                window.close();
-            }
-        )
-    );
-
-    escapeMenuPanel->addChild(resumeButton.get());
-    escapeMenuPanel->addChild(quitButton.get());
 
     unique_ptr<Chest> chest(new Chest(*gui, 10, sf::Vector2f(2 * GRID_SIZE, 2 * GRID_SIZE)));
     chest->addItem(InventoryItemType::STONE_FURNACE, 2);
@@ -150,11 +71,12 @@ void Game::start()
     chest->updateItems();
     root->addChild(chest.get());
 
-    unique_ptr<InventoryGrid> inventoryLeft(new InventoryGrid(sf::Vector2f(INVENTORY_PADDING, INVENTORY_PADDING), player.get()));
+    unique_ptr<InventoryGrid> inventoryLeft(
+        new InventoryGrid(sf::Vector2f(INVENTORY_PADDING, INVENTORY_PADDING), player));
     unique_ptr<InventoryGrid> inventoryRight(new InventoryGrid(sf::Vector2f(INVENTORY_WIDTH + INVENTORY_PADDING * 2, INVENTORY_PADDING), chest.get() /* TODO: nullptr */));
-    doubleInventoryGridPanel.get()->addChild(inventoryLeft.get());
-    doubleInventoryGridPanel.get()->addChild(inventoryRight.get());
-    craftingPanel.get()->addChild(inventoryLeft.get());
+    doubleInventoryGridPanel->addChild(inventoryLeft.get());
+    doubleInventoryGridPanel->addChild(inventoryRight.get());
+    craftingPanel->addChild(inventoryLeft.get());
 
     // TODO: fix cyclic dep that causes this to need to be two separate classes.
     unique_ptr<Cursor> cursor(new Cursor(/**entityPlacementManager*/));
@@ -178,11 +100,11 @@ void Game::start()
     unique_ptr<RecipeTab> intermediateProductsTab(new RecipeTab(2, RecipeTabType::INTERMEDIATE_PRODUCTS, *recipePanel));
     unique_ptr<RecipeTab> combatTab(new RecipeTab(3, RecipeTabType::COMBAT, *recipePanel));
 
-    craftingPanel.get()->addChild(recipePanel.get());
-    recipePanel.get()->addChild(logisticsTab.get());
-    recipePanel.get()->addChild(productionTab.get());
-    recipePanel.get()->addChild(intermediateProductsTab.get());
-    recipePanel.get()->addChild(combatTab.get());
+    craftingPanel->addChild(recipePanel.get());
+    recipePanel->addChild(logisticsTab.get());
+    recipePanel->addChild(productionTab.get());
+    recipePanel->addChild(intermediateProductsTab.get());
+    recipePanel->addChild(combatTab.get());
 
     unique_ptr<RecipeConfiguration> recipeConfiguration(new RecipeConfiguration());
     for (int row = 0; row < RECIPE_GRID_HEIGHT_CELLS; row++)
@@ -194,14 +116,13 @@ void Game::start()
             RecipePosition* intermediateProductsPosition = new RecipePosition(RecipeTabType::INTERMEDIATE_PRODUCTS, row, column);
             RecipePosition* combatPosition = new RecipePosition(RecipeTabType::COMBAT, row, column);
 
-            recipePanel.get()->addChild(new RecipeGridSlot(*gui, *recipePanel, *recipeConfiguration, *logisticsPosition));
-            recipePanel.get()->addChild(new RecipeGridSlot(*gui, *recipePanel, *recipeConfiguration, *productionPosition));
-            recipePanel.get()->addChild(new RecipeGridSlot(*gui, *recipePanel, *recipeConfiguration, *intermediateProductsPosition));
-            recipePanel.get()->addChild(new RecipeGridSlot(*gui, *recipePanel, *recipeConfiguration, *combatPosition));
+            recipePanel->addChild(new RecipeGridSlot(*gui, *recipePanel, *recipeConfiguration, *logisticsPosition));
+            recipePanel->addChild(new RecipeGridSlot(*gui, *recipePanel, *recipeConfiguration, *productionPosition));
+            recipePanel->addChild(new RecipeGridSlot(*gui, *recipePanel, *recipeConfiguration, *intermediateProductsPosition));
+            recipePanel->addChild(new RecipeGridSlot(*gui, *recipePanel, *recipeConfiguration, *combatPosition));
         }
     }
 
-    root->addChild(player.get());
     root->addChild(cursorDisplay.get());
 
     unique_ptr<Renderer> renderer(
