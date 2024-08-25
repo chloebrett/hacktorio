@@ -23,7 +23,7 @@ std::map<ResourcePatchType, sf::Color> getResourcePatchColors()
     return resourcePatchColors;
 }
 
-ResourcePatch::ResourcePatch(Player &player, sf::Vector2f position, ResourcePatchType resourcePatchType, int remaining) :
+ResourcePatch::ResourcePatch(Player *player, sf::Vector2f position, ResourcePatchType resourcePatchType, int remaining) :
     player(player), resourcePatchType(resourcePatchType), remaining(remaining), SceneNode(
     /* position= */ position,
     /* size= */ sf::Vector2f(1 * GRID_SIZE, 1 * GRID_SIZE),
@@ -50,12 +50,16 @@ ResourcePatch::ResourcePatch(Player &player, sf::Vector2f position, ResourcePatc
 void ResourcePatch::handleMine() {
     if (this->getRemaining() > 0)
         {
-            bool didMine = this->mine(this->player.getMiningSpeed() / FRAMES_PER_SECOND);
+            bool didMine = this->mine(this->player->getMiningSpeed() / FRAMES_PER_SECOND);
             std::cout << "Mined: " << didMine << std::endl;
             if (didMine)
             {
-                this->player.addItem(this->getInventoryItemType(), 1);
-                this->player.updateItems();
+                InventoryItemType type = this->getInventoryItemType();
+                cout << "abc" << endl;
+                this->player->addItem(type, 1);
+                cout << "abc2" << endl;
+                this->player->updateItems();
+                cout << "abc3" << endl;
             }
         }
     }

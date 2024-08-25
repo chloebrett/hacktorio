@@ -9,7 +9,7 @@
 class ResourcePatch : public SceneNode
 {
 public:
-    ResourcePatch(Player &player, sf::Vector2f position, ResourcePatchType resourcePatchType, int amount);
+    ResourcePatch(Player *player, sf::Vector2f position, ResourcePatchType resourcePatchType, int amount);
     float getRemaining();
     bool mine(float amount);
     ResourcePatchType getResourcePatchType();
@@ -19,5 +19,5 @@ public:
 private:
     float remaining;
     ResourcePatchType resourcePatchType;
-    Player &player;
+    Player *player;
 };

@@ -12,37 +12,47 @@ class Container {
     // TODO: maybe move this to a C++ file?
     public:
     Container() {
-        this->contents = map<InventoryItemType, int>();
+        map<InventoryItemType, int> *contents = new map<InventoryItemType, int>();
+        this->contents = contents;
     }
     map<InventoryItemType, int> getContents() {
-        return contents;
+        return *contents;
     }
     int getItemCount(InventoryItemType item) {
-        if (contents.find(item) == contents.end()) {
-            contents[item] = 0;
+        if (contents->find(item) == contents->end()) {
+            (*contents)[item] = 0;
         }
-        return contents[item];
+        return (*contents)[item];
     }
     int getTotalItemCount() {
         int total = 0;
-        for (auto const& [item, count] : contents) {
+        for (auto const& [item, count] : *contents) {
             total += count;
         }
         return total;
     }
     void addItem(InventoryItemType item, int amount) {
-        if (contents.find(item) == contents.end()) {
-            contents[item] = 0;
+        cout << "Adding " << amount << " " << static_cast<int>(item) << endl;
+        if (contents == nullptr) {
+            cout << "Contents is null" << endl;
+        } else {
+            cout << "Contents is not null" << endl;
         }
-        contents[item] += amount;
+        cout << contents->size() << endl;
+        if (contents->find(item) == contents->end()) {
+            cout << "T" << endl;
+            (*contents)[item] = 0;
+        }
+        cout << "After: " << (*contents)[item] << endl;
+        (*contents)[item] += amount;
     }
     void removeItem(InventoryItemType item, int amount) {
-        if (contents.find(item) == contents.end()) {
-            contents[item] = 0;
+        if (contents->find(item) == contents->end()) {
+            (*contents)[item] = 0;
         }
-        contents[item] -= amount;
-        if (contents[item] < 0) {
-            contents[item] = 0;
+        (*contents)[item] -= amount;
+        if ((*contents)[item] < 0) {
+            (*contents)[item] = 0;
         }
     }
     vector<ItemStack> &getItems() {
@@ -51,7 +61,7 @@ class Container {
 
     void updateItems() {
         vector<ItemStack> items;
-        for (auto const& [item, count] : contents) {
+        for (auto const& [item, count] : *contents) {
             if (count > 0) {
                 items.push_back(ItemStack(item, count));
             }
@@ -63,6 +73,6 @@ class Container {
     }
 
     protected:
-    map<InventoryItemType, int> contents;
+    map<InventoryItemType, int> *contents;
     vector<ItemStack> items;
 };

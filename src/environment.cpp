@@ -11,7 +11,7 @@ Environment::Environment() {
 }
 
 void Environment::addPatches(
-    Player &player,
+    Player *player,
     SceneNode& rootSceneNode,
     ResourcePatchType type,
     int xMin,
@@ -34,7 +34,7 @@ void Environment::addPatches(
     }
 }
 
-void Environment::initResourcePatches(Player &player, SceneNode& rootSceneNode) {
+void Environment::initResourcePatches(Player *player, SceneNode& rootSceneNode) {
     addPatches(player, rootSceneNode, ResourcePatchType::IRON, 5, 11, 7, 15, 50, 5, 10);
     addPatches(player, rootSceneNode, ResourcePatchType::COAL, 30, 40, 20, 30, 50, 5, 10);
     addPatches(player, rootSceneNode, ResourcePatchType::COPPER, 15, 18, 15, 19, 50, 5, 10);

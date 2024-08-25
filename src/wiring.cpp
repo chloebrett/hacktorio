@@ -60,7 +60,7 @@ Wiring::Wiring(sf::RenderWindow &window) : window(window) {
     root->addChild(player);
 
     Environment* environment = new Environment();
-    environment->initResourcePatches(*player, *root);
+    environment->initResourcePatches(player, *root);
 
     initUi(root, player);
 }
