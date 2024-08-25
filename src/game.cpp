@@ -28,6 +28,8 @@
 #include "recipe_panel.hpp"
 #include "button.hpp"
 #include "electric_mining_drill.hpp"
+#include "entity_placement_manager.hpp"
+#include "entity_manager.hpp"
 
 using namespace std;
 
@@ -160,7 +162,9 @@ void Game::start()
     doubleInventoryGridPanel.get()->addChild(inventoryRight.get());
     craftingPanel.get()->addChild(inventoryLeft.get());
 
-    unique_ptr<Cursor> cursor(new Cursor());
+    // TODO: fix cyclic dep that causes this to need to be two separate classes.
+    unique_ptr<EntityManager> entityPlacementManager(new EntityPlacementManager(*root));
+    unique_ptr<Cursor> cursor(new Cursor(*entityPlacementManager));
     unique_ptr<CursorDisplay> cursorDisplay(new CursorDisplay(*cursor));
 
     for (int row = 0; row < INVENTORY_HEIGHT_CELLS; row++)
