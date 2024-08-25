@@ -30,9 +30,6 @@ gui(gui), recipeConfiguration(recipeConfiguration), Entity(
         sf::Sprite sprite = *GameResources::getInstance().getEntitySprite(EntityType::STONE_FURNACE);
         sprite.setPosition(absolutePos);
         window.draw(sprite);
-
-        // TODO: separate out an onUpdate callback for scene nodes / entities.
-        this->onTick();
     }
 ) {
     container = new Container();
@@ -42,8 +39,52 @@ void StoneFurnace::onTick() {
     if (currentRecipe == nullptr) {
         if (container->getItemCount(InventoryItemType::IRON_ORE) > 0) {
             currentRecipe = recipeConfiguration.getRecipeByOutputType(InventoryItemType::IRON_PLATE);
+        } else if (container->getItemCount(InventoryItemType::COPPER_ORE) > 0) {
+            currentRecipe = recipeConfiguration.getRecipeByOutputType(InventoryItemType::COPPER_PLATE);
+        } else if (container->getItemCount(InventoryItemType::STONE) > 0) {
+            currentRecipe = recipeConfiguration.getRecipeByOutputType(InventoryItemType::STONE_BRICK);
+        } else {
+            return;
+        }
+    }
+    cout << "Smelting: " << isSmelting << " " << currentRecipe->getName() << endl;
+    cout << "Ticks remaining: " << smeltUnitTicksRemaining << " " << fuelUnitTicksRemaining << endl;
+
+    if (isSmelting) {
+        smeltUnitTicksRemaining--;
+        fuelUnitTicksRemaining--;
+    } else {
+        // Assume only one input and output for smelting recipes.
+        ItemStack* input = currentRecipe->getInputs().front();
+
+        if (container->getItemCount(input->getType()) >= input->getAmount() && fuelUnitTicksRemaining > 0) {
+            container->removeItem(input->getType(), input->getAmount());
+            container->updateItems();
             isSmelting = true;
-            // TODO
+        }
+    }
+
+    if (smeltUnitTicksRemaining <= 0) {
+        ItemStack* output = currentRecipe->getOutputs().front();
+        container->addItem(output->getType(), output->getAmount());
+        container->updateItems();
+        smeltUnitTicksRemaining = currentRecipe->getTime() * FRAMES_PER_SECOND;
+
+        isSmelting = false;
+        currentRecipe = nullptr;
+    }
+
+    if (fuelUnitTicksRemaining <= 0) {
+        if (container->getItemCount(InventoryItemType::COAL) > 0) {
+            container->removeItem(InventoryItemType::COAL, 1);
+            container->updateItems();
+
+            // According to the wiki, coal consumption is 0.0225/second.
+            // https://wiki.factorio.com/Stone_furnace
+            // 1 / 0.0225 = 44.4444 = 400 / 9
+            fuelUnitTicksRemaining = 400.0 / 9.0 * FRAMES_PER_SECOND;
+        } else {
+            isSmelting = false;
         }
     }
 }

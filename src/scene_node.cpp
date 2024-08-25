@@ -131,3 +131,14 @@ void SceneNode::click(Cursor &cursor) {
         onClick(cursor);
     }
 }
+
+void SceneNode::onTick() {
+    // Default implementation does nothing
+}
+
+void SceneNode::tick() {
+    onTick();
+    for (auto& child : children) {
+        child->tick();
+    }
+}

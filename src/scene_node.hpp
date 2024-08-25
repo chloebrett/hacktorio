@@ -34,6 +34,8 @@ class SceneNode {
     void click(Cursor &cursor);
     void addParent(SceneNode* parent);
     void removeParent(SceneNode* parent);
+    void tick();
+    virtual void onTick();
 
     protected:
     sf::Vector2f pos; // top-left, relative

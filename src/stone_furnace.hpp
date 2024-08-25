@@ -18,7 +18,7 @@ class StoneFurnace : public Entity {
     int smeltUnitTicksRemaining;
     /** Ticks remaining until one unit of fuel is exhausted. */
     int fuelUnitTicksRemaining;
-    void onTick();
+    void onTick() override;
     Recipe *currentRecipe;
     bool isSmelting;
 };

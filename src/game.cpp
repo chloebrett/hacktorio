@@ -71,6 +71,7 @@ void Game::start()
     player->addItem(InventoryItemType::COPPER_PLATE, 100);
     player->addItem(InventoryItemType::IRON_ORE, 100);
     player->addItem(InventoryItemType::COPPER_ORE, 100);
+    player->addItem(InventoryItemType::COAL, 100);
     player->updateItems();
 
     WoodenChest* woodenChest = new WoodenChest(*gui, 10, sf::Vector2f(2 * GRID_SIZE, 2 * GRID_SIZE));
@@ -79,6 +80,7 @@ void Game::start()
     woodenChest->updateItems();
     root->addChild(woodenChest);
 
+    // TODO: move to wiring class
     for (int row = 0; row < RECIPE_GRID_HEIGHT_CELLS; row++)
     {
         for (int column = 0; column < RECIPE_GRID_WIDTH_CELLS; column++)
@@ -110,6 +112,7 @@ void Game::start()
 
             spatialIndex->refresh(*root);
             timer->runEvents(currentTick);
+            root->tick();
             input->handleQueuedEvents();
             input->handleOngoingEvents();
         }
