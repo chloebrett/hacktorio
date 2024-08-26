@@ -19,7 +19,8 @@
                 "-lsfml-system",
                 "-lsfml-audio",
                 "-lsfml-network",
-                "-std=c++17"
+                "-std=c++17",
+                "-O0" // disables optimizations to make build faster (code may be slower)
             ],
             "group": {
                 "kind": "build",

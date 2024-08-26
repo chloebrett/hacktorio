@@ -64,11 +64,11 @@ sf::Vector2f TransportBelt::getOutputPosition() {
 Container* TransportBelt::getOutputContainer() {
     vector<SceneNode*> nodes = spatialIndex.nodesAt(sf::Vector2i(getOutputPosition()));
     for (SceneNode* node : nodes) {
-        Container* container = dynamic_cast<Container*>(node);
-        if (container != nullptr) {
+        if (Container* container = dynamic_cast<Container*>(node)) {
             return container;
         }
     }
+    return nullptr;
 }
 
 void TransportBelt::onTick() {
