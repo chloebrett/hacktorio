@@ -10,6 +10,7 @@
 #include "wooden_chest.hpp"
 #include "stone_furnace.hpp"
 #include "config/recipe_configuration.hpp"
+#include "lab.hpp"
 
 using namespace std;
 
@@ -18,6 +19,8 @@ EntityPlacementManager::EntityPlacementManager(
     ) : rootSceneNode(rootSceneNode), recipeConfiguration(recipeConfiguration), gui(gui) {};
 
 bool EntityPlacementManager::tryPlaceEntity(InventoryItemType inventoryItemType, sf::Vector2f position) {
+    cout << "Placing entity" << static_cast<int>(inventoryItemType) << endl;
+
     switch (inventoryItemType) {
         case InventoryItemType::WOODEN_CHEST:
             rootSceneNode.addChild(new WoodenChest(gui, /* capacity= */ 10, position));
@@ -27,6 +30,9 @@ bool EntityPlacementManager::tryPlaceEntity(InventoryItemType inventoryItemType,
             return true;
         case InventoryItemType::STONE_FURNACE:
             rootSceneNode.addChild(new StoneFurnace(gui, recipeConfiguration, position));
+            return true;
+        case InventoryItemType::LAB:
+            rootSceneNode.addChild(new Lab(gui, position));
             return true;
         default:
             return false;

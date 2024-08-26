@@ -72,6 +72,7 @@ void Game::start()
     player->addItem(InventoryItemType::IRON_ORE, 100);
     player->addItem(InventoryItemType::COPPER_ORE, 100);
     player->addItem(InventoryItemType::COAL, 100);
+    player->addItem(InventoryItemType::LAB, 1);
     player->updateItems();
 
     WoodenChest* woodenChest = new WoodenChest(*gui, 10, sf::Vector2f(2 * GRID_SIZE, 2 * GRID_SIZE));

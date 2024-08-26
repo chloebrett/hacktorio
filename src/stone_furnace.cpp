@@ -61,6 +61,7 @@ void StoneFurnace::onTick() {
             container->removeItem(input->getType(), input->getAmount());
             container->updateItems();
             isSmelting = true;
+            smeltUnitTicksRemaining = currentRecipe->getTime() * FRAMES_PER_SECOND;
         }
     }
 
