@@ -7,13 +7,14 @@
 #include "ui/gui.hpp"
 #include "config/recipe_configuration.hpp"
 #include "spatial_index.hpp"
+#include "rotation.hpp"
 
 class EntityPlacementManager : public EntityManager {
     public:
     EntityPlacementManager(
         SceneNode &rootSceneNode, RecipeConfiguration &recipeConfiguration, Gui &gui, SpatialIndex &spatialIndex
     );
-    bool tryPlaceEntity(InventoryItemType inventoryItemType, sf::Vector2f position);
+    bool tryPlaceEntity(InventoryItemType inventoryItemType, sf::Vector2f position, Rotation rotation);
 
     private:
     SceneNode &rootSceneNode;

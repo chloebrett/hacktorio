@@ -69,6 +69,14 @@ void Input::handleQueuedEvents() {
                     gui.showEscapeMenu();
                 }
             }
+
+            if (event.key.code == sf::Keyboard::R) {
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift) || sf::Keyboard::isKeyPressed(sf::Keyboard::RShift)) {
+                    cursor.rotateAntiClockwise();
+                } else {
+                    cursor.rotateClockwise();
+                }
+            }
         }
     }
 }

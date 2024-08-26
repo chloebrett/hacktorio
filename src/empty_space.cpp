@@ -15,7 +15,7 @@ EmptySpace::EmptySpace(sf::Vector2f pos, EntityPlacementManager &entityPlacement
         cout << "Cursor::handleLeftClickOnEmptySpace" << endl;
         if (itemStack != nullptr) {
             cout << "Cursor::handleLeftClickOnEmptySpace itemStack != null" << endl;
-            bool success = entityPlacementManager.tryPlaceEntity(itemStack->getType(), pos);
+            bool success = entityPlacementManager.tryPlaceEntity(itemStack->getType(), pos, cursor.getRotation());
             cout << "Cursor::handleLeftClickOnEmptySpace success: " << success << endl;
             if (success) {
                 // TODO: memory leak

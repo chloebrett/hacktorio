@@ -3,15 +3,18 @@
 #include "container.hpp"
 #include "item_stack.hpp"
 #include <SFML/Graphics.hpp>
+#include "rotation.hpp"
 
 class Cursor {
     public:
-    Cursor(/*sf::RenderWindow &window*/);
+    Cursor();
     ItemStack* getItemStack();
     void setItemStack(ItemStack *itemStack);
-    // sf::Vector2i getMousePosition();
+    void rotateClockwise();
+    void rotateAntiClockwise();
+    Rotation getRotation();
 
     private:
     ItemStack* itemStack;
-    // sf::RenderWindow &window;
+    Rotation rotation;
 };

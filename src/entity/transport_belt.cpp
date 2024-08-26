@@ -30,10 +30,23 @@ TransportBelt::TransportBelt(Gui &gui, SpatialIndex &spatialIndex, Rotation rota
     ) {
         sf::Sprite sprite = *GameResources::getInstance().getSprite("entity-transport-belt");
         sprite.setPosition(absolutePos);
-        sprite.setTextureRect(sf::IntRect(15, 19, 34, 34));
+        sprite.setTextureRect(getImageMask());
         window.draw(sprite);
     }
 ) {}
+
+sf::IntRect TransportBelt::getImageMask() {
+    switch (rotation) {
+        case Rotation::UP:
+            return sf::IntRect(15, 19 + 64 * 2, 34, 34);
+        case Rotation::RIGHT:
+            return sf::IntRect(15, 19, 34, 34);
+        case Rotation::DOWN:
+            return sf::IntRect(15, 19 + 64 * 3, 34, 34);
+        case Rotation::LEFT:
+            return sf::IntRect(15, 19 + 64, 34, 34);
+    }
+}
 
 sf::Vector2f TransportBelt::getOutputPosition() {
     switch (rotation) {

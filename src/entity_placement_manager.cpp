@@ -13,6 +13,7 @@
 #include "entity/lab.hpp"
 #include "spatial_index.hpp"
 #include "entity/transport_belt.hpp"
+#include "rotation.hpp"
 
 using namespace std;
 
@@ -27,7 +28,7 @@ EntityPlacementManager::EntityPlacementManager(
     gui(gui),
     spatialIndex(spatialIndex) {};
 
-bool EntityPlacementManager::tryPlaceEntity(InventoryItemType inventoryItemType, sf::Vector2f position) {
+bool EntityPlacementManager::tryPlaceEntity(InventoryItemType inventoryItemType, sf::Vector2f position, Rotation rotation) {
     cout << "Placing entity" << static_cast<int>(inventoryItemType) << endl;
 
     switch (inventoryItemType) {
@@ -44,7 +45,7 @@ bool EntityPlacementManager::tryPlaceEntity(InventoryItemType inventoryItemType,
             rootSceneNode.addChild(new Lab(gui, position));
             return true;
         case InventoryItemType::TRANSPORT_BELT:
-            rootSceneNode.addChild(new TransportBelt(gui, spatialIndex, Rotation::RIGHT, position));
+            rootSceneNode.addChild(new TransportBelt(gui, spatialIndex, rotation, position));
             return true;
         default:
             return false;
