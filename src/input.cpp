@@ -93,7 +93,7 @@ void Input::handleOngoingEvents() {
         {
             if (node->isTransitivelyVisible() && clickedNodes.find(node) == clickedNodes.end()){
                 // Note: would need dynamic_cast if this was polymorphic (virtual functions)
-                if(ResourcePatch* resourcePatch = static_cast<ResourcePatch*>(node)) {
+                if (ResourcePatch* resourcePatch = dynamic_cast<ResourcePatch*>(node)) {
                     resourcePatch->handleMine();
                 }
                 clickedNodes.insert(node);

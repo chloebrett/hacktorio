@@ -1,0 +1,33 @@
+{
+    "tasks": [
+        {
+            "label": "build",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "-w",
+                "-g",
+                "${workspaceFolder}/src/**/*.cpp",
+                "-o",
+                "${workspaceFolder}/bin/app",
+                "-I",
+                "/opt/homebrew/Cellar/sfml/2.6.1/include",
+                "-L",
+                "/opt/homebrew/Cellar/sfml/2.6.1/lib",
+                "-lsfml-graphics",
+                "-lsfml-window",
+                "-lsfml-system",
+                "-lsfml-audio",
+                "-lsfml-network",
+                "-std=c++17"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": ["$gcc"],
+            "detail": "Generated task by debugging setup."
+        }
+    ],
+    "version": "2.0.0"
+}

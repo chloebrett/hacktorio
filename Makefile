@@ -8,5 +8,5 @@ all: compile
 
 compile:	
 	mkdir -p bin
-	g++ -w $(cppFileNames) -I$(SFML_PATH)/include -o bin/app -L$(SFML_PATH)/lib -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -lsfml-network -std=c++17
+	g++ -w $(cppFileNames) -I $(SFML_PATH)/include -o bin/app -L $(SFML_PATH)/lib -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -lsfml-network -std=c++17
 # do `g++ -w` to turn off warnings

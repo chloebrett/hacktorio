@@ -84,6 +84,7 @@ class Container {
                 return new ItemStack(item, amount);
             }
         }
+        return nullptr;
     }
 
     protected:
