@@ -72,6 +72,20 @@ class Container {
         this->items = items;
     }
 
+    /** Picks any item and removes it. Not necessarily random but may be random. */
+    ItemStack* removeAnyItem(int maxStackSize) {
+        for (auto const& [item, count] : *contents) {
+            if (count > 0) {
+                int amount = min(count, maxStackSize);
+                (*contents)[item] -= amount;
+                if ((*contents)[item] == 0) {
+                    contents->erase(item);
+                }
+                return new ItemStack(item, amount);
+            }
+        }
+    }
+
     protected:
     map<InventoryItemType, int> *contents;
     vector<ItemStack> items;

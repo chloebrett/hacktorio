@@ -70,3 +70,24 @@ Container* TransportBelt::getOutputContainer() {
         }
     }
 }
+
+void TransportBelt::onTick() {
+    Container* outputContainer = getOutputContainer();
+    if (outputContainer != nullptr) {
+        cout << "Output container found" << endl;
+    } else {
+        return;
+    }
+
+    transferItemTicksRemaining--;
+
+    if (transferItemTicksRemaining <= 0) {
+        ItemStack* item = this->removeAnyItem(/* maxStackSize= */ 1);
+        if (item != nullptr) {
+            outputContainer->addItem(item->getType(), item->getAmount());
+            outputContainer->updateItems();
+        }
+        transferItemTicksRemaining = 1 * FRAMES_PER_SECOND; // 1 second
+        // TODO: change to actual belt speed
+    }
+}

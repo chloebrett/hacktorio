@@ -21,4 +21,6 @@ class TransportBelt : public Entity, public Container {
     sf::Vector2f pos; // note: this already exists on SceneNode
     Container* outputContainer;
     sf::IntRect getImageMask();
+    int transferItemTicksRemaining;
+    void onTick() override;
 };
