@@ -11,12 +11,21 @@
 #include "entity/stone_furnace.hpp"
 #include "config/recipe_configuration.hpp"
 #include "entity/lab.hpp"
+#include "spatial_index.hpp"
+#include "entity/transport_belt.hpp"
 
 using namespace std;
 
 EntityPlacementManager::EntityPlacementManager(
-        SceneNode &rootSceneNode, RecipeConfiguration &recipeConfiguration, Gui &gui
-    ) : rootSceneNode(rootSceneNode), recipeConfiguration(recipeConfiguration), gui(gui) {};
+        SceneNode &rootSceneNode,
+        RecipeConfiguration &recipeConfiguration,
+        Gui &gui,
+        SpatialIndex &spatialIndex
+    ) :
+    rootSceneNode(rootSceneNode),
+    recipeConfiguration(recipeConfiguration),
+    gui(gui),
+    spatialIndex(spatialIndex) {};
 
 bool EntityPlacementManager::tryPlaceEntity(InventoryItemType inventoryItemType, sf::Vector2f position) {
     cout << "Placing entity" << static_cast<int>(inventoryItemType) << endl;
@@ -33,6 +42,9 @@ bool EntityPlacementManager::tryPlaceEntity(InventoryItemType inventoryItemType,
             return true;
         case InventoryItemType::LAB:
             rootSceneNode.addChild(new Lab(gui, position));
+            return true;
+        case InventoryItemType::TRANSPORT_BELT:
+            rootSceneNode.addChild(new TransportBelt(gui, spatialIndex, Rotation::RIGHT, position));
             return true;
         default:
             return false;

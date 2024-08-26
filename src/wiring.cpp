@@ -24,6 +24,7 @@
 #include "timer.hpp"
 #include "crafting_queue.hpp"
 #include "config/recipe_configuration.hpp"
+#include "spatial_index.hpp"
 
 /**
  * Wires dependencies for game classes and attaches them to the scene tree.
@@ -53,6 +54,8 @@ Wiring::Wiring(sf::RenderWindow &window) : window(window) {
             window.draw(backgroundShape);
         }
     );
+
+    spatialIndex = new SpatialIndex();
 
     player = new Player();
 
@@ -119,7 +122,7 @@ void Wiring::initUi(SceneNode *root, Player *player) {
 
     CraftingQueue *craftingQueue = new CraftingQueue(*player, *timer);
     Gui* gui = new Gui(*doubleInventoryGridPanel, *craftingPanel, *entityPanel, *researchPanel, *escapeMenuPanel, *player, *timer, *craftingQueue);
-    EntityPlacementManager* entityPlacementManager = new EntityPlacementManager(*root, *recipeConfiguration, *gui);
+    EntityPlacementManager* entityPlacementManager = new EntityPlacementManager(*root, *recipeConfiguration, *gui, *spatialIndex);
 
     for (int y = 0; y < SCREEN_HEIGHT_CELLS; y++) {
         for (int x = 0; x < SCREEN_WIDTH_CELLS; x++) {

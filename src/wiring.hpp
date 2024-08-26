@@ -11,6 +11,7 @@
 #include "ui/inventory_grid.hpp"
 #include "config/recipe_configuration.hpp"
 #include "timer.hpp"
+#include "spatial_index.hpp"
 
 /**
  * Wires dependencies for game classes and attaches them to the scene tree.
@@ -35,6 +36,7 @@ class Wiring {
     InventoryGrid *inventoryRight;
     InventoryGrid *entityRight;
     Timer *timer;
+    SpatialIndex *spatialIndex;
     RecipeConfiguration *recipeConfiguration;
 
     void initUi(SceneNode* root, Player* player);

@@ -60,6 +60,7 @@ void Game::start()
     Cursor *cursor = wiring->cursor;
     RecipeConfiguration* recipeConfiguration = wiring->recipeConfiguration;
     Timer *timer = wiring->timer;
+    SpatialIndex *spatialIndex = wiring->spatialIndex;
 
     gui->setContainerInventoryGrid(inventoryRight);
     gui->setEntityInventoryGrid(entityRight);
@@ -99,7 +100,6 @@ void Game::start()
     }
 
     Renderer* renderer = new Renderer(window);
-    SpatialIndex* spatialIndex = new SpatialIndex();
     Input* input = new Input(window, *player, *cursor, *gui, *spatialIndex);
 
     int currentTick;

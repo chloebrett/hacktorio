@@ -45,9 +45,6 @@ gui(gui), Entity(
 }
 
 void Lab::onTick() {
-    cout << "Researching: " << isResearching << endl;
-    cout << "Ticks remaining: " << researchUnitTicksRemaining << endl;
-
     if (isResearching) {
         researchUnitTicksRemaining--;
     } else {

@@ -6,14 +6,18 @@
 #include "entity_manager.hpp"
 #include "ui/gui.hpp"
 #include "config/recipe_configuration.hpp"
+#include "spatial_index.hpp"
 
 class EntityPlacementManager : public EntityManager {
     public:
-    EntityPlacementManager(SceneNode &rootSceneNode, RecipeConfiguration &recipeConfiguration, Gui &gui);
+    EntityPlacementManager(
+        SceneNode &rootSceneNode, RecipeConfiguration &recipeConfiguration, Gui &gui, SpatialIndex &spatialIndex
+    );
     bool tryPlaceEntity(InventoryItemType inventoryItemType, sf::Vector2f position);
 
     private:
     SceneNode &rootSceneNode;
     RecipeConfiguration &recipeConfiguration;
     Gui &gui;
+    SpatialIndex &spatialIndex;
 };
