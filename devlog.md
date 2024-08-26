@@ -8,7 +8,7 @@ I added configuration objects to store data about science: what it unlocks, how 
 
 Here's a video demo of the game so far. It's got a long, long way to go but it's coming along:
 
-![Video demo](screenshots/2024-08-26-video.mov)
+![Video demo](screenshots/2024-08-26-gif.gif)
 
 # 2024-08-25 Sun
 
