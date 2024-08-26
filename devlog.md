@@ -72,4 +72,4 @@ One problem I encountered today: trying to store references to custom objects in
 
 How I fixed it: I eventually realised this was due to data being allocated on the stack instead of the heap, and to fix it, in most cases I should allocate custom objects on the heap using "MyClass myClass = new MyClass()" instead of just "MyClass myClass". I'm familiar with pointers conceptually, and perhaps this example makes me look a bit naive, but I've spent most of my working life using languages like Kotlin/Java, TypeScript/JavaScript, and Python, so the in-practice issues with memory management aren't something I've had to think about too much (aside from the occasional weak reference in Kt/Java).
 
-I've also heard of unique_ptr and other smart pointers, and maybe I'll give them a try, but for now I want to learn things the "old school" way and solve issues like memory leaks when I run into them - giving myself the real trial by fire treatment.
+I've also heard of unique_ptr and other smart pointers, and maybe I'll give them a try, but for now I want to learn things the "old school" way and solve issues like memory leaks when I run into them.
