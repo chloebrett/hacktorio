@@ -5,7 +5,6 @@
 #include <iostream>
 #include <memory>
 #include "player.hpp"
-#include "wooden_chest.hpp"
 #include "environment.hpp"
 #include "resource_patch.hpp"
 #include "cursor.hpp"

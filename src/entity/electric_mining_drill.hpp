@@ -1,7 +1,7 @@
 #pragma once
 
-#include "container.hpp"
-#include "entity.hpp"
+#include "../container.hpp"
+#include "../entity.hpp"
 #include <SFML/Graphics.hpp>
 
 class ElectricMiningDrill : public Entity {

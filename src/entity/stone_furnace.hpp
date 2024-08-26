@@ -1,10 +1,10 @@
 #pragma once
 
-#include "container.hpp"
-#include "scene_node.hpp"
-#include "ui/gui.hpp"
-#include "entity.hpp"
-#include "config/recipe_configuration.hpp"
+#include "../container.hpp"
+#include "../scene_node.hpp"
+#include "../ui/gui.hpp"
+#include "../entity.hpp"
+#include "../config/recipe_configuration.hpp"
 
 class StoneFurnace : public Entity {
     public:

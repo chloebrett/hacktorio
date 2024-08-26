@@ -2,15 +2,15 @@
 
 #include <SFML/Graphics.hpp>
 #include "scene_node.hpp"
-#include "electric_mining_drill.hpp"
+#include "entity/electric_mining_drill.hpp"
 #include "entity_placement_manager.hpp"
 #include "config/inventory_item_type.hpp"
 #include <iostream>
 #include "ui/gui.hpp"
-#include "wooden_chest.hpp"
-#include "stone_furnace.hpp"
+#include "entity/wooden_chest.hpp"
+#include "entity/stone_furnace.hpp"
 #include "config/recipe_configuration.hpp"
-#include "lab.hpp"
+#include "entity/lab.hpp"
 
 using namespace std;
 

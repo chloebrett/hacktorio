@@ -1,16 +1,16 @@
 #pragma once
 
 #include <iostream>
-#include "container.hpp"
+#include "../container.hpp"
 #include "wooden_chest.hpp"
-#include "entity.hpp"
-#include "SFML/Graphics.hpp"
-#include "config/game_resources.hpp"
-#include "cursor.hpp"
+#include "../entity.hpp"
+#include <SFML/Graphics.hpp>
+#include "../config/game_resources.hpp"
+#include "../cursor.hpp"
 #include <functional>
 #include <vector>
-#include "config/constants.hpp"
-#include "ui/gui.hpp"
+#include "../config/constants.hpp"
+#include "../ui/gui.hpp"
 
 WoodenChest::WoodenChest(Gui &gui, int capacity, sf::Vector2f pos) : gui(gui), capacity(capacity), Entity(
     /* position= */ pos,

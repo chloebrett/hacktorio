@@ -1,18 +1,18 @@
 #pragma once
 
 #include <iostream>
-#include "container.hpp"
+#include "../container.hpp"
 #include "stone_furnace.hpp"
-#include "entity.hpp"
-#include "SFML/Graphics.hpp"
-#include "config/game_resources.hpp"
-#include "cursor.hpp"
+#include "../entity.hpp"
+#include <SFML/Graphics.hpp>
+#include "../config/game_resources.hpp"
+#include "../cursor.hpp"
 #include <functional>
 #include <vector>
-#include "config/entity_type.hpp"
-#include "config/constants.hpp"
-#include "ui/gui.hpp"
-#include "config/recipe_configuration.hpp"
+#include "../config/entity_type.hpp"
+#include "../config/constants.hpp"
+#include "../ui/gui.hpp"
+#include "../config/recipe_configuration.hpp"
 
 StoneFurnace::StoneFurnace(Gui &gui, RecipeConfiguration &recipeConfiguration, sf::Vector2f pos) :
 gui(gui), recipeConfiguration(recipeConfiguration), Entity(

@@ -8,7 +8,7 @@
 #include <iostream>
 #include <memory>
 #include "renderer.hpp"
-#include "wooden_chest.hpp"
+#include "entity/wooden_chest.hpp"
 #include <vector>
 #include "input.hpp"
 #include "ui/panel.hpp"
@@ -27,7 +27,7 @@
 #include "ui/gui.hpp"
 #include "ui/recipe_panel.hpp"
 #include "ui/button.hpp"
-#include "electric_mining_drill.hpp"
+#include "entity/electric_mining_drill.hpp"
 #include "entity_placement_manager.hpp"
 #include "entity_manager.hpp"
 #include "empty_space.hpp"

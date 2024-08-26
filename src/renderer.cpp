@@ -1,17 +1,8 @@
-#include "renderer.hpp"
-#include "config/constants.hpp"
+#pragma once
+
 #include "SFML/Graphics.hpp"
-#include "player.hpp"
-#include "resource_patch.hpp"
-#include "game.hpp"
-#include "resource_patch.hpp"
-#include "config/inventory_item_type.hpp"
-#include "config/resource_patch_type.hpp"
-#include <iostream>
-#include <memory>
-#include "wooden_chest.hpp"
-#include "item_stack.hpp"
-#include <vector>
+#include "scene_node.hpp"
+#include "renderer.hpp"
 
 Renderer::Renderer(sf::RenderWindow &window) : window(window) {}
 

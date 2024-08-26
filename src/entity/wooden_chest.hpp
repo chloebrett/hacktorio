@@ -1,9 +1,9 @@
 #pragma once
 
-#include "container.hpp"
-#include "scene_node.hpp"
-#include "ui/gui.hpp"
-#include "entity.hpp"
+#include "../container.hpp"
+#include "../scene_node.hpp"
+#include "../ui/gui.hpp"
+#include "../entity.hpp"
 
 class WoodenChest : public Entity, public Container {
     public:

@@ -1,10 +1,10 @@
 #pragma once
 
-#include "scene_node.hpp"
+#include "../scene_node.hpp"
 #include "electric_mining_drill.hpp"
-#include "config/constants.hpp"
+#include "../config/constants.hpp"
 #include <SFML/Graphics.hpp>
-#include "config/game_resources.hpp"
+#include "../config/game_resources.hpp"
 
 ElectricMiningDrill::ElectricMiningDrill(
     sf::Vector2f pos
