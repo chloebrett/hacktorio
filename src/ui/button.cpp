@@ -1,5 +1,3 @@
-#pragma once
-
 #include "button.hpp"
 
 #include <SFML/Graphics.hpp>

@@ -1,5 +1,3 @@
-#pragma once
-
 #include "research.hpp"
 
 #include <vector>

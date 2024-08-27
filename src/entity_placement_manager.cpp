@@ -1,5 +1,3 @@
-#pragma once
-
 #include "entity_placement_manager.hpp"
 
 #include <SFML/Graphics.hpp>

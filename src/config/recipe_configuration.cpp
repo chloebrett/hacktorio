@@ -1,5 +1,3 @@
-#pragma once
-
 #include "recipe_configuration.hpp"
 
 #include <map>

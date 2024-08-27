@@ -1,5 +1,3 @@
-#pragma once
-
 #include "lab.hpp"
 
 #include <math.h>

@@ -1,5 +1,3 @@
-#pragma once
-
 #include "transport_belt.hpp"
 
 #include <SFML/Graphics.hpp>

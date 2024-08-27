@@ -1,5 +1,3 @@
-#pragma once
-
 #include "scene_node.hpp"
 
 #include <SFML/Graphics.hpp>

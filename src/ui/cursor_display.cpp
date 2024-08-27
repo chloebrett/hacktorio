@@ -1,5 +1,3 @@
-#pragma once
-
 #include "cursor_display.hpp"
 
 #include "../config/constants.hpp"

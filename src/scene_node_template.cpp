@@ -1,5 +1,3 @@
-#pragma once
-
 #include "scene_node_template.hpp"
 
 #include "config/constants.hpp"

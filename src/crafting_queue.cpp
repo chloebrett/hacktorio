@@ -1,5 +1,3 @@
-#pragma once
-
 #include "crafting_queue.hpp"
 
 #include <iostream>

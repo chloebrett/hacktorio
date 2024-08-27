@@ -1,5 +1,3 @@
-#pragma once
-
 #include "wooden_chest.hpp"
 
 #include <SFML/Graphics.hpp>

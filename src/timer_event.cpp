@@ -1,5 +1,3 @@
-#pragma once
-
 #include "timer_event.hpp"
 
 #include <functional>

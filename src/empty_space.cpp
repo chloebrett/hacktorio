@@ -1,5 +1,3 @@
-#pragma once
-
 #include "empty_space.hpp"
 
 #include <SFML/Graphics.hpp>

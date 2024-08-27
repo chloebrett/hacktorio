@@ -1,5 +1,3 @@
-#pragma once
-
 #include "recipe.hpp"
 
 #include <string>

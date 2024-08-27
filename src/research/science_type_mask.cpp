@@ -1,5 +1,3 @@
-#pragma once
-
 #include "science_type_mask.hpp"
 
 #include <vector>

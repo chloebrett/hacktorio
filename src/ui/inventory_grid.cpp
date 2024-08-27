@@ -1,5 +1,3 @@
-#pragma once
-
 #include "inventory_grid.hpp"
 
 #include <functional>

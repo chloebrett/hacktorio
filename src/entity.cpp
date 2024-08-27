@@ -1,5 +1,3 @@
-#pragma once
-
 #include "entity.hpp"
 
 #include "scene_node.hpp"

@@ -1,5 +1,3 @@
-#pragma once
-
 #include "electric_mining_drill.hpp"
 
 #include <SFML/Graphics.hpp>

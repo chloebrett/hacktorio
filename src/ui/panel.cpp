@@ -1,5 +1,3 @@
-#pragma once
-
 #include "panel.hpp"
 
 #include <SFML/Graphics.hpp>

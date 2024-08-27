@@ -1,5 +1,3 @@
-#pragma once
-
 #include "cursor.hpp"
 
 #include <iostream>

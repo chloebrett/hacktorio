@@ -1,5 +1,3 @@
-#pragma once
-
 #include "item_stack.hpp"
 
 #include "config/inventory_item_type.hpp"

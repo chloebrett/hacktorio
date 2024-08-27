@@ -1,5 +1,3 @@
-#pragma once
-
 #include "recipe_panel.hpp"
 
 #include <SFML/Graphics.hpp>

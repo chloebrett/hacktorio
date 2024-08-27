@@ -1,5 +1,3 @@
-#pragma once
-
 #include "spatial_index.hpp"
 
 #include <iostream>

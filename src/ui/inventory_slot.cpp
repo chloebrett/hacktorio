@@ -1,5 +1,3 @@
-#pragma once
-
 #include "inventory_slot.hpp"
 
 #include <functional>

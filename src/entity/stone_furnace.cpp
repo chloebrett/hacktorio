@@ -1,5 +1,3 @@
-#pragma once
-
 #include "stone_furnace.hpp"
 
 #include <SFML/Graphics.hpp>

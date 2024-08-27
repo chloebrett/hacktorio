@@ -1,5 +1,3 @@
-#pragma once
-
 #include "wiring.hpp"
 
 #include <SFML/Graphics.hpp>

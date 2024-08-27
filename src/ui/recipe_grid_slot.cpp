@@ -1,5 +1,3 @@
-#pragma once
-
 #include "recipe_grid_slot.hpp"
 
 #include <SFML/Graphics.hpp>
