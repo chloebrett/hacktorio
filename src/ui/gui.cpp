@@ -96,29 +96,29 @@ void Gui::startCraftingRecipe(Recipe *recipe) {
     std::cout << "Inputs: " << std::endl;
     GameResources &gameResources = GameResources::getInstance();
     for (ItemStack *input : recipe->getInputs()) {
-        std::cout << "  " << input->getAmount() << " x "
-                  << gameResources.inventoryItemTypeToKey(input->getType()) << std::endl;
+        std::cout << "  " << input->count << " x "
+                  << gameResources.inventoryItemTypeToKey(input->type) << std::endl;
     }
     std::cout << "Outputs: " << std::endl;
     for (ItemStack *output : recipe->getOutputs()) {
-        std::cout << "  " << output->getAmount() << " x "
-                  << gameResources.inventoryItemTypeToKey(output->getType()) << std::endl;
+        std::cout << "  " << output->count << " x "
+                  << gameResources.inventoryItemTypeToKey(output->type) << std::endl;
     }
     std::cout << "Crafting time: " << recipe->getTime() << "s" << std::endl;
 
     // Check if player has the required items
     for (ItemStack *input : recipe->getInputs()) {
-        if (playerInventory.getItemCount(input->getType()) < input->getAmount()) {
+        if (playerInventory.getItemCount(input->type) < input->count) {
             std::cout << "Player does not have enough "
-                      << gameResources.inventoryItemTypeToKey(input->getType()) << " (had "
-                      << playerInventory.getItemCount(input->getType()) << ", needed "
-                      << input->getAmount() << ")" << std::endl;
+                      << gameResources.inventoryItemTypeToKey(input->type) << " (had "
+                      << playerInventory.getItemCount(input->type) << ", needed " << input->count
+                      << ")" << std::endl;
             return;
         }
     }
 
     for (ItemStack *input : recipe->getInputs()) {
-        playerInventory.removeItem(input->getType(), input->getAmount());
+        playerInventory.removeItem(input->type, input->count);
     }
     playerInventory.updateItems();
 

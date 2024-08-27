@@ -57,8 +57,7 @@ RecipeGridSlot::RecipeGridSlot(Gui &gui, RecipePanel &recipePanel,
               }
               ItemStack *itemStack = recipe->getOutputs().front();  // first element of vector
 
-              sf::Sprite sprite =
-                  *GameResources::getInstance().getInventorySprite(itemStack->getType());
+              sf::Sprite sprite = *GameResources::getInstance().getInventorySprite(itemStack->type);
               sprite.setPosition(absolutePos);
               window.draw(sprite);
           }) {}

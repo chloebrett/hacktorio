@@ -85,9 +85,9 @@ void TransportBelt::onTick() {
     transferItemTicksRemaining--;
 
     if (transferItemTicksRemaining <= 0) {
-        ItemStack* item = this->removeAnyItem(/* maxStackSize= */ 1);
-        if (item != nullptr) {
-            outputContainer->addItem(item->getType(), item->getAmount());
+        ItemStack item = this->removeAnyItem(/* maxStackSize= */ 1);
+        if (item.type != InventoryItemType::NONE) {
+            outputContainer->addItem(item.type, item.count);
             outputContainer->updateItems();
         }
         transferItemTicksRemaining = 1 * FRAMES_PER_SECOND;  // 1 second

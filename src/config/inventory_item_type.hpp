@@ -1,6 +1,7 @@
 #pragma once
 
 enum class InventoryItemType {
+    NONE = 0,  // Invalid / null item or stack
     // Logistics
     WOODEN_CHEST,
     IRON_CHEST,

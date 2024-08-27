@@ -58,16 +58,19 @@ class Container {
         std::vector<ItemStack> items;
         for (auto const& [item, count] : *contents) {
             if (count > 0) {
-                items.push_back(ItemStack(item, count));
+                ItemStack itemStack;
+                itemStack.type = item;
+                itemStack.count = count;
+                items.push_back(itemStack);
             }
         }
         sort(items.begin(), items.end(),
-             [](ItemStack a, ItemStack b) { return a.getAmount() < b.getAmount(); });
+             [](ItemStack a, ItemStack b) { return a.count < b.count; });
         this->items = items;
     }
 
     /** Picks any item and removes it. Not necessarily random but may be random. */
-    ItemStack* removeAnyItem(int maxStackSize) {
+    ItemStack removeAnyItem(int maxStackSize) {
         for (auto const& [item, count] : *contents) {
             if (count > 0) {
                 int amount = std::min(count, maxStackSize);
@@ -75,10 +78,16 @@ class Container {
                 if ((*contents)[item] == 0) {
                     contents->erase(item);
                 }
-                return new ItemStack(item, amount);
+                ItemStack itemStack;
+                itemStack.type = item;
+                itemStack.count = amount;
+                return itemStack;
             }
         }
-        return nullptr;
+        ItemStack itemStack;
+        itemStack.type = InventoryItemType::NONE;
+        itemStack.count = 0;
+        return itemStack;
     }
 
    protected:

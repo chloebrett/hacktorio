@@ -16,15 +16,18 @@ EmptySpace::EmptySpace(sf::Vector2f pos, EntityPlacementManager &entityPlacement
           [this, pos, &entityPlacementManager](Cursor &cursor) {
               ItemStack *itemStack = cursor.getItemStack();
               if (itemStack != nullptr) {
-                  bool success = entityPlacementManager.tryPlaceEntity(itemStack->getType(), pos,
+                  bool success = entityPlacementManager.tryPlaceEntity(itemStack->type, pos,
                                                                        cursor.getRotation());
                   if (success) {
                       // TODO: memory leak
-                      if (itemStack->getAmount() == 1) {
+                      if (itemStack->count == 1) {
                           cursor.setItemStack(nullptr);
                       } else {
-                          cursor.setItemStack(
-                              new ItemStack(itemStack->getType(), itemStack->getAmount() - 1));
+                          ItemStack *newItemStack = new ItemStack;
+                          newItemStack->type = itemStack->type;
+                          newItemStack->count = itemStack->count - 1;
+                          // TODO: copy instead of reference
+                          cursor.setItemStack(newItemStack);
                       }
                   }
               }

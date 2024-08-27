@@ -62,9 +62,8 @@ void StoneFurnace::onTick() {
         // Assume only one input and output for smelting recipes.
         ItemStack *input = currentRecipe->getInputs().front();
 
-        if (container->getItemCount(input->getType()) >= input->getAmount() &&
-            fuelUnitTicksRemaining > 0) {
-            container->removeItem(input->getType(), input->getAmount());
+        if (container->getItemCount(input->type) >= input->count && fuelUnitTicksRemaining > 0) {
+            container->removeItem(input->type, input->count);
             container->updateItems();
             isSmelting = true;
             smeltUnitTicksRemaining = currentRecipe->getTime() * FRAMES_PER_SECOND;
@@ -73,7 +72,7 @@ void StoneFurnace::onTick() {
 
     if (smeltUnitTicksRemaining <= 0) {
         ItemStack *output = currentRecipe->getOutputs().front();
-        container->addItem(output->getType(), output->getAmount());
+        container->addItem(output->type, output->count);
         container->updateItems();
         smeltUnitTicksRemaining = currentRecipe->getTime() * FRAMES_PER_SECOND;
 

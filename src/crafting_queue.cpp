@@ -34,7 +34,7 @@ void CraftingQueue::startNextRecipe() {
                              queue.erase(queue.begin());
 
                              for (ItemStack *output : recipe->getOutputs()) {
-                                 playerInventory.addItem(output->getType(), output->getAmount());
+                                 playerInventory.addItem(output->type, output->count);
                              }
                              playerInventory.updateItems();
                              startNextRecipe();

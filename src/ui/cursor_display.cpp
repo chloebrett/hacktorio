@@ -19,7 +19,7 @@ CursorDisplay::CursorDisplay(Cursor &cursor)
                   // TODO: render the "inner inventory item" by reusing a class pulled out of
                   // InventorySlot.
                   sf::Sprite sprite = *GameResources::getInstance().getInventorySprite(
-                      this->cursor.getItemStack()->getType());
+                      this->cursor.getItemStack()->type);
                   sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
                   sprite.setPosition(mousePosition.x - GRID_SIZE * 3 / 4,
                                      mousePosition.y - GRID_SIZE * 3 / 4);

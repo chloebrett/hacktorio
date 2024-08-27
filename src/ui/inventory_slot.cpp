@@ -68,28 +68,26 @@ InventorySlot::InventorySlot(int row, int column, int index, InventoryGrid& grid
                       return;
                   }
 
-                  grid.getContainer()->addItem(cursorItemStack->getType(),
-                                               cursorItemStack->getAmount());
+                  grid.getContainer()->addItem(cursorItemStack->type, cursorItemStack->count);
                   cursor.setItemStack(nullptr);
               } else {  // slot with items
                   // Beware memory leaks, when we remove item from container, we need to delete it
                   ItemStack* containerItemStackCopy = new ItemStack(containerItems[index]);
 
                   std::cout << "Item stack: "
-                            << inventoryItemTypeToString(containerItemStackCopy->getType()) << " "
-                            << containerItemStackCopy->getAmount() << std::endl;
+                            << inventoryItemTypeToString(containerItemStackCopy->type) << " "
+                            << containerItemStackCopy->count << std::endl;
                   std::cout << "Cursor item stack: "
                             << (cursorItemStack == nullptr
                                     ? "null"
-                                    : inventoryItemTypeToString(cursorItemStack->getType()))
+                                    : inventoryItemTypeToString(cursorItemStack->type))
                             << std::endl;
 
                   cursor.setItemStack(containerItemStackCopy);
-                  grid.getContainer()->removeItem(containerItemStackCopy->getType(),
-                                                  containerItemStackCopy->getAmount());
+                  grid.getContainer()->removeItem(containerItemStackCopy->type,
+                                                  containerItemStackCopy->count);
                   if (cursorItemStack != nullptr) {  // give to cursor
-                      grid.getContainer()->addItem(cursorItemStack->getType(),
-                                                   cursorItemStack->getAmount());
+                      grid.getContainer()->addItem(cursorItemStack->type, cursorItemStack->count);
                   }
               }
 
@@ -111,10 +109,9 @@ InventorySlot::InventorySlot(int row, int column, int index, InventoryGrid& grid
                   return;
               }
               ItemStack* itemStack = &items[index];
-              int count = itemStack->getAmount();
+              int count = itemStack->count;
 
-              sf::Sprite sprite =
-                  *GameResources::getInstance().getInventorySprite(itemStack->getType());
+              sf::Sprite sprite = *GameResources::getInstance().getInventorySprite(itemStack->type);
               sprite.setPosition(absolutePos);
               window.draw(sprite);
 
