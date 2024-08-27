@@ -9,8 +9,6 @@
 #include "timer.hpp"
 #include "timer_event.hpp"
 
-using namespace std;
-
 CraftingQueue::CraftingQueue(Player &playerInventory, Timer &timer)
     : playerInventory(playerInventory), timer(timer) {}
 
@@ -18,7 +16,7 @@ void CraftingQueue::queueRecipe(Recipe *recipe) {
     queue.push_back(recipe);
 
     if (queue.size() == 1) {
-        cout << "Crafting started" << endl;
+        std::cout << "Crafting started" << std::endl;
         startNextRecipe();
     }
 }
@@ -30,9 +28,9 @@ void CraftingQueue::startNextRecipe() {
 
     Recipe *recipe = queue.front();
 
-    cout << "Crafting started 2" << endl;
+    std::cout << "Crafting started 2" << std::endl;
     timer.addFutureEvent(recipe->getTime(), new TimerEvent([this, recipe]() {
-                             cout << "Crafting complete" << endl;
+                             std::cout << "Crafting complete" << std::endl;
                              queue.erase(queue.begin());
 
                              for (ItemStack *output : recipe->getOutputs()) {

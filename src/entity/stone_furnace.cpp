@@ -51,8 +51,9 @@ void StoneFurnace::onTick() {
             return;
         }
     }
-    cout << "Smelting: " << isSmelting << " " << currentRecipe->getName() << endl;
-    cout << "Ticks remaining: " << smeltUnitTicksRemaining << " " << fuelUnitTicksRemaining << endl;
+    std::cout << "Smelting: " << isSmelting << " " << currentRecipe->getName() << std::endl;
+    std::cout << "Ticks remaining: " << smeltUnitTicksRemaining << " " << fuelUnitTicksRemaining
+              << std::endl;
 
     if (isSmelting) {
         smeltUnitTicksRemaining--;

@@ -59,7 +59,7 @@ InventorySlot::InventorySlot(int row, int column, int index, InventoryGrid& grid
           [row, column, index, &grid](Cursor& cursor) {
               std::cout << "Inventory slot (" << column << "," << row << ") clicked" << std::endl;
 
-              vector<ItemStack>& containerItems = grid.getContainer()->getItems();
+              std::vector<ItemStack>& containerItems = grid.getContainer()->getItems();
               ItemStack* cursorItemStack = cursor.getItemStack();
 
               if (index >= containerItems.size())  // empty slot
@@ -75,14 +75,14 @@ InventorySlot::InventorySlot(int row, int column, int index, InventoryGrid& grid
                   // Beware memory leaks, when we remove item from container, we need to delete it
                   ItemStack* containerItemStackCopy = new ItemStack(containerItems[index]);
 
-                  cout << "Item stack: "
-                       << inventoryItemTypeToString(containerItemStackCopy->getType()) << " "
-                       << containerItemStackCopy->getAmount() << endl;
-                  cout << "Cursor item stack: "
-                       << (cursorItemStack == nullptr
-                               ? "null"
-                               : inventoryItemTypeToString(cursorItemStack->getType()))
-                       << endl;
+                  std::cout << "Item stack: "
+                            << inventoryItemTypeToString(containerItemStackCopy->getType()) << " "
+                            << containerItemStackCopy->getAmount() << std::endl;
+                  std::cout << "Cursor item stack: "
+                            << (cursorItemStack == nullptr
+                                    ? "null"
+                                    : inventoryItemTypeToString(cursorItemStack->getType()))
+                            << std::endl;
 
                   cursor.setItemStack(containerItemStackCopy);
                   grid.getContainer()->removeItem(containerItemStackCopy->getType(),
@@ -106,7 +106,7 @@ InventorySlot::InventorySlot(int row, int column, int index, InventoryGrid& grid
               itemRect.setOutlineThickness(1.0);
               window.draw(itemRect);
 
-              vector<ItemStack>& items = grid.getContainer()->getItems();
+              std::vector<ItemStack>& items = grid.getContainer()->getItems();
               if (index >= items.size()) {
                   return;
               }
@@ -121,7 +121,7 @@ InventorySlot::InventorySlot(int row, int column, int index, InventoryGrid& grid
               sf::Font font = *GameResources::getInstance().getFont("main");
               sf::Text text;
               text.setFont(font);
-              text.setString(to_string(count));
+              text.setString(std::to_string(count));
               int textWidth = 12;  // TODO: infer dynamically
               int textHeight = 12;
               text.setCharacterSize(textHeight);

@@ -7,16 +7,14 @@
 #include "config/inventory_item_type.hpp"
 #include "item_stack.hpp"
 
-using namespace std;
-
 class Container {
     // TODO: maybe move this to a C++ file?
    public:
     Container() {
-        map<InventoryItemType, int>* contents = new map<InventoryItemType, int>();
+        std::map<InventoryItemType, int>* contents = new std::map<InventoryItemType, int>();
         this->contents = contents;
     }
-    map<InventoryItemType, int> getContents() { return *contents; }
+    std::map<InventoryItemType, int> getContents() { return *contents; }
     int getItemCount(InventoryItemType item) {
         if (contents->find(item) == contents->end()) {
             (*contents)[item] = 0;
@@ -31,18 +29,18 @@ class Container {
         return total;
     }
     void addItem(InventoryItemType item, int amount) {
-        cout << "Adding " << amount << " " << static_cast<int>(item) << endl;
+        std::cout << "Adding " << amount << " " << static_cast<int>(item) << std::endl;
         if (contents == nullptr) {
-            cout << "Contents is null" << endl;
+            std::cout << "Contents is null" << std::endl;
         } else {
-            cout << "Contents is not null" << endl;
+            std::cout << "Contents is not null" << std::endl;
         }
-        cout << contents->size() << endl;
+        std::cout << contents->size() << std::endl;
         if (contents->find(item) == contents->end()) {
-            cout << "T" << endl;
+            std::cout << "T" << std::endl;
             (*contents)[item] = 0;
         }
-        cout << "After: " << (*contents)[item] << endl;
+        std::cout << "After: " << (*contents)[item] << std::endl;
         (*contents)[item] += amount;
     }
     void removeItem(InventoryItemType item, int amount) {
@@ -54,10 +52,10 @@ class Container {
             (*contents)[item] = 0;
         }
     }
-    vector<ItemStack>& getItems() { return items; }
+    std::vector<ItemStack>& getItems() { return items; }
 
     void updateItems() {
-        vector<ItemStack> items;
+        std::vector<ItemStack> items;
         for (auto const& [item, count] : *contents) {
             if (count > 0) {
                 items.push_back(ItemStack(item, count));
@@ -72,7 +70,7 @@ class Container {
     ItemStack* removeAnyItem(int maxStackSize) {
         for (auto const& [item, count] : *contents) {
             if (count > 0) {
-                int amount = min(count, maxStackSize);
+                int amount = std::min(count, maxStackSize);
                 (*contents)[item] -= amount;
                 if ((*contents)[item] == 0) {
                     contents->erase(item);
@@ -84,6 +82,6 @@ class Container {
     }
 
    protected:
-    map<InventoryItemType, int>* contents;
-    vector<ItemStack> items;
+    std::map<InventoryItemType, int>* contents;
+    std::vector<ItemStack> items;
 };

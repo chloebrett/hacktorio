@@ -3,8 +3,6 @@
 #include "player.hpp"
 #include "resource_patch.hpp"
 
-using namespace std;
-
 class Environment {
    public:
     Environment();

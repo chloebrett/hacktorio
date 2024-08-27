@@ -7,8 +7,6 @@
 #include "player.hpp"
 #include "resource_patch.hpp"
 
-using namespace std;
-
 Environment::Environment() {}
 
 void Environment::addPatches(Player* player, SceneNode& rootSceneNode, ResourcePatchType type,

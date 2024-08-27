@@ -5,7 +5,6 @@
 
 #include "item_stack.hpp"
 
-using namespace std;
-
-Recipe::Recipe(string name, vector<ItemStack *> &inputs, vector<ItemStack *> &outputs, float time)
+Recipe::Recipe(std::string name, std::vector<ItemStack *> &inputs,
+               std::vector<ItemStack *> &outputs, float time)
     : name(name), inputs(inputs), outputs(outputs), time(time) {}

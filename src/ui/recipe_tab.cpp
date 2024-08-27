@@ -9,7 +9,7 @@
 #include "recipe_panel.hpp"
 #include "recipe_tab_type.hpp"
 
-string RecipeTab::getName() {
+std::string RecipeTab::getName() {
     switch (static_cast<int>(this->type)) {
         case static_cast<int>(RecipeTabType::LOGISTICS):
             return "Logistics";

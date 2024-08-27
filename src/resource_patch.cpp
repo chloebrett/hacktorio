@@ -11,8 +11,6 @@
 #include "player.hpp"
 #include "scene_node.hpp"
 
-using namespace std;
-
 std::map<ResourcePatchType, sf::Color> getResourcePatchColors() {
     std::map<ResourcePatchType, sf::Color> resourcePatchColors;
     resourcePatchColors[ResourcePatchType::IRON] = sf::Color(80, 81, 84, 255);
@@ -53,11 +51,11 @@ void ResourcePatch::handleMine() {
         std::cout << "Mined: " << didMine << std::endl;
         if (didMine) {
             InventoryItemType type = this->getInventoryItemType();
-            cout << "abc" << endl;
+            std::cout << "abc" << std::endl;
             this->player->addItem(type, 1);
-            cout << "abc2" << endl;
+            std::cout << "abc2" << std::endl;
             this->player->updateItems();
-            cout << "abc3" << endl;
+            std::cout << "abc3" << std::endl;
         }
     }
 }

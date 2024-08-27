@@ -5,19 +5,18 @@
 
 #include "item_stack.hpp"
 
-using namespace std;
-
 class Recipe {
    public:
-    Recipe(string name, vector<ItemStack *> &inputs, vector<ItemStack *> &outputs, float time);
-    string getName() { return name; }
-    vector<ItemStack *> &getInputs() { return inputs; }
-    vector<ItemStack *> &getOutputs() { return outputs; }
+    Recipe(std::string name, std::vector<ItemStack *> &inputs, std::vector<ItemStack *> &outputs,
+           float time);
+    std::string getName() { return name; }
+    std::vector<ItemStack *> &getInputs() { return inputs; }
+    std::vector<ItemStack *> &getOutputs() { return outputs; }
     float getTime() { return time; }
 
    private:
-    string name;
-    vector<ItemStack *> &inputs;
-    vector<ItemStack *> &outputs;
+    std::string name;
+    std::vector<ItemStack *> &inputs;
+    std::vector<ItemStack *> &outputs;
     float time;
 };

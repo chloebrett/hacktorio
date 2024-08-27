@@ -5,7 +5,6 @@
 #include "container.hpp"
 #include "cursor.hpp"
 #include "scene_node.hpp"
-using namespace std;
 
 class Player : public SceneNode, public Container {
    public:

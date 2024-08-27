@@ -6,6 +6,4 @@
 
 #include "config/constants.hpp"
 
-using namespace std;
-
-TimerEvent::TimerEvent(function<void()> event) : event(event) {}
+TimerEvent::TimerEvent(std::function<void()> event) : event(event) {}

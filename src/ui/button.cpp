@@ -9,8 +9,8 @@
 #include "../scene_node.hpp"
 #include "gui.hpp"
 
-Button::Button(sf::Vector2f position, sf::Vector2f size, sf::Color fillColor, string textString,
-               std::function<void(Cursor &)> onClick)
+Button::Button(sf::Vector2f position, sf::Vector2f size, sf::Color fillColor,
+               std::string textString, std::function<void(Cursor &)> onClick)
     : SceneNode(
           /* position= */ position,
           /* size= */ size,

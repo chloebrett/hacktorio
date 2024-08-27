@@ -24,7 +24,8 @@ InventoryGrid::InventoryGrid(sf::Vector2f pos, Container *container)
           /* position= */
           pos,
           /* size= */ sf::Vector2f(INVENTORY_WIDTH, INVENTORY_HEIGHT),
-          /* onClick= */ [](Cursor &cursor) { std::cout << "Inventory grid clicked" << std::endl; },
+          /* onClick= */
+          [](Cursor &cursor) { std::cout << "Inventory grid clicked" << std::endl; },
           /* onRender= */
           [this](SceneNode &node, sf::RenderWindow &window, sf::Vector2f absolutePos) {
               sf::RectangleShape rect;

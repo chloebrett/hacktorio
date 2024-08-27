@@ -6,8 +6,6 @@
 
 #include "recipe_tab_type.hpp"
 
-using namespace std;
-
 class RecipePosition {
    public:
     RecipePosition(const RecipeTabType recipeTabType, const int row, const int column)

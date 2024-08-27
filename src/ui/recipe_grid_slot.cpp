@@ -12,8 +12,6 @@
 #include "gui.hpp"
 #include "recipe_position.hpp"
 
-using namespace std;
-
 RecipeGridSlot::RecipeGridSlot(Gui &gui, RecipePanel &recipePanel,
                                RecipeConfiguration &recipeConfiguration, RecipePosition &position)
     : gui(gui),

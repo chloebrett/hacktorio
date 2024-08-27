@@ -36,10 +36,8 @@
 #include "ui/recipe_tab_type.hpp"
 #include "wiring.hpp"
 
-using namespace std;
-
 void Game::start() {
-    cout << "Starting game" << endl;
+    std::cout << "Starting game" << std::endl;
 
     sf::RenderWindow window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Hacktorio");
 
@@ -49,13 +47,9 @@ void Game::start() {
 
     Wiring* wiring = new Wiring(window);
     SceneNode* root = wiring->root;
-    SceneNode* background = wiring->background;
     Player* player = wiring->player;
     Gui* gui = wiring->gui;
-    Panel* craftingPanel = wiring->craftingPanel;
-    Panel* doubleInventoryGridPanel = wiring->doubleInventoryGridPanel;
     RecipePanel* recipePanel = wiring->recipePanel;
-    InventoryGrid* inventoryLeft = wiring->inventoryLeft;
     InventoryGrid* inventoryRight = wiring->inventoryRight;
     InventoryGrid* entityRight = wiring->entityRight;
     Cursor* cursor = wiring->cursor;

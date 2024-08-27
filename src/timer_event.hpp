@@ -2,11 +2,9 @@
 
 #include <functional>
 
-using namespace std;
-
 /** Event that runs from a timer. */
 class TimerEvent {
    public:
-    TimerEvent(function<void()> event);
-    function<void()> event;
+    TimerEvent(std::function<void()> event);
+    std::function<void()> event;
 };

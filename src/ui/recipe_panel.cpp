@@ -7,15 +7,13 @@
 #include "../config/constants.hpp"
 #include "../scene_node.hpp"
 
-using namespace std;
-
 RecipePanel::RecipePanel(sf::Vector2f pos)
     : selectedTabIndex(0),
       SceneNode(
           /* position= */
           pos,
           /* size= */ sf::Vector2f(RECIPE_PANEL_WIDTH, RECIPE_PANEL_HEIGHT),
-          /* onClick= */ [](Cursor &cursor) { cout << "Recipe panel clicked" << endl; },
+          /* onClick= */ [](Cursor &cursor) { std::cout << "Recipe panel clicked" << std::endl; },
           /* onRender= */
           [this](SceneNode &node, sf::RenderWindow &window, sf::Vector2f absolutePos) {
               sf::RectangleShape mainRect;

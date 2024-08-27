@@ -4,16 +4,14 @@
 #include <functional>
 #include <iostream>
 
-using namespace std;
-
 SceneNode::SceneNode(sf::Vector2f pos, sf::Vector2f size, std::function<void(Cursor&)> onClick,
                      std::function<void(SceneNode&, sf::RenderWindow&, sf::Vector2f)> onRender) {
     this->pos = pos;
     this->size = size;
     this->onClick = onClick;
     this->onRender = onRender;
-    this->children = vector<SceneNode*>();
-    this->parents = vector<SceneNode*>();
+    this->children = std::vector<SceneNode*>();
+    this->parents = std::vector<SceneNode*>();
     this->z = 0;
 }
 
@@ -21,7 +19,7 @@ sf::Vector2f SceneNode::getPos() { return pos; }
 
 sf::Vector2f SceneNode::getSize() { return size; }
 
-vector<SceneNode*>& SceneNode::getChildren() { return children; }
+std::vector<SceneNode*>& SceneNode::getChildren() { return children; }
 
 void SceneNode::setPos(sf::Vector2f pos) { this->pos = pos; }
 

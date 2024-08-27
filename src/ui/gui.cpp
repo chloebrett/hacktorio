@@ -12,8 +12,6 @@
 #include "inventory_grid.hpp"
 #include "panel.hpp"
 
-using namespace std;
-
 Gui::Gui(Panel &doubleInventoryGridPanel, Panel &craftingPanel, Panel &entityPanel,
          Panel &researchPanel, Panel &escapeMenuPanel, Container &playerInventory, Timer &timer,
          CraftingQueue &craftingQueue)
@@ -62,7 +60,7 @@ void Gui::showEscapeMenu() {
 
 void Gui::showPanelForContainer(Container *container) {
     if (containerInventoryGrid == nullptr) {
-        cout << "Error: containerInventoryGrid is null" << endl;
+        std::cout << "Error: containerInventoryGrid is null" << std::endl;
         return;
     }
 
@@ -74,7 +72,7 @@ void Gui::showPanelForContainer(Container *container) {
 
 void Gui::showPanelForEntity(Container *entity) {
     if (entityInventoryGrid == nullptr) {
-        cout << "Error: entityInventoryGrid is null" << endl;
+        std::cout << "Error: entityInventoryGrid is null" << std::endl;
         return;
     }
 
@@ -94,27 +92,27 @@ void Gui::setEntityInventoryGrid(InventoryGrid *entityInventoryGrid) {
 
 // TODO: put the "startCraftingRecipe" method in the crafting queue as well
 void Gui::startCraftingRecipe(Recipe *recipe) {
-    cout << "Crafting recipe: " << recipe->getName() << endl;
-    cout << "Inputs: " << endl;
+    std::cout << "Crafting recipe: " << recipe->getName() << std::endl;
+    std::cout << "Inputs: " << std::endl;
     GameResources &gameResources = GameResources::getInstance();
     for (ItemStack *input : recipe->getInputs()) {
-        cout << "  " << input->getAmount() << " x "
-             << gameResources.inventoryItemTypeToKey(input->getType()) << endl;
+        std::cout << "  " << input->getAmount() << " x "
+                  << gameResources.inventoryItemTypeToKey(input->getType()) << std::endl;
     }
-    cout << "Outputs: " << endl;
+    std::cout << "Outputs: " << std::endl;
     for (ItemStack *output : recipe->getOutputs()) {
-        cout << "  " << output->getAmount() << " x "
-             << gameResources.inventoryItemTypeToKey(output->getType()) << endl;
+        std::cout << "  " << output->getAmount() << " x "
+                  << gameResources.inventoryItemTypeToKey(output->getType()) << std::endl;
     }
-    cout << "Crafting time: " << recipe->getTime() << "s" << endl;
+    std::cout << "Crafting time: " << recipe->getTime() << "s" << std::endl;
 
     // Check if player has the required items
     for (ItemStack *input : recipe->getInputs()) {
         if (playerInventory.getItemCount(input->getType()) < input->getAmount()) {
-            cout << "Player does not have enough "
-                 << gameResources.inventoryItemTypeToKey(input->getType()) << " (had "
-                 << playerInventory.getItemCount(input->getType()) << ", needed "
-                 << input->getAmount() << ")" << endl;
+            std::cout << "Player does not have enough "
+                      << gameResources.inventoryItemTypeToKey(input->getType()) << " (had "
+                      << playerInventory.getItemCount(input->getType()) << ", needed "
+                      << input->getAmount() << ")" << std::endl;
             return;
         }
     }

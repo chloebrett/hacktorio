@@ -7,11 +7,9 @@
 #include "entity_type.hpp"
 #include "inventory_item_type.hpp"
 
-using namespace std;
-
 GameResources::GameResources() {}
 
-string GameResources::inventoryItemTypeToFilename(InventoryItemType inventoryItemType) {
+std::string GameResources::inventoryItemTypeToFilename(InventoryItemType inventoryItemType) {
     switch (static_cast<int>(inventoryItemType)) {
         case static_cast<int>(InventoryItemType::WOODEN_CHEST):
             return "data/base/graphics/entity/wooden-chest/wooden-chest.png";
@@ -271,20 +269,20 @@ std::string GameResources::inventoryItemTypeToKey(InventoryItemType inventoryIte
     }
 }
 
-void GameResources::loadSprite(string key, string filename) {
+void GameResources::loadSprite(std::string key, std::string filename) {
     textures[key] = new sf::Texture();
     if (!textures[key]->loadFromFile(filename)) {
-        cout << "Failed to load texture" << endl;
+        std::cout << "Failed to load texture" << std::endl;
     }
     sprites[key] = new sf::Sprite(*textures[key]);
 }
 
 void GameResources::loadInventorySprite(InventoryItemType inventoryItemType, bool isMasked) {
-    string key = inventoryItemTypeToKey(inventoryItemType);
+    std::string key = inventoryItemTypeToKey(inventoryItemType);
     textures[key] = new sf::Texture();
     if (!textures[key]->loadFromFile(inventoryItemTypeToFilename(inventoryItemType))) {
         // Handle loading error
-        cout << "Failed to load texture" << endl;
+        std::cout << "Failed to load texture" << std::endl;
     }
     sprites[key] = new sf::Sprite(*textures[key]);
     if (isMasked) {
@@ -293,11 +291,11 @@ void GameResources::loadInventorySprite(InventoryItemType inventoryItemType, boo
 }
 
 void GameResources::loadEntitySprite(EntityType entityType) {
-    string key = entityTypeToKey(entityType);
+    std::string key = entityTypeToKey(entityType);
     textures[key] = new sf::Texture();
     if (!textures[key]->loadFromFile(entityTypeToFilename(entityType))) {
         // Handle loading error
-        cout << "Failed to load texture" << endl;
+        std::cout << "Failed to load texture" << std::endl;
     }
     sprites[key] = new sf::Sprite(*textures[key]);
 }
@@ -305,7 +303,7 @@ void GameResources::loadEntitySprite(EntityType entityType) {
 void GameResources::init() {
     fonts["main"] = new sf::Font();
     if (!fonts["main"]->loadFromFile("res/Inconsolata-Regular.ttf")) {
-        cout << "Failed to load font" << endl;
+        std::cout << "Failed to load font" << std::endl;
     }
 
     loadSprite("chest", "data/base/graphics/entity/wooden-chest/wooden-chest.png");

@@ -6,8 +6,6 @@
 #include "container.hpp"
 #include "rotation.hpp"
 
-using namespace std;
-
 Cursor::Cursor(/*sf::RenderWindow &window*/)
     : /*window(window),*/ itemStack(nullptr), rotation(Rotation::RIGHT) {}
 

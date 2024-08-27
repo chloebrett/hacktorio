@@ -11,8 +11,6 @@
 #include "spatial_index.hpp"
 #include "ui/gui.hpp"
 
-using namespace std;
-
 class Input {
    public:
     Input(sf::RenderWindow &window, Player &player, Cursor &cursor, Gui &gui,

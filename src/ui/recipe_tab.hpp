@@ -6,7 +6,7 @@
 class RecipeTab : public SceneNode {
    public:
     RecipeTab(int index, RecipeTabType type, RecipePanel &panel);
-    string getName();
+    std::string getName();
 
    private:
     int index;

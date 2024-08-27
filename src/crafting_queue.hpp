@@ -6,8 +6,6 @@
 #include "recipe.hpp"
 #include "timer.hpp"
 
-using namespace std;
-
 class CraftingQueue {
    public:
     CraftingQueue(Player &playerInventory, Timer &timer);
@@ -15,7 +13,7 @@ class CraftingQueue {
     void startNextRecipe();
 
    private:
-    vector<Recipe *> queue;
+    std::vector<Recipe *> queue;
     Player &playerInventory;
     Timer &timer;
 };

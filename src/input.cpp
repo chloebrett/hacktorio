@@ -11,8 +11,6 @@
 #include "spatial_index.hpp"
 #include "ui/gui.hpp"
 
-using namespace std;
-
 Input::Input(sf::RenderWindow &window, Player &player, Cursor &cursor, Gui &gui,
              SpatialIndex &spatialIndex)
     : window(window), player(player), cursor(cursor), gui(gui), spatialIndex(spatialIndex) {};
@@ -27,11 +25,11 @@ void Input::handleQueuedEvents() {
         if (event.type == sf::Event::MouseButtonPressed &&
             event.mouseButton.button == sf::Mouse::Left) {
             sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
-            vector<SceneNode *> nodes = spatialIndex.nodesAt(mousePosition);
+            std::vector<SceneNode *> nodes = spatialIndex.nodesAt(mousePosition);
 
             // Only allow clicking each node once. This prevents bugs when the node tree is a DAG
             // (e.g. when reusing the left inventory for both the crafting and the chest panels).
-            set<SceneNode *> clickedNodes;
+            std::set<SceneNode *> clickedNodes;
 
             for (SceneNode *node : nodes) {
                 if (node->isInteractive() && node->isTransitivelyVisible() &&
@@ -42,7 +40,7 @@ void Input::handleQueuedEvents() {
                 }
             }
 
-            cout << "Clicked " << clickedNodes.size() << " nodes" << endl;
+            std::cout << "Clicked " << clickedNodes.size() << " nodes" << std::endl;
             if (clickedNodes.size() == 0) {
                 if (!gui.isAnyPanelOpen()) {
                     for (SceneNode *node : nodes) {
@@ -83,9 +81,9 @@ void Input::handleQueuedEvents() {
 void Input::handleOngoingEvents() {
     if (sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
         sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
-        vector<SceneNode *> nodes = spatialIndex.nodesAt(mousePosition);
+        std::vector<SceneNode *> nodes = spatialIndex.nodesAt(mousePosition);
 
-        set<SceneNode *> clickedNodes;
+        std::set<SceneNode *> clickedNodes;
 
         for (SceneNode *node : nodes) {
             if (node->isTransitivelyVisible() && clickedNodes.find(node) == clickedNodes.end()) {

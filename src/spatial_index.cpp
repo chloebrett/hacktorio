@@ -8,12 +8,11 @@
 #include "config/resource_patch_type.hpp"
 #include "scene_node.hpp"
 
-using namespace std;
-
 /** Spatial index. Brute force for now, can be a quadtree later. */
 SpatialIndex::SpatialIndex() {
-    this->nodes = unique_ptr<vector<SceneNode*>>(new vector<SceneNode*>());
-    this->absolutePositions = unique_ptr<vector<sf::Vector2f>>(new vector<sf::Vector2f>());
+    this->nodes = std::unique_ptr<std::vector<SceneNode*>>(new std::vector<SceneNode*>());
+    this->absolutePositions =
+        std::unique_ptr<std::vector<sf::Vector2f>>(new std::vector<sf::Vector2f>());
 }
 
 void SpatialIndex::refresh(SceneNode& rootSceneNode) {
@@ -30,18 +29,18 @@ void SpatialIndex::traverse(SceneNode& node, sf::Vector2f absolutePosition) {
     }
 }
 
-vector<SceneNode*> SpatialIndex::nodesAt(sf::Vector2i searchPosition) {
-    vector<SceneNode*> result = vector<SceneNode*>();
+std::vector<SceneNode*> SpatialIndex::nodesAt(sf::Vector2i searchPosition) {
+    std::vector<SceneNode*> result = std::vector<SceneNode*>();
     for (size_t i = 0; i < this->nodes->size(); i++) {
         SceneNode* node = (*nodes)[i];
         sf::Vector2f topLeft = (*absolutePositions)[i];
         sf::Vector2f bottomRight = topLeft + node->getSize();
         if (topLeft.x <= searchPosition.x && searchPosition.x <= bottomRight.x &&
             topLeft.y <= searchPosition.y && searchPosition.y <= bottomRight.y) {
-            // cout << "topLeft: " << topLeft.x << ", " << topLeft.y << endl;
-            // cout << "bottomRight: " << bottomRight.x << ", " << bottomRight.y << endl;
-            // cout << "searchPosition: " << searchPosition.x << ", " << searchPosition.y << endl;
-            // cout << "Found node" << endl;
+            // std::cout << "topLeft: " << topLeft.x << ", " << topLeft.y << std::endl;
+            // std::cout << "bottomRight: " << bottomRight.x << ", " << bottomRight.y << std::endl;
+            // std::cout << "searchPosition: " << searchPosition.x << ", " << searchPosition.y <<
+            // std::endl; std::cout << "Found node" << std::endl;
             result.push_back(node);
         }
     }

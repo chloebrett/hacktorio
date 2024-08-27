@@ -4,8 +4,6 @@
 
 #include "research.hpp"
 
-using namespace std;
-
 class TechnologyManager {
    public:
     TechnologyManager();
@@ -13,5 +11,5 @@ class TechnologyManager {
     void isInventoryItemAvailable(InventoryItemType &type);
 
    private:
-    vector<Research> finishedResearch;
+    std::vector<Research> finishedResearch;
 };

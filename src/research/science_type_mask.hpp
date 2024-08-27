@@ -4,6 +4,4 @@
 
 #include "science_type.hpp"
 
-using namespace std;
-
-vector<ScienceType> fromMask(int mask);
+std::vector<ScienceType> fromMask(int mask);

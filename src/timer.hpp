@@ -4,8 +4,6 @@
 
 #include "timer_event.hpp"
 
-using namespace std;
-
 /** Timer that runs delayed events. */
 class Timer {
    public:
@@ -15,5 +13,5 @@ class Timer {
 
    private:
     int currentTick;
-    vector<pair<int, TimerEvent *>> futureEvents;  // TODO: deque?
+    std::vector<std::pair<int, TimerEvent *>> futureEvents;  // TODO: deque?
 };

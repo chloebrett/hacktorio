@@ -5,8 +5,6 @@
 #include "../recipe.hpp"
 #include "../ui/recipe_position.hpp"
 
-using namespace std;
-
 struct cmpByRecipePosition {
     bool operator()(const RecipePosition& a, const RecipePosition& b) const {
         return a.getTabIndex() < b.getTabIndex() ||
@@ -23,9 +21,9 @@ class RecipeConfiguration {
     Recipe* getRecipeByOutputType(InventoryItemType outputType);
 
    private:
-    map<RecipePosition, Recipe*, cmpByRecipePosition> recipeMap;
-    map<InventoryItemType, Recipe*> recipeByOutputType;
-    map<RecipePosition, InventoryItemType, cmpByRecipePosition> recipeOutputTypeByPosition;
+    std::map<RecipePosition, Recipe*, cmpByRecipePosition> recipeMap;
+    std::map<InventoryItemType, Recipe*> recipeByOutputType;
+    std::map<RecipePosition, InventoryItemType, cmpByRecipePosition> recipeOutputTypeByPosition;
     void initPositions();
     void initRecipes();
     void initRecipeMap();

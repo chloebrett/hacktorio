@@ -7,13 +7,11 @@
 #include "../research/research_type.hpp"
 #include "../research/science_type.hpp"
 
-using namespace std;
-
 Research* ResearchConfiguration::getResearchAtIndex(int index) { return researches[index]; }
 
 ResearchConfiguration::ResearchConfiguration() {
-    vector<Research*> emptyResearchVector;
-    vector<Recipe*> emptyRecipeVector;
+    std::vector<Research*> emptyResearchVector;
+    std::vector<Recipe*> emptyRecipeVector;
 
     Research* automation =
         new Research(ResearchType::AUTOMATION, "Automation", emptyResearchVector, emptyRecipeVector,

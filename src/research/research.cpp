@@ -5,10 +5,9 @@
 #include "../recipe.hpp"
 #include "research_type.hpp"
 
-using namespace std;
-
-Research::Research(ResearchType type, string name, vector<Research *> &prerequisites,
-                   vector<Recipe *> &unlocks, int scienceTypeMask, int timePerUnit, int unitCount)
+Research::Research(ResearchType type, std::string name, std::vector<Research *> &prerequisites,
+                   std::vector<Recipe *> &unlocks, int scienceTypeMask, int timePerUnit,
+                   int unitCount)
     : type(type),
       name(name),
       prerequisites(prerequisites),

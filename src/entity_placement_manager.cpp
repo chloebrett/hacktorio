@@ -15,8 +15,6 @@
 #include "spatial_index.hpp"
 #include "ui/gui.hpp"
 
-using namespace std;
-
 EntityPlacementManager::EntityPlacementManager(SceneNode &rootSceneNode,
                                                RecipeConfiguration &recipeConfiguration, Gui &gui,
                                                SpatialIndex &spatialIndex)
@@ -27,7 +25,7 @@ EntityPlacementManager::EntityPlacementManager(SceneNode &rootSceneNode,
 
 bool EntityPlacementManager::tryPlaceEntity(InventoryItemType inventoryItemType,
                                             sf::Vector2f position, Rotation rotation) {
-    cout << "Placing entity" << static_cast<int>(inventoryItemType) << endl;
+    std::cout << "Placing entity" << static_cast<int>(inventoryItemType) << std::endl;
 
     switch (inventoryItemType) {
         case InventoryItemType::WOODEN_CHEST:
