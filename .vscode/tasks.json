@@ -28,6 +28,28 @@
             },
             "problemMatcher": ["$gcc"],
             "detail": "Generated task by debugging setup."
+        },
+        {
+            "label": "Run clang-tidy",
+            "type": "shell",
+            "command": "clang-tidy",
+            "args": [
+                "${file}",
+                "--",
+                "-I",
+                "/opt/homebrew/Cellar/sfml/2.6.1/include",
+                "-std=c++17",
+                // "-p",
+                // "build"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "detail": "Run clang-tidy on the current file"
         }
     ],
     "version": "2.0.0"
