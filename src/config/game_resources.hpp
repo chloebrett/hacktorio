@@ -2,13 +2,14 @@
 
 #include <SFML/Graphics.hpp>
 #include <map>
+
 #include "entity_type.hpp"
 #include "inventory_item_type.hpp"
 
 using namespace std;
 
 class GameResources {
-    public:
+   public:
     GameResources();
     void init();
     void loadSprite(string key, string filename);
@@ -20,11 +21,15 @@ class GameResources {
     sf::Texture* getTexture(string key) { return textures[key]; }
     sf::Font* getFont(string key) { return fonts[key]; }
     sf::Sprite* getSprite(string key) { return sprites[key]; }
-    sf::Sprite* getInventorySprite(InventoryItemType inventoryItemType) { return sprites[inventoryItemTypeToKey(inventoryItemType)]; }
-    sf::Sprite* getEntitySprite(EntityType entityType) { return sprites[entityTypeToKey(entityType)]; }
+    sf::Sprite* getInventorySprite(InventoryItemType inventoryItemType) {
+        return sprites[inventoryItemTypeToKey(inventoryItemType)];
+    }
+    sf::Sprite* getEntitySprite(EntityType entityType) {
+        return sprites[entityTypeToKey(entityType)];
+    }
     sf::Color* getColor(string key) { return colors[key]; }
 
-    private:
+   private:
     string inventoryItemTypeToFilename(InventoryItemType inventoryItemType);
     string entityTypeToFilename(EntityType entityType);
     map<string, sf::Texture*> textures;

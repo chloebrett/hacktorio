@@ -1,15 +1,16 @@
 #pragma once
 
-#include "../research/research.hpp"
 #include <vector>
+
+#include "../research/research.hpp"
 
 using namespace std;
 
 class ResearchConfiguration {
-    public:
+   public:
     ResearchConfiguration();
     Research* getResearchAtIndex(int index);
 
-    private:
+   private:
     vector<Research*> researches;
 };

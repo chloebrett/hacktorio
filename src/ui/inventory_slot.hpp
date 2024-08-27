@@ -4,10 +4,10 @@
 #include "inventory_grid.hpp"
 
 class InventorySlot : public SceneNode {
-    public:
+   public:
     InventorySlot(int row, int column, int index, InventoryGrid &grid);
 
-    private:
+   private:
     int row;
     int column;
     int index;

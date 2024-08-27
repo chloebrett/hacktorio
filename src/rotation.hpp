@@ -1,9 +1,3 @@
 #pragma once
 
-enum class Rotation
-{
-    UP,
-    RIGHT,
-    DOWN,
-    LEFT
-};
+enum class Rotation { UP, RIGHT, DOWN, LEFT };

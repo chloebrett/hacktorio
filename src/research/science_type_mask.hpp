@@ -1,7 +1,8 @@
 #pragma once
 
-#include "science_type.hpp"
 #include <vector>
+
+#include "science_type.hpp"
 
 using namespace std;
 

@@ -1,16 +1,16 @@
 #pragma once
 
+#include "../config/recipe_configuration.hpp"
 #include "../container.hpp"
+#include "../entity.hpp"
 #include "../scene_node.hpp"
 #include "../ui/gui.hpp"
-#include "../entity.hpp"
-#include "../config/recipe_configuration.hpp"
 
 class StoneFurnace : public Entity {
-    public:
+   public:
     StoneFurnace(Gui &gui, RecipeConfiguration &recipeConfiguration, sf::Vector2f pos);
 
-    private:
+   private:
     Gui &gui;
     RecipeConfiguration &recipeConfiguration;
     Container *container;

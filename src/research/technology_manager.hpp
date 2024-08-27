@@ -1,16 +1,17 @@
 #pragma once
 
-#include "research.hpp"
 #include <vector>
+
+#include "research.hpp"
 
 using namespace std;
 
 class TechnologyManager {
-    public:
+   public:
     TechnologyManager();
     void researchFinished(Research &research);
     void isInventoryItemAvailable(InventoryItemType &type);
 
-    private:
+   private:
     vector<Research> finishedResearch;
 };

@@ -1,8 +1,7 @@
 #pragma once
 
 /** Entities that can be placed on the map. */
-enum class EntityType
-{
+enum class EntityType {
     // Logistics
     WOODEN_CHEST,
     IRON_CHEST,

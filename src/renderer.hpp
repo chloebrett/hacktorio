@@ -5,12 +5,11 @@
 
 using namespace std;
 
-class Renderer
-{
-public:
+class Renderer {
+   public:
     Renderer(sf::RenderWindow &window);
     void render(SceneNode &rootSceneNode);
 
-private:
+   private:
     sf::RenderWindow &window;
 };

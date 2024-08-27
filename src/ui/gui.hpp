@@ -1,20 +1,21 @@
 #pragma once
 
-#include "panel.hpp"
-#include "inventory_grid.hpp"
 #include "../container.hpp"
-#include "../recipe.hpp"
-#include "../timer.hpp"
 #include "../crafting_queue.hpp"
 #include "../entity.hpp"
+#include "../recipe.hpp"
+#include "../timer.hpp"
+#include "inventory_grid.hpp"
+#include "panel.hpp"
 
 /**
  * Wrappers for Gui functionality, mainly showing/hiding panels.
  */
 class Gui {
-    public:
-    Gui(Panel &doubleInventoryGridPanel, Panel &craftingPanel, Panel &entityPanel, Panel &researchPanel,
-    Panel &escapeMenuPanel, Container &playerInventory, Timer &timer, CraftingQueue &craftingQueue);
+   public:
+    Gui(Panel &doubleInventoryGridPanel, Panel &craftingPanel, Panel &entityPanel,
+        Panel &researchPanel, Panel &escapeMenuPanel, Container &playerInventory, Timer &timer,
+        CraftingQueue &craftingQueue);
     void closeOpenPanels();
     void showCrafting();
     void showResearch();
@@ -25,8 +26,8 @@ class Gui {
     void setEntityInventoryGrid(InventoryGrid *entityInventoryGrid);
     bool isAnyPanelOpen();
     void startCraftingRecipe(Recipe *recipe);
-    
-    private:
+
+   private:
     Panel &doubleInventoryGridPanel;
     Panel &craftingPanel;
     Panel &entityPanel;

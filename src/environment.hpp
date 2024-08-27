@@ -1,26 +1,17 @@
 #pragma once
 
-#include "resource_patch.hpp"
 #include "player.hpp"
+#include "resource_patch.hpp"
 
 using namespace std;
 
 class Environment {
-    public:
+   public:
     Environment();
-    void initResourcePatches(Player *player, SceneNode& rootSceneNode);
+    void initResourcePatches(Player* player, SceneNode& rootSceneNode);
 
-    private:
-    void addPatches(
-        Player *player,
-        SceneNode& rootSceneNode,
-        ResourcePatchType type,
-        int xMin,
-        int xMax,
-        int yMin,
-        int yMax,
-        int probabilityPercent,
-        int amountMin,
-        int amountMax
-    );
+   private:
+    void addPatches(Player* player, SceneNode& rootSceneNode, ResourcePatchType type, int xMin,
+                    int xMax, int yMin, int yMax, int probabilityPercent, int amountMin,
+                    int amountMax);
 };

@@ -1,23 +1,25 @@
 #pragma once
 
-#include <functional>
-#include <vector>
-#include "config/constants.hpp"
 #include "timer.hpp"
-#include "timer_event.hpp"
+
+#include <functional>
 #include <iostream>
+#include <vector>
+
+#include "config/constants.hpp"
+#include "timer_event.hpp"
 
 using namespace std;
 
 Timer::Timer() {
     this->currentTick = 0;
-    this->futureEvents = vector<pair<int, TimerEvent*>>();
+    this->futureEvents = vector<pair<int, TimerEvent *>>();
 }
 
 void Timer::runEvents(int currentTick) {
     this->currentTick = currentTick;
     for (int i = 0; i < futureEvents.size(); i++) {
-        pair<int, TimerEvent*> futureEvent = futureEvents[i];
+        pair<int, TimerEvent *> futureEvent = futureEvents[i];
         if (currentTick >= futureEvent.first) {
             cout << "Running future event at tick " << currentTick << endl;
             futureEvent.second->event();

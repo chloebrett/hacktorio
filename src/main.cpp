@@ -1,11 +1,11 @@
 using namespace std;
 
 #include <iostream>
+
 #include "game.hpp"
 #include "player.hpp"
 
-int main()
-{
+int main() {
     Game game;
     game.start();
 

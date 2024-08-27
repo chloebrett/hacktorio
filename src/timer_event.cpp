@@ -1,10 +1,12 @@
 #pragma once
 
-#include <functional>
-#include <vector>
-#include "config/constants.hpp"
-#include <iostream>
 #include "timer_event.hpp"
+
+#include <functional>
+#include <iostream>
+#include <vector>
+
+#include "config/constants.hpp"
 
 using namespace std;
 

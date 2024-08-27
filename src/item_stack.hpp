@@ -3,12 +3,12 @@
 #include "config/inventory_item_type.hpp"
 
 class ItemStack {
-    public:
+   public:
     ItemStack(InventoryItemType type, int amount);
     int getAmount();
     InventoryItemType getType();
 
-    private:
+   private:
     int amount;
     InventoryItemType type;
 };

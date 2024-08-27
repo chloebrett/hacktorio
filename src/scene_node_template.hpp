@@ -4,6 +4,6 @@
 #include "scene_node.hpp"
 
 class SceneNodeTemplate : public SceneNode {
-    public:
+   public:
     SceneNodeTemplate();
 };

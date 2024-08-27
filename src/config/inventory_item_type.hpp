@@ -1,7 +1,6 @@
 #pragma once
 
-enum class InventoryItemType
-{
+enum class InventoryItemType {
     // Logistics
     WOODEN_CHEST,
     IRON_CHEST,

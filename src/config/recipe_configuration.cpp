@@ -1,12 +1,14 @@
 #pragma once
 
-#include "../recipe.hpp"
 #include "recipe_configuration.hpp"
-#include "../ui/recipe_position.hpp"
+
 #include <map>
 #include <vector>
-#include "inventory_item_type.hpp"
+
 #include "../item_stack.hpp"
+#include "../recipe.hpp"
+#include "../ui/recipe_position.hpp"
+#include "inventory_item_type.hpp"
 
 using namespace std;
 
@@ -17,37 +19,65 @@ RecipeConfiguration::RecipeConfiguration() {
 }
 
 void RecipeConfiguration::initPositions() {
-    recipeOutputTypeByPosition[RecipePosition(RecipeTabType::LOGISTICS, 0, 0)] = InventoryItemType::WOODEN_CHEST;
-    recipeOutputTypeByPosition[RecipePosition(RecipeTabType::LOGISTICS, 0, 1)] = InventoryItemType::IRON_CHEST;
-    recipeOutputTypeByPosition[RecipePosition(RecipeTabType::LOGISTICS, 1, 0)] = InventoryItemType::TRANSPORT_BELT;
-    recipeOutputTypeByPosition[RecipePosition(RecipeTabType::LOGISTICS, 2, 0)] = InventoryItemType::BURNER_INSERTER;
-    recipeOutputTypeByPosition[RecipePosition(RecipeTabType::LOGISTICS, 2, 1)] = InventoryItemType::INSERTER;
-    recipeOutputTypeByPosition[RecipePosition(RecipeTabType::LOGISTICS, 3, 0)] = InventoryItemType::SMALL_ELECTRIC_POLE;
-    recipeOutputTypeByPosition[RecipePosition(RecipeTabType::LOGISTICS, 3, 1)] = InventoryItemType::PIPE;
-    recipeOutputTypeByPosition[RecipePosition(RecipeTabType::LOGISTICS, 3, 2)] = InventoryItemType::PIPE_TO_GROUND;
-    recipeOutputTypeByPosition[RecipePosition(RecipeTabType::LOGISTICS, 4, 0)] = InventoryItemType::STONE_BRICK;
+    recipeOutputTypeByPosition[RecipePosition(RecipeTabType::LOGISTICS, 0, 0)] =
+        InventoryItemType::WOODEN_CHEST;
+    recipeOutputTypeByPosition[RecipePosition(RecipeTabType::LOGISTICS, 0, 1)] =
+        InventoryItemType::IRON_CHEST;
+    recipeOutputTypeByPosition[RecipePosition(RecipeTabType::LOGISTICS, 1, 0)] =
+        InventoryItemType::TRANSPORT_BELT;
+    recipeOutputTypeByPosition[RecipePosition(RecipeTabType::LOGISTICS, 2, 0)] =
+        InventoryItemType::BURNER_INSERTER;
+    recipeOutputTypeByPosition[RecipePosition(RecipeTabType::LOGISTICS, 2, 1)] =
+        InventoryItemType::INSERTER;
+    recipeOutputTypeByPosition[RecipePosition(RecipeTabType::LOGISTICS, 3, 0)] =
+        InventoryItemType::SMALL_ELECTRIC_POLE;
+    recipeOutputTypeByPosition[RecipePosition(RecipeTabType::LOGISTICS, 3, 1)] =
+        InventoryItemType::PIPE;
+    recipeOutputTypeByPosition[RecipePosition(RecipeTabType::LOGISTICS, 3, 2)] =
+        InventoryItemType::PIPE_TO_GROUND;
+    recipeOutputTypeByPosition[RecipePosition(RecipeTabType::LOGISTICS, 4, 0)] =
+        InventoryItemType::STONE_BRICK;
 
-    recipeOutputTypeByPosition[RecipePosition(RecipeTabType::PRODUCTION, 0, 0)] = InventoryItemType::REPAIR_PACK;
-    recipeOutputTypeByPosition[RecipePosition(RecipeTabType::PRODUCTION, 1, 0)] = InventoryItemType::BOILER;
-    recipeOutputTypeByPosition[RecipePosition(RecipeTabType::PRODUCTION, 1, 1)] = InventoryItemType::STEAM_ENGINE;
-    recipeOutputTypeByPosition[RecipePosition(RecipeTabType::PRODUCTION, 2, 0)] = InventoryItemType::BURNER_MINING_DRILL;
-    recipeOutputTypeByPosition[RecipePosition(RecipeTabType::PRODUCTION, 2, 1)] = InventoryItemType::ELECTRIC_MINING_DRILL;
-    recipeOutputTypeByPosition[RecipePosition(RecipeTabType::PRODUCTION, 2, 2)] = InventoryItemType::OFFSHORE_PUMP;
-    recipeOutputTypeByPosition[RecipePosition(RecipeTabType::PRODUCTION, 3, 0)] = InventoryItemType::STONE_FURNACE;
-    recipeOutputTypeByPosition[RecipePosition(RecipeTabType::PRODUCTION, 4, 0)] = InventoryItemType::LAB;
+    recipeOutputTypeByPosition[RecipePosition(RecipeTabType::PRODUCTION, 0, 0)] =
+        InventoryItemType::REPAIR_PACK;
+    recipeOutputTypeByPosition[RecipePosition(RecipeTabType::PRODUCTION, 1, 0)] =
+        InventoryItemType::BOILER;
+    recipeOutputTypeByPosition[RecipePosition(RecipeTabType::PRODUCTION, 1, 1)] =
+        InventoryItemType::STEAM_ENGINE;
+    recipeOutputTypeByPosition[RecipePosition(RecipeTabType::PRODUCTION, 2, 0)] =
+        InventoryItemType::BURNER_MINING_DRILL;
+    recipeOutputTypeByPosition[RecipePosition(RecipeTabType::PRODUCTION, 2, 1)] =
+        InventoryItemType::ELECTRIC_MINING_DRILL;
+    recipeOutputTypeByPosition[RecipePosition(RecipeTabType::PRODUCTION, 2, 2)] =
+        InventoryItemType::OFFSHORE_PUMP;
+    recipeOutputTypeByPosition[RecipePosition(RecipeTabType::PRODUCTION, 3, 0)] =
+        InventoryItemType::STONE_FURNACE;
+    recipeOutputTypeByPosition[RecipePosition(RecipeTabType::PRODUCTION, 4, 0)] =
+        InventoryItemType::LAB;
 
-    recipeOutputTypeByPosition[RecipePosition(RecipeTabType::INTERMEDIATE_PRODUCTS, 0, 0)] = InventoryItemType::IRON_PLATE;
-    recipeOutputTypeByPosition[RecipePosition(RecipeTabType::INTERMEDIATE_PRODUCTS, 0, 1)] = InventoryItemType::COPPER_PLATE;
-    recipeOutputTypeByPosition[RecipePosition(RecipeTabType::INTERMEDIATE_PRODUCTS, 1, 0)] = InventoryItemType::COPPER_CABLE;
-    recipeOutputTypeByPosition[RecipePosition(RecipeTabType::INTERMEDIATE_PRODUCTS, 1, 1)] = InventoryItemType::IRON_STICK;
-    recipeOutputTypeByPosition[RecipePosition(RecipeTabType::INTERMEDIATE_PRODUCTS, 1, 2)] = InventoryItemType::IRON_GEAR_WHEEL;
-    recipeOutputTypeByPosition[RecipePosition(RecipeTabType::INTERMEDIATE_PRODUCTS, 1, 3)] = InventoryItemType::ELECTRONIC_CIRCUIT;
-    recipeOutputTypeByPosition[RecipePosition(RecipeTabType::INTERMEDIATE_PRODUCTS, 2, 0)] = InventoryItemType::AUTOMATION_SCIENCE_PACK;
+    recipeOutputTypeByPosition[RecipePosition(RecipeTabType::INTERMEDIATE_PRODUCTS, 0, 0)] =
+        InventoryItemType::IRON_PLATE;
+    recipeOutputTypeByPosition[RecipePosition(RecipeTabType::INTERMEDIATE_PRODUCTS, 0, 1)] =
+        InventoryItemType::COPPER_PLATE;
+    recipeOutputTypeByPosition[RecipePosition(RecipeTabType::INTERMEDIATE_PRODUCTS, 1, 0)] =
+        InventoryItemType::COPPER_CABLE;
+    recipeOutputTypeByPosition[RecipePosition(RecipeTabType::INTERMEDIATE_PRODUCTS, 1, 1)] =
+        InventoryItemType::IRON_STICK;
+    recipeOutputTypeByPosition[RecipePosition(RecipeTabType::INTERMEDIATE_PRODUCTS, 1, 2)] =
+        InventoryItemType::IRON_GEAR_WHEEL;
+    recipeOutputTypeByPosition[RecipePosition(RecipeTabType::INTERMEDIATE_PRODUCTS, 1, 3)] =
+        InventoryItemType::ELECTRONIC_CIRCUIT;
+    recipeOutputTypeByPosition[RecipePosition(RecipeTabType::INTERMEDIATE_PRODUCTS, 2, 0)] =
+        InventoryItemType::AUTOMATION_SCIENCE_PACK;
 
-    recipeOutputTypeByPosition[RecipePosition(RecipeTabType::COMBAT, 0, 0)] = InventoryItemType::PISTOL;
-    recipeOutputTypeByPosition[RecipePosition(RecipeTabType::COMBAT, 1, 0)] = InventoryItemType::FIREARM_MAGAZINE;
-    recipeOutputTypeByPosition[RecipePosition(RecipeTabType::COMBAT, 2, 0)] = InventoryItemType::LIGHT_ARMOR;
-    recipeOutputTypeByPosition[RecipePosition(RecipeTabType::COMBAT, 3, 0)] = InventoryItemType::RADAR;
+    recipeOutputTypeByPosition[RecipePosition(RecipeTabType::COMBAT, 0, 0)] =
+        InventoryItemType::PISTOL;
+    recipeOutputTypeByPosition[RecipePosition(RecipeTabType::COMBAT, 1, 0)] =
+        InventoryItemType::FIREARM_MAGAZINE;
+    recipeOutputTypeByPosition[RecipePosition(RecipeTabType::COMBAT, 2, 0)] =
+        InventoryItemType::LIGHT_ARMOR;
+    recipeOutputTypeByPosition[RecipePosition(RecipeTabType::COMBAT, 3, 0)] =
+        InventoryItemType::RADAR;
 }
 
 void RecipeConfiguration::initRecipes() {
@@ -64,7 +94,8 @@ void RecipeConfiguration::initLogisticsRecipes() {
     ItemStack* woodenChestStack = new ItemStack(InventoryItemType::WOODEN_CHEST, 1);
     woodenChestInputs->push_back(woodStack);
     woodenChestOutputs->push_back(woodenChestStack);
-    Recipe* woodenChestRecipe = new Recipe("Wooden chest", *woodenChestInputs, *woodenChestOutputs, 0.5);
+    Recipe* woodenChestRecipe =
+        new Recipe("Wooden chest", *woodenChestInputs, *woodenChestOutputs, 0.5);
     recipeByOutputType[InventoryItemType::WOODEN_CHEST] = woodenChestRecipe;
 
     vector<ItemStack*>* ironChestInputs = new vector<ItemStack*>();
@@ -84,7 +115,8 @@ void RecipeConfiguration::initLogisticsRecipes() {
     transportBeltInputs->push_back(ironGearWheelStack);
     transportBeltInputs->push_back(ironPlateStack2);
     transportBeltOutputs->push_back(transportBeltStack);
-    Recipe* transportBeltRecipe = new Recipe("Transport belt", *transportBeltInputs, *transportBeltOutputs, 0.5);
+    Recipe* transportBeltRecipe =
+        new Recipe("Transport belt", *transportBeltInputs, *transportBeltOutputs, 0.5);
     recipeByOutputType[InventoryItemType::TRANSPORT_BELT] = transportBeltRecipe;
 
     vector<ItemStack*>* burnerInserterInputs = new vector<ItemStack*>();
@@ -95,7 +127,8 @@ void RecipeConfiguration::initLogisticsRecipes() {
     burnerInserterInputs->push_back(ironPlateStack4);
     burnerInserterInputs->push_back(ironGearWheelStack3);
     burnerInserterOutputs->push_back(burnerInserterStack);
-    Recipe* burnerInserterRecipe = new Recipe("Burner inserter", *burnerInserterInputs, *burnerInserterOutputs, 0.5);
+    Recipe* burnerInserterRecipe =
+        new Recipe("Burner inserter", *burnerInserterInputs, *burnerInserterOutputs, 0.5);
     recipeByOutputType[InventoryItemType::BURNER_INSERTER] = burnerInserterRecipe;
 
     vector<ItemStack*>* inserterInputs = new vector<ItemStack*>();
@@ -119,7 +152,8 @@ void RecipeConfiguration::initLogisticsRecipes() {
     smallElectricPoleInputs->push_back(woodStack2);
     smallElectricPoleInputs->push_back(copperPlateStack);
     smallElectricPoleOutputs->push_back(smallElectricPoleStack);
-    Recipe* smallElectricPoleRecipe = new Recipe("Small electric pole", *smallElectricPoleInputs, *smallElectricPoleOutputs, 0.5);
+    Recipe* smallElectricPoleRecipe =
+        new Recipe("Small electric pole", *smallElectricPoleInputs, *smallElectricPoleOutputs, 0.5);
     recipeByOutputType[InventoryItemType::SMALL_ELECTRIC_POLE] = smallElectricPoleRecipe;
 
     vector<ItemStack*>* pipeInputs = new vector<ItemStack*>();
@@ -139,7 +173,8 @@ void RecipeConfiguration::initLogisticsRecipes() {
     pipeToGroundInputs->push_back(stoneBrickStack);
     pipeToGroundInputs->push_back(pipeStack2);
     pipeToGroundOutputs->push_back(pipeToGroundStack);
-    Recipe* pipeToGroundRecipe = new Recipe("Pipe to ground", *pipeToGroundInputs, *pipeToGroundOutputs, 0.5);
+    Recipe* pipeToGroundRecipe =
+        new Recipe("Pipe to ground", *pipeToGroundInputs, *pipeToGroundOutputs, 0.5);
     recipeByOutputType[InventoryItemType::PIPE_TO_GROUND] = pipeToGroundRecipe;
 
     vector<ItemStack*>* stoneBrickInputs = new vector<ItemStack*>();
@@ -149,7 +184,8 @@ void RecipeConfiguration::initLogisticsRecipes() {
     stoneBrickInputs->push_back(stoneStack);
     stoneBrickOutputs->push_back(stoneBrickStack2);
     // TODO: support furnace-only recipes
-    Recipe* stoneBrickRecipe = new Recipe("Stone brick", *stoneBrickInputs, *stoneBrickOutputs, 4.2);
+    Recipe* stoneBrickRecipe =
+        new Recipe("Stone brick", *stoneBrickInputs, *stoneBrickOutputs, 4.2);
     recipeByOutputType[InventoryItemType::STONE_BRICK] = stoneBrickRecipe;
 }
 
@@ -162,7 +198,8 @@ void RecipeConfiguration::initProductionRecipes() {
     repairPackInputs->push_back(ironGearWheelStack5);
     repairPackInputs->push_back(ironPlateStack7);
     repairPackOutputs->push_back(repairPackStack);
-    Recipe* repairPackRecipe = new Recipe("Repair pack", *repairPackInputs, *repairPackOutputs, 0.5);
+    Recipe* repairPackRecipe =
+        new Recipe("Repair pack", *repairPackInputs, *repairPackOutputs, 0.5);
     recipeByOutputType[InventoryItemType::REPAIR_PACK] = repairPackRecipe;
 
     vector<ItemStack*>* boilerInputs = new vector<ItemStack*>();
@@ -186,7 +223,8 @@ void RecipeConfiguration::initProductionRecipes() {
     steamEngineInputs->push_back(ironPlateStack9);
     steamEngineInputs->push_back(pipeStack4);
     steamEngineOutputs->push_back(steamEngineStack);
-    Recipe* steamEngineRecipe = new Recipe("Steam engine", *steamEngineInputs, *steamEngineOutputs, 0.5);
+    Recipe* steamEngineRecipe =
+        new Recipe("Steam engine", *steamEngineInputs, *steamEngineOutputs, 0.5);
     recipeByOutputType[InventoryItemType::STEAM_ENGINE] = steamEngineRecipe;
 
     vector<ItemStack*>* burnerMiningDrillInputs = new vector<ItemStack*>();
@@ -199,7 +237,8 @@ void RecipeConfiguration::initProductionRecipes() {
     burnerMiningDrillInputs->push_back(ironPlateStack10);
     burnerMiningDrillInputs->push_back(stoneFurnaceStack2);
     burnerMiningDrillOutputs->push_back(burnerMiningDrillStack);
-    Recipe* burnerMiningDrillRecipe = new Recipe("Burner mining drill", *burnerMiningDrillInputs, *burnerMiningDrillOutputs, 2.0);
+    Recipe* burnerMiningDrillRecipe =
+        new Recipe("Burner mining drill", *burnerMiningDrillInputs, *burnerMiningDrillOutputs, 2.0);
     recipeByOutputType[InventoryItemType::BURNER_MINING_DRILL] = burnerMiningDrillRecipe;
 
     vector<ItemStack*>* electricMiningDrillInputs = new vector<ItemStack*>();
@@ -207,12 +246,14 @@ void RecipeConfiguration::initProductionRecipes() {
     ItemStack* ironGearWheelStack8 = new ItemStack(InventoryItemType::IRON_GEAR_WHEEL, 5);
     ItemStack* ironPlateStack11 = new ItemStack(InventoryItemType::IRON_PLATE, 10);
     ItemStack* electronicCircuitStack2 = new ItemStack(InventoryItemType::ELECTRONIC_CIRCUIT, 3);
-    ItemStack* electricMiningDrillStack = new ItemStack(InventoryItemType::ELECTRIC_MINING_DRILL, 1);
+    ItemStack* electricMiningDrillStack =
+        new ItemStack(InventoryItemType::ELECTRIC_MINING_DRILL, 1);
     electricMiningDrillInputs->push_back(ironGearWheelStack8);
     electricMiningDrillInputs->push_back(ironPlateStack11);
     electricMiningDrillInputs->push_back(electronicCircuitStack2);
     electricMiningDrillOutputs->push_back(electricMiningDrillStack);
-    Recipe* electricMiningDrillRecipe = new Recipe("Electric mining drill", *electricMiningDrillInputs, *electricMiningDrillOutputs, 2.0);
+    Recipe* electricMiningDrillRecipe = new Recipe(
+        "Electric mining drill", *electricMiningDrillInputs, *electricMiningDrillOutputs, 2.0);
 
     vector<ItemStack*>* offshorePumpInputs = new vector<ItemStack*>();
     vector<ItemStack*>* offshorePumpOutputs = new vector<ItemStack*>();
@@ -224,7 +265,8 @@ void RecipeConfiguration::initProductionRecipes() {
     offshorePumpInputs->push_back(pipeStack5);
     offshorePumpInputs->push_back(electronicCircuitStack3);
     offshorePumpOutputs->push_back(offshorePumpStack);
-    Recipe* offshorePumpRecipe = new Recipe("Offshore pump", *offshorePumpInputs, *offshorePumpOutputs, 0.5);
+    Recipe* offshorePumpRecipe =
+        new Recipe("Offshore pump", *offshorePumpInputs, *offshorePumpOutputs, 0.5);
 
     vector<ItemStack*>* stoneFurnaceInputs = new vector<ItemStack*>();
     vector<ItemStack*>* stoneFurnaceOutputs = new vector<ItemStack*>();
@@ -232,7 +274,8 @@ void RecipeConfiguration::initProductionRecipes() {
     ItemStack* stoneFurnaceStack3 = new ItemStack(InventoryItemType::STONE_FURNACE, 1);
     stoneFurnaceInputs->push_back(stoneStack2);
     stoneFurnaceOutputs->push_back(stoneFurnaceStack3);
-    Recipe* stoneFurnaceRecipe = new Recipe("Stone furnace", *stoneFurnaceInputs, *stoneFurnaceOutputs, 0.5);
+    Recipe* stoneFurnaceRecipe =
+        new Recipe("Stone furnace", *stoneFurnaceInputs, *stoneFurnaceOutputs, 0.5);
     recipeByOutputType[InventoryItemType::STONE_FURNACE] = stoneFurnaceRecipe;
 
     vector<ItemStack*>* labInputs = new vector<ItemStack*>();
@@ -265,7 +308,8 @@ void RecipeConfiguration::initIntermediateProductsRecipes() {
     ItemStack* copperPlateStack = new ItemStack(InventoryItemType::COPPER_PLATE, 1);
     copperPlateInputs->push_back(copperOreStack);
     copperPlateOutputs->push_back(copperPlateStack);
-    Recipe* copperPlateRecipe = new Recipe("Copper plate", *copperPlateInputs, *copperPlateOutputs, 3.2);
+    Recipe* copperPlateRecipe =
+        new Recipe("Copper plate", *copperPlateInputs, *copperPlateOutputs, 3.2);
     recipeByOutputType[InventoryItemType::COPPER_PLATE] = copperPlateRecipe;
 
     vector<ItemStack*>* copperCableInputs = new vector<ItemStack*>();
@@ -274,7 +318,8 @@ void RecipeConfiguration::initIntermediateProductsRecipes() {
     ItemStack* copperCableStack = new ItemStack(InventoryItemType::COPPER_CABLE, 2);
     copperCableInputs->push_back(copperPlateStack2);
     copperCableOutputs->push_back(copperCableStack);
-    Recipe* copperCableRecipe = new Recipe("Copper cable", *copperCableInputs, *copperCableOutputs, 0.5);
+    Recipe* copperCableRecipe =
+        new Recipe("Copper cable", *copperCableInputs, *copperCableOutputs, 0.5);
     recipeByOutputType[InventoryItemType::COPPER_CABLE] = copperCableRecipe;
 
     vector<ItemStack*>* ironStickInputs = new vector<ItemStack*>();
@@ -292,7 +337,8 @@ void RecipeConfiguration::initIntermediateProductsRecipes() {
     ItemStack* ironGearWheelStack2 = new ItemStack(InventoryItemType::IRON_GEAR_WHEEL, 1);
     ironGearWheelInputs->push_back(ironPlateStack3);
     ironGearWheelOutputs->push_back(ironGearWheelStack2);
-    Recipe* ironGearWheelRecipe = new Recipe("Iron gear wheel", *ironGearWheelInputs, *ironGearWheelOutputs, 0.5);
+    Recipe* ironGearWheelRecipe =
+        new Recipe("Iron gear wheel", *ironGearWheelInputs, *ironGearWheelOutputs, 0.5);
     recipeByOutputType[InventoryItemType::IRON_GEAR_WHEEL] = ironGearWheelRecipe;
 
     vector<ItemStack*>* electronicCircuitInputs = new vector<ItemStack*>();
@@ -303,18 +349,22 @@ void RecipeConfiguration::initIntermediateProductsRecipes() {
     electronicCircuitInputs->push_back(ironPlateStack8);
     electronicCircuitInputs->push_back(copperCableStack2);
     electronicCircuitOutputs->push_back(electronicCircuitStack2);
-    Recipe* electronicCircuitRecipe = new Recipe("Electronic circuit", *electronicCircuitInputs, *electronicCircuitOutputs, 0.5);
+    Recipe* electronicCircuitRecipe =
+        new Recipe("Electronic circuit", *electronicCircuitInputs, *electronicCircuitOutputs, 0.5);
     recipeByOutputType[InventoryItemType::ELECTRONIC_CIRCUIT] = electronicCircuitRecipe;
 
     vector<ItemStack*>* automationSciencePackInputs = new vector<ItemStack*>();
     vector<ItemStack*>* automationSciencePackOutputs = new vector<ItemStack*>();
     ItemStack* copperPlateStack3 = new ItemStack(InventoryItemType::COPPER_PLATE, 1);
     ItemStack* ironGearWheelStack3 = new ItemStack(InventoryItemType::IRON_GEAR_WHEEL, 1);
-    ItemStack* automationSciencePackStack = new ItemStack(InventoryItemType::AUTOMATION_SCIENCE_PACK, 1);
+    ItemStack* automationSciencePackStack =
+        new ItemStack(InventoryItemType::AUTOMATION_SCIENCE_PACK, 1);
     automationSciencePackInputs->push_back(copperPlateStack3);
     automationSciencePackInputs->push_back(ironGearWheelStack3);
     automationSciencePackOutputs->push_back(automationSciencePackStack);
-    Recipe* automationSciencePackRecipe = new Recipe("Automation science pack", *automationSciencePackInputs, *automationSciencePackOutputs, 5.0);
+    Recipe* automationSciencePackRecipe =
+        new Recipe("Automation science pack", *automationSciencePackInputs,
+                   *automationSciencePackOutputs, 5.0);
     recipeByOutputType[InventoryItemType::AUTOMATION_SCIENCE_PACK] = automationSciencePackRecipe;
 }
 
@@ -336,7 +386,8 @@ void RecipeConfiguration::initCombatRecipes() {
     ItemStack* firearmMagazineStack = new ItemStack(InventoryItemType::FIREARM_MAGAZINE, 1);
     firearmMagazineInputs->push_back(ironPlateStack15);
     firearmMagazineOutputs->push_back(firearmMagazineStack);
-    Recipe* firearmMagazineRecipe = new Recipe("Firearm magazine", *firearmMagazineInputs, *firearmMagazineOutputs, 1.0);
+    Recipe* firearmMagazineRecipe =
+        new Recipe("Firearm magazine", *firearmMagazineInputs, *firearmMagazineOutputs, 1.0);
     recipeByOutputType[InventoryItemType::FIREARM_MAGAZINE] = firearmMagazineRecipe;
 
     vector<ItemStack*>* lightArmorInputs = new vector<ItemStack*>();
@@ -345,7 +396,8 @@ void RecipeConfiguration::initCombatRecipes() {
     ItemStack* lightArmorStack = new ItemStack(InventoryItemType::LIGHT_ARMOR, 1);
     lightArmorInputs->push_back(ironPlateStack16);
     lightArmorOutputs->push_back(lightArmorStack);
-    Recipe* lightArmorRecipe = new Recipe("Light armor", *lightArmorInputs, *lightArmorOutputs, 3.0);
+    Recipe* lightArmorRecipe =
+        new Recipe("Light armor", *lightArmorInputs, *lightArmorOutputs, 3.0);
     recipeByOutputType[InventoryItemType::LIGHT_ARMOR] = lightArmorRecipe;
 
     vector<ItemStack*>* radarInputs = new vector<ItemStack*>();
@@ -368,7 +420,7 @@ void RecipeConfiguration::initRecipeMap() {
     }
 }
 
-Recipe* RecipeConfiguration::getRecipeAtPosition(RecipePosition &position) {
+Recipe* RecipeConfiguration::getRecipeAtPosition(RecipePosition& position) {
     return recipeMap[position];
 }
 

@@ -4,15 +4,11 @@
 #include "recipe_tab_type.hpp"
 
 class RecipeTab : public SceneNode {
-    public:
-    RecipeTab(
-        int index,
-        RecipeTabType type,
-        RecipePanel &panel
-    );
+   public:
+    RecipeTab(int index, RecipeTabType type, RecipePanel &panel);
     string getName();
 
-    private:
+   private:
     int index;
     RecipeTabType type;
     RecipePanel &panel;

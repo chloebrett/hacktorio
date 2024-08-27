@@ -1,16 +1,17 @@
 #pragma once
 
+#include <SFML/Graphics.hpp>
+#include <functional>
+
+#include "entity_placement_manager.hpp"
 #include "scene_node.hpp"
 #include "ui/gui.hpp"
-#include <functional>
-#include <SFML/Graphics.hpp>
-#include "entity_placement_manager.hpp"
 
 class EmptySpace : public SceneNode {
-    public:
+   public:
     EmptySpace(sf::Vector2f pos, EntityPlacementManager &entityPlacementManager);
     bool canPlaceItem();
 
-    private:
+   private:
     EntityPlacementManager &entityPlacementManager;
 };

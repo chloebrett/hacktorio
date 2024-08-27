@@ -1,30 +1,23 @@
 #pragma once
 
-#include "item_stack.hpp"
-#include <vector>
 #include <string>
+#include <vector>
+
+#include "item_stack.hpp"
 
 using namespace std;
 
 class Recipe {
-    public:
-    Recipe(string name, vector<ItemStack*> &inputs, vector<ItemStack*> &outputs, float time);
-    string getName() {
-        return name;
-    }
-    vector<ItemStack*>& getInputs() {
-        return inputs;
-    }
-    vector<ItemStack*>& getOutputs() {
-        return outputs;
-    }
-    float getTime() {
-        return time;
-    }
+   public:
+    Recipe(string name, vector<ItemStack *> &inputs, vector<ItemStack *> &outputs, float time);
+    string getName() { return name; }
+    vector<ItemStack *> &getInputs() { return inputs; }
+    vector<ItemStack *> &getOutputs() { return outputs; }
+    float getTime() { return time; }
 
-    private:
+   private:
     string name;
-    vector<ItemStack*> &inputs;
-    vector<ItemStack*> &outputs;
+    vector<ItemStack *> &inputs;
+    vector<ItemStack *> &outputs;
     float time;
 };

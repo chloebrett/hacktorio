@@ -1,7 +1,6 @@
 #pragma once
 
-enum class ResearchType
-{
+enum class ResearchType {
     // Red only
     AUTOMATION,
     OPTICS,

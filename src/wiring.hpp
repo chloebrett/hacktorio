@@ -1,27 +1,28 @@
 #pragma once
 
-#include "scene_node.hpp"
-#include "player.hpp"
-#include "ui/gui.hpp"
-#include "ui/panel.hpp"
-#include "ui/button.hpp"
 #include <SFML/Graphics.hpp>
-#include "cursor.hpp"
-#include "ui/recipe_panel.hpp"
-#include "ui/inventory_grid.hpp"
+
 #include "config/recipe_configuration.hpp"
-#include "timer.hpp"
+#include "cursor.hpp"
+#include "player.hpp"
+#include "scene_node.hpp"
 #include "spatial_index.hpp"
+#include "timer.hpp"
+#include "ui/button.hpp"
+#include "ui/gui.hpp"
+#include "ui/inventory_grid.hpp"
+#include "ui/panel.hpp"
+#include "ui/recipe_panel.hpp"
 
 /**
  * Wires dependencies for game classes and attaches them to the scene tree.
  */
 class Wiring {
-    public:
+   public:
     Wiring(sf::RenderWindow &window);
-    SceneNode* root;
-    SceneNode* background;
-    Player* player;
+    SceneNode *root;
+    SceneNode *background;
+    Player *player;
     Panel *doubleInventoryGridPanel;
     Panel *craftingPanel;
     Panel *entityPanel;
@@ -39,8 +40,8 @@ class Wiring {
     SpatialIndex *spatialIndex;
     RecipeConfiguration *recipeConfiguration;
 
-    void initUi(SceneNode* root, Player* player);
+    void initUi(SceneNode *root, Player *player);
 
-    private:
+   private:
     sf::RenderWindow &window;
 };

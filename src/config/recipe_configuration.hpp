@@ -1,7 +1,8 @@
 #pragma once
 
-#include "../recipe.hpp"
 #include <map>
+
+#include "../recipe.hpp"
 #include "../ui/recipe_position.hpp"
 
 using namespace std;
@@ -9,18 +10,19 @@ using namespace std;
 struct cmpByRecipePosition {
     bool operator()(const RecipePosition& a, const RecipePosition& b) const {
         return a.getTabIndex() < b.getTabIndex() ||
-            (a.getTabIndex() == b.getTabIndex() && a.getRow() < b.getRow()) ||
-            (a.getTabIndex() == b.getTabIndex() && a.getRow() == b.getRow() && a.getColumn() < b.getColumn());
+               (a.getTabIndex() == b.getTabIndex() && a.getRow() < b.getRow()) ||
+               (a.getTabIndex() == b.getTabIndex() && a.getRow() == b.getRow() &&
+                a.getColumn() < b.getColumn());
     }
 };
 
 class RecipeConfiguration {
-    public:
+   public:
     RecipeConfiguration();
-    Recipe* getRecipeAtPosition(RecipePosition &position);
+    Recipe* getRecipeAtPosition(RecipePosition& position);
     Recipe* getRecipeByOutputType(InventoryItemType outputType);
 
-    private:
+   private:
     map<RecipePosition, Recipe*, cmpByRecipePosition> recipeMap;
     map<InventoryItemType, Recipe*> recipeByOutputType;
     map<RecipePosition, InventoryItemType, cmpByRecipePosition> recipeOutputTypeByPosition;

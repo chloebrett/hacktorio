@@ -1,14 +1,15 @@
 #pragma once
 
-#include "../scene_node.hpp"
 #include <SFML/Graphics.hpp>
 
+#include "../scene_node.hpp"
+
 class RecipePanel : public SceneNode {
-    public:
+   public:
     RecipePanel(sf::Vector2f pos);
     int getSelectedTabIndex();
     void setSelectedTabIndex(int index);
 
-    private:
+   private:
     int selectedTabIndex;
 };

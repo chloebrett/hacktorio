@@ -1,12 +1,14 @@
 #pragma once
 
-#include "config/resource_patch_type.hpp"
-#include "config/inventory_item_type.hpp"
-#include "SFML/Graphics.hpp"
-#include "scene_node.hpp"
-#include <vector>
 #include "spatial_index.hpp"
+
 #include <iostream>
+#include <vector>
+
+#include "SFML/Graphics.hpp"
+#include "config/inventory_item_type.hpp"
+#include "config/resource_patch_type.hpp"
+#include "scene_node.hpp"
 
 using namespace std;
 
@@ -36,10 +38,8 @@ vector<SceneNode*> SpatialIndex::nodesAt(sf::Vector2i searchPosition) {
         SceneNode* node = (*nodes)[i];
         sf::Vector2f topLeft = (*absolutePositions)[i];
         sf::Vector2f bottomRight = topLeft + node->getSize();
-        if (
-            topLeft.x <= searchPosition.x && searchPosition.x <= bottomRight.x &&
-            topLeft.y <= searchPosition.y && searchPosition.y <= bottomRight.y
-        ) {
+        if (topLeft.x <= searchPosition.x && searchPosition.x <= bottomRight.x &&
+            topLeft.y <= searchPosition.y && searchPosition.y <= bottomRight.y) {
             // cout << "topLeft: " << topLeft.x << ", " << topLeft.y << endl;
             // cout << "bottomRight: " << bottomRight.x << ", " << bottomRight.y << endl;
             // cout << "searchPosition: " << searchPosition.x << ", " << searchPosition.y << endl;

@@ -1,23 +1,22 @@
 #pragma once
 
-#include <map>
-#include "config/inventory_item_type.hpp"
-#include <vector>
-#include "item_stack.hpp"
 #include <iostream>
+#include <map>
+#include <vector>
+
+#include "config/inventory_item_type.hpp"
+#include "item_stack.hpp"
 
 using namespace std;
 
 class Container {
     // TODO: maybe move this to a C++ file?
-    public:
+   public:
     Container() {
-        map<InventoryItemType, int> *contents = new map<InventoryItemType, int>();
+        map<InventoryItemType, int>* contents = new map<InventoryItemType, int>();
         this->contents = contents;
     }
-    map<InventoryItemType, int> getContents() {
-        return *contents;
-    }
+    map<InventoryItemType, int> getContents() { return *contents; }
     int getItemCount(InventoryItemType item) {
         if (contents->find(item) == contents->end()) {
             (*contents)[item] = 0;
@@ -55,9 +54,7 @@ class Container {
             (*contents)[item] = 0;
         }
     }
-    vector<ItemStack> &getItems() {
-        return items;
-    }
+    vector<ItemStack>& getItems() { return items; }
 
     void updateItems() {
         vector<ItemStack> items;
@@ -66,9 +63,8 @@ class Container {
                 items.push_back(ItemStack(item, count));
             }
         }
-        sort(items.begin(), items.end(), [](ItemStack a, ItemStack b) {
-            return a.getAmount() < b.getAmount();
-        });
+        sort(items.begin(), items.end(),
+             [](ItemStack a, ItemStack b) { return a.getAmount() < b.getAmount(); });
         this->items = items;
     }
 
@@ -87,7 +83,7 @@ class Container {
         return nullptr;
     }
 
-    protected:
-    map<InventoryItemType, int> *contents;
+   protected:
+    map<InventoryItemType, int>* contents;
     vector<ItemStack> items;
 };
