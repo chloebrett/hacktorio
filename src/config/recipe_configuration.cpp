@@ -14,14 +14,6 @@ RecipeConfiguration::RecipeConfiguration() {
     initRecipeMap();
 }
 
-// TODO: refactor
-ItemStack* newItemStack(InventoryItemType type, int count) {
-    ItemStack* stack = new ItemStack;
-    stack->type = type;
-    stack->count = count;
-    return stack;
-}
-
 void RecipeConfiguration::initPositions() {
     recipeOutputTypeByPosition[RecipePosition(RecipeTabType::LOGISTICS, 0, 0)] =
         InventoryItemType::WOODEN_CHEST;
@@ -94,8 +86,8 @@ void RecipeConfiguration::initRecipes() {
 void RecipeConfiguration::initLogisticsRecipes() {
     std::vector<ItemStack*>* woodenChestInputs = new std::vector<ItemStack*>();
     std::vector<ItemStack*>* woodenChestOutputs = new std::vector<ItemStack*>();
-    ItemStack* woodStack = newItemStack(InventoryItemType::WOOD, 2);
-    ItemStack* woodenChestStack = newItemStack(InventoryItemType::WOODEN_CHEST, 1);
+    ItemStack* woodStack = new ItemStack{InventoryItemType::WOOD, 2};
+    ItemStack* woodenChestStack = new ItemStack{InventoryItemType::WOODEN_CHEST, 1};
     woodenChestInputs->push_back(woodStack);
     woodenChestOutputs->push_back(woodenChestStack);
     Recipe* woodenChestRecipe =
@@ -104,8 +96,8 @@ void RecipeConfiguration::initLogisticsRecipes() {
 
     std::vector<ItemStack*>* ironChestInputs = new std::vector<ItemStack*>();
     std::vector<ItemStack*>* ironChestOutputs = new std::vector<ItemStack*>();
-    ItemStack* ironPlateStack = newItemStack(InventoryItemType::IRON_PLATE, 8);
-    ItemStack* ironChestStack = newItemStack(InventoryItemType::IRON_CHEST, 1);
+    ItemStack* ironPlateStack = new ItemStack{InventoryItemType::IRON_PLATE, 8};
+    ItemStack* ironChestStack = new ItemStack{InventoryItemType::IRON_CHEST, 1};
     ironChestInputs->push_back(ironPlateStack);
     ironChestOutputs->push_back(ironChestStack);
     Recipe* ironChestRecipe = new Recipe("Iron chest", *ironChestInputs, *ironChestOutputs, 0.5);
@@ -113,9 +105,9 @@ void RecipeConfiguration::initLogisticsRecipes() {
 
     std::vector<ItemStack*>* transportBeltInputs = new std::vector<ItemStack*>();
     std::vector<ItemStack*>* transportBeltOutputs = new std::vector<ItemStack*>();
-    ItemStack* ironGearWheelStack = newItemStack(InventoryItemType::IRON_GEAR_WHEEL, 1);
-    ItemStack* ironPlateStack2 = newItemStack(InventoryItemType::IRON_PLATE, 1);
-    ItemStack* transportBeltStack = newItemStack(InventoryItemType::TRANSPORT_BELT, 2);
+    ItemStack* ironGearWheelStack = new ItemStack{InventoryItemType::IRON_GEAR_WHEEL, 1};
+    ItemStack* ironPlateStack2 = new ItemStack{InventoryItemType::IRON_PLATE, 1};
+    ItemStack* transportBeltStack = new ItemStack{InventoryItemType::TRANSPORT_BELT, 2};
     transportBeltInputs->push_back(ironGearWheelStack);
     transportBeltInputs->push_back(ironPlateStack2);
     transportBeltOutputs->push_back(transportBeltStack);
@@ -125,9 +117,9 @@ void RecipeConfiguration::initLogisticsRecipes() {
 
     std::vector<ItemStack*>* burnerInserterInputs = new std::vector<ItemStack*>();
     std::vector<ItemStack*>* burnerInserterOutputs = new std::vector<ItemStack*>();
-    ItemStack* ironPlateStack4 = newItemStack(InventoryItemType::IRON_PLATE, 1);
-    ItemStack* ironGearWheelStack3 = newItemStack(InventoryItemType::IRON_GEAR_WHEEL, 1);
-    ItemStack* burnerInserterStack = newItemStack(InventoryItemType::BURNER_INSERTER, 1);
+    ItemStack* ironPlateStack4 = new ItemStack{InventoryItemType::IRON_PLATE, 1};
+    ItemStack* ironGearWheelStack3 = new ItemStack{InventoryItemType::IRON_GEAR_WHEEL, 1};
+    ItemStack* burnerInserterStack = new ItemStack{InventoryItemType::BURNER_INSERTER, 1};
     burnerInserterInputs->push_back(ironPlateStack4);
     burnerInserterInputs->push_back(ironGearWheelStack3);
     burnerInserterOutputs->push_back(burnerInserterStack);
@@ -137,10 +129,10 @@ void RecipeConfiguration::initLogisticsRecipes() {
 
     std::vector<ItemStack*>* inserterInputs = new std::vector<ItemStack*>();
     std::vector<ItemStack*>* inserterOutputs = new std::vector<ItemStack*>();
-    ItemStack* ironGearWheelStack4 = newItemStack(InventoryItemType::IRON_GEAR_WHEEL, 1);
-    ItemStack* ironPlateStack5 = newItemStack(InventoryItemType::IRON_PLATE, 1);
-    ItemStack* electronicCircuitStack = newItemStack(InventoryItemType::ELECTRONIC_CIRCUIT, 1);
-    ItemStack* inserterStack = newItemStack(InventoryItemType::INSERTER, 1);
+    ItemStack* ironGearWheelStack4 = new ItemStack{InventoryItemType::IRON_GEAR_WHEEL, 1};
+    ItemStack* ironPlateStack5 = new ItemStack{InventoryItemType::IRON_PLATE, 1};
+    ItemStack* electronicCircuitStack = new ItemStack{InventoryItemType::ELECTRONIC_CIRCUIT, 1};
+    ItemStack* inserterStack = new ItemStack{InventoryItemType::INSERTER, 1};
     inserterInputs->push_back(ironGearWheelStack4);
     inserterInputs->push_back(ironPlateStack5);
     inserterInputs->push_back(electronicCircuitStack);
@@ -150,9 +142,9 @@ void RecipeConfiguration::initLogisticsRecipes() {
 
     std::vector<ItemStack*>* smallElectricPoleInputs = new std::vector<ItemStack*>();
     std::vector<ItemStack*>* smallElectricPoleOutputs = new std::vector<ItemStack*>();
-    ItemStack* woodStack2 = newItemStack(InventoryItemType::WOOD, 1);
-    ItemStack* copperPlateStack = newItemStack(InventoryItemType::COPPER_CABLE, 2);
-    ItemStack* smallElectricPoleStack = newItemStack(InventoryItemType::SMALL_ELECTRIC_POLE, 2);
+    ItemStack* woodStack2 = new ItemStack{InventoryItemType::WOOD, 1};
+    ItemStack* copperPlateStack = new ItemStack{InventoryItemType::COPPER_CABLE, 2};
+    ItemStack* smallElectricPoleStack = new ItemStack{InventoryItemType::SMALL_ELECTRIC_POLE, 2};
     smallElectricPoleInputs->push_back(woodStack2);
     smallElectricPoleInputs->push_back(copperPlateStack);
     smallElectricPoleOutputs->push_back(smallElectricPoleStack);
@@ -162,8 +154,8 @@ void RecipeConfiguration::initLogisticsRecipes() {
 
     std::vector<ItemStack*>* pipeInputs = new std::vector<ItemStack*>();
     std::vector<ItemStack*>* pipeOutputs = new std::vector<ItemStack*>();
-    ItemStack* ironPlateStack6 = newItemStack(InventoryItemType::IRON_PLATE, 1);
-    ItemStack* pipeStack = newItemStack(InventoryItemType::PIPE, 1);
+    ItemStack* ironPlateStack6 = new ItemStack{InventoryItemType::IRON_PLATE, 1};
+    ItemStack* pipeStack = new ItemStack{InventoryItemType::PIPE, 1};
     pipeInputs->push_back(ironPlateStack6);
     pipeOutputs->push_back(pipeStack);
     Recipe* pipeRecipe = new Recipe("Pipe", *pipeInputs, *pipeOutputs, 0.5);
@@ -171,9 +163,9 @@ void RecipeConfiguration::initLogisticsRecipes() {
 
     std::vector<ItemStack*>* pipeToGroundInputs = new std::vector<ItemStack*>();
     std::vector<ItemStack*>* pipeToGroundOutputs = new std::vector<ItemStack*>();
-    ItemStack* stoneBrickStack = newItemStack(InventoryItemType::IRON_PLATE, 5);
-    ItemStack* pipeStack2 = newItemStack(InventoryItemType::PIPE, 10);
-    ItemStack* pipeToGroundStack = newItemStack(InventoryItemType::PIPE_TO_GROUND, 2);
+    ItemStack* stoneBrickStack = new ItemStack{InventoryItemType::IRON_PLATE, 5};
+    ItemStack* pipeStack2 = new ItemStack{InventoryItemType::PIPE, 10};
+    ItemStack* pipeToGroundStack = new ItemStack{InventoryItemType::PIPE_TO_GROUND, 2};
     pipeToGroundInputs->push_back(stoneBrickStack);
     pipeToGroundInputs->push_back(pipeStack2);
     pipeToGroundOutputs->push_back(pipeToGroundStack);
@@ -183,8 +175,8 @@ void RecipeConfiguration::initLogisticsRecipes() {
 
     std::vector<ItemStack*>* stoneBrickInputs = new std::vector<ItemStack*>();
     std::vector<ItemStack*>* stoneBrickOutputs = new std::vector<ItemStack*>();
-    ItemStack* stoneStack = newItemStack(InventoryItemType::STONE, 2);
-    ItemStack* stoneBrickStack2 = newItemStack(InventoryItemType::STONE_BRICK, 1);
+    ItemStack* stoneStack = new ItemStack{InventoryItemType::STONE, 2};
+    ItemStack* stoneBrickStack2 = new ItemStack{InventoryItemType::STONE_BRICK, 1};
     stoneBrickInputs->push_back(stoneStack);
     stoneBrickOutputs->push_back(stoneBrickStack2);
     // TODO: support furnace-only recipes
@@ -196,9 +188,9 @@ void RecipeConfiguration::initLogisticsRecipes() {
 void RecipeConfiguration::initProductionRecipes() {
     std::vector<ItemStack*>* repairPackInputs = new std::vector<ItemStack*>();
     std::vector<ItemStack*>* repairPackOutputs = new std::vector<ItemStack*>();
-    ItemStack* ironGearWheelStack5 = newItemStack(InventoryItemType::IRON_GEAR_WHEEL, 2);
-    ItemStack* ironPlateStack7 = newItemStack(InventoryItemType::IRON_PLATE, 3);
-    ItemStack* repairPackStack = newItemStack(InventoryItemType::REPAIR_PACK, 1);
+    ItemStack* ironGearWheelStack5 = new ItemStack{InventoryItemType::IRON_GEAR_WHEEL, 2};
+    ItemStack* ironPlateStack7 = new ItemStack{InventoryItemType::IRON_PLATE, 3};
+    ItemStack* repairPackStack = new ItemStack{InventoryItemType::REPAIR_PACK, 1};
     repairPackInputs->push_back(ironGearWheelStack5);
     repairPackInputs->push_back(ironPlateStack7);
     repairPackOutputs->push_back(repairPackStack);
@@ -208,9 +200,9 @@ void RecipeConfiguration::initProductionRecipes() {
 
     std::vector<ItemStack*>* boilerInputs = new std::vector<ItemStack*>();
     std::vector<ItemStack*>* boilerOutputs = new std::vector<ItemStack*>();
-    ItemStack* pipeStack3 = newItemStack(InventoryItemType::PIPE, 4);
-    ItemStack* stoneFurnaceStack = newItemStack(InventoryItemType::STONE_FURNACE, 1);
-    ItemStack* boilerStack = newItemStack(InventoryItemType::BOILER, 1);
+    ItemStack* pipeStack3 = new ItemStack{InventoryItemType::PIPE, 4};
+    ItemStack* stoneFurnaceStack = new ItemStack{InventoryItemType::STONE_FURNACE, 1};
+    ItemStack* boilerStack = new ItemStack{InventoryItemType::BOILER, 1};
     boilerInputs->push_back(pipeStack3);
     boilerInputs->push_back(stoneFurnaceStack);
     boilerOutputs->push_back(boilerStack);
@@ -219,10 +211,10 @@ void RecipeConfiguration::initProductionRecipes() {
 
     std::vector<ItemStack*>* steamEngineInputs = new std::vector<ItemStack*>();
     std::vector<ItemStack*>* steamEngineOutputs = new std::vector<ItemStack*>();
-    ItemStack* ironGearWheelStack6 = newItemStack(InventoryItemType::IRON_GEAR_WHEEL, 8);
-    ItemStack* ironPlateStack9 = newItemStack(InventoryItemType::IRON_PLATE, 10);
-    ItemStack* pipeStack4 = newItemStack(InventoryItemType::PIPE, 5);
-    ItemStack* steamEngineStack = newItemStack(InventoryItemType::STEAM_ENGINE, 1);
+    ItemStack* ironGearWheelStack6 = new ItemStack{InventoryItemType::IRON_GEAR_WHEEL, 8};
+    ItemStack* ironPlateStack9 = new ItemStack{InventoryItemType::IRON_PLATE, 10};
+    ItemStack* pipeStack4 = new ItemStack{InventoryItemType::PIPE, 5};
+    ItemStack* steamEngineStack = new ItemStack{InventoryItemType::STEAM_ENGINE, 1};
     steamEngineInputs->push_back(ironGearWheelStack6);
     steamEngineInputs->push_back(ironPlateStack9);
     steamEngineInputs->push_back(pipeStack4);
@@ -233,10 +225,10 @@ void RecipeConfiguration::initProductionRecipes() {
 
     std::vector<ItemStack*>* burnerMiningDrillInputs = new std::vector<ItemStack*>();
     std::vector<ItemStack*>* burnerMiningDrillOutputs = new std::vector<ItemStack*>();
-    ItemStack* ironGearWheelStack7 = newItemStack(InventoryItemType::IRON_GEAR_WHEEL, 3);
-    ItemStack* ironPlateStack10 = newItemStack(InventoryItemType::IRON_PLATE, 3);
-    ItemStack* stoneFurnaceStack2 = newItemStack(InventoryItemType::STONE_FURNACE, 1);
-    ItemStack* burnerMiningDrillStack = newItemStack(InventoryItemType::BURNER_MINING_DRILL, 1);
+    ItemStack* ironGearWheelStack7 = new ItemStack{InventoryItemType::IRON_GEAR_WHEEL, 3};
+    ItemStack* ironPlateStack10 = new ItemStack{InventoryItemType::IRON_PLATE, 3};
+    ItemStack* stoneFurnaceStack2 = new ItemStack{InventoryItemType::STONE_FURNACE, 1};
+    ItemStack* burnerMiningDrillStack = new ItemStack{InventoryItemType::BURNER_MINING_DRILL, 1};
     burnerMiningDrillInputs->push_back(ironGearWheelStack7);
     burnerMiningDrillInputs->push_back(ironPlateStack10);
     burnerMiningDrillInputs->push_back(stoneFurnaceStack2);
@@ -247,10 +239,11 @@ void RecipeConfiguration::initProductionRecipes() {
 
     std::vector<ItemStack*>* electricMiningDrillInputs = new std::vector<ItemStack*>();
     std::vector<ItemStack*>* electricMiningDrillOutputs = new std::vector<ItemStack*>();
-    ItemStack* ironGearWheelStack8 = newItemStack(InventoryItemType::IRON_GEAR_WHEEL, 5);
-    ItemStack* ironPlateStack11 = newItemStack(InventoryItemType::IRON_PLATE, 10);
-    ItemStack* electronicCircuitStack2 = newItemStack(InventoryItemType::ELECTRONIC_CIRCUIT, 3);
-    ItemStack* electricMiningDrillStack = newItemStack(InventoryItemType::ELECTRIC_MINING_DRILL, 1);
+    ItemStack* ironGearWheelStack8 = new ItemStack{InventoryItemType::IRON_GEAR_WHEEL, 5};
+    ItemStack* ironPlateStack11 = new ItemStack{InventoryItemType::IRON_PLATE, 10};
+    ItemStack* electronicCircuitStack2 = new ItemStack{InventoryItemType::ELECTRONIC_CIRCUIT, 3};
+    ItemStack* electricMiningDrillStack =
+        new ItemStack{InventoryItemType::ELECTRIC_MINING_DRILL, 1};
     electricMiningDrillInputs->push_back(ironGearWheelStack8);
     electricMiningDrillInputs->push_back(ironPlateStack11);
     electricMiningDrillInputs->push_back(electronicCircuitStack2);
@@ -260,10 +253,10 @@ void RecipeConfiguration::initProductionRecipes() {
 
     std::vector<ItemStack*>* offshorePumpInputs = new std::vector<ItemStack*>();
     std::vector<ItemStack*>* offshorePumpOutputs = new std::vector<ItemStack*>();
-    ItemStack* ironGearWheelStack9 = newItemStack(InventoryItemType::IRON_GEAR_WHEEL, 1);
-    ItemStack* pipeStack5 = newItemStack(InventoryItemType::PIPE, 1);
-    ItemStack* electronicCircuitStack3 = newItemStack(InventoryItemType::ELECTRONIC_CIRCUIT, 2);
-    ItemStack* offshorePumpStack = newItemStack(InventoryItemType::OFFSHORE_PUMP, 1);
+    ItemStack* ironGearWheelStack9 = new ItemStack{InventoryItemType::IRON_GEAR_WHEEL, 1};
+    ItemStack* pipeStack5 = new ItemStack{InventoryItemType::PIPE, 1};
+    ItemStack* electronicCircuitStack3 = new ItemStack{InventoryItemType::ELECTRONIC_CIRCUIT, 2};
+    ItemStack* offshorePumpStack = new ItemStack{InventoryItemType::OFFSHORE_PUMP, 1};
     offshorePumpInputs->push_back(ironGearWheelStack9);
     offshorePumpInputs->push_back(pipeStack5);
     offshorePumpInputs->push_back(electronicCircuitStack3);
@@ -273,8 +266,8 @@ void RecipeConfiguration::initProductionRecipes() {
 
     std::vector<ItemStack*>* stoneFurnaceInputs = new std::vector<ItemStack*>();
     std::vector<ItemStack*>* stoneFurnaceOutputs = new std::vector<ItemStack*>();
-    ItemStack* stoneStack2 = newItemStack(InventoryItemType::STONE, 5);
-    ItemStack* stoneFurnaceStack3 = newItemStack(InventoryItemType::STONE_FURNACE, 1);
+    ItemStack* stoneStack2 = new ItemStack{InventoryItemType::STONE, 5};
+    ItemStack* stoneFurnaceStack3 = new ItemStack{InventoryItemType::STONE_FURNACE, 1};
     stoneFurnaceInputs->push_back(stoneStack2);
     stoneFurnaceOutputs->push_back(stoneFurnaceStack3);
     Recipe* stoneFurnaceRecipe =
@@ -283,10 +276,10 @@ void RecipeConfiguration::initProductionRecipes() {
 
     std::vector<ItemStack*>* labInputs = new std::vector<ItemStack*>();
     std::vector<ItemStack*>* labOutputs = new std::vector<ItemStack*>();
-    ItemStack* electronicCircuitStack4 = newItemStack(InventoryItemType::ELECTRONIC_CIRCUIT, 10);
-    ItemStack* ironGearWheelStack10 = newItemStack(InventoryItemType::IRON_GEAR_WHEEL, 10);
-    ItemStack* transportBeltStack2 = newItemStack(InventoryItemType::TRANSPORT_BELT, 4);
-    ItemStack* labStack = newItemStack(InventoryItemType::LAB, 1);
+    ItemStack* electronicCircuitStack4 = new ItemStack{InventoryItemType::ELECTRONIC_CIRCUIT, 10};
+    ItemStack* ironGearWheelStack10 = new ItemStack{InventoryItemType::IRON_GEAR_WHEEL, 10};
+    ItemStack* transportBeltStack2 = new ItemStack{InventoryItemType::TRANSPORT_BELT, 4};
+    ItemStack* labStack = new ItemStack{InventoryItemType::LAB, 1};
     labInputs->push_back(electronicCircuitStack4);
     labInputs->push_back(ironGearWheelStack10);
     labInputs->push_back(transportBeltStack2);
@@ -298,8 +291,8 @@ void RecipeConfiguration::initProductionRecipes() {
 void RecipeConfiguration::initIntermediateProductsRecipes() {
     std::vector<ItemStack*>* ironPlateInputs = new std::vector<ItemStack*>();
     std::vector<ItemStack*>* ironPlateOutputs = new std::vector<ItemStack*>();
-    ItemStack* ironOreStack = newItemStack(InventoryItemType::IRON_ORE, 1);
-    ItemStack* ironPlateStack12 = newItemStack(InventoryItemType::IRON_PLATE, 1);
+    ItemStack* ironOreStack = new ItemStack{InventoryItemType::IRON_ORE, 1};
+    ItemStack* ironPlateStack12 = new ItemStack{InventoryItemType::IRON_PLATE, 1};
     ironPlateInputs->push_back(ironOreStack);
     ironPlateOutputs->push_back(ironPlateStack12);
     Recipe* ironPlateRecipe = new Recipe("Iron plate", *ironPlateInputs, *ironPlateOutputs, 3.2);
@@ -307,8 +300,8 @@ void RecipeConfiguration::initIntermediateProductsRecipes() {
 
     std::vector<ItemStack*>* copperPlateInputs = new std::vector<ItemStack*>();
     std::vector<ItemStack*>* copperPlateOutputs = new std::vector<ItemStack*>();
-    ItemStack* copperOreStack = newItemStack(InventoryItemType::COPPER_ORE, 1);
-    ItemStack* copperPlateStack = newItemStack(InventoryItemType::COPPER_PLATE, 1);
+    ItemStack* copperOreStack = new ItemStack{InventoryItemType::COPPER_ORE, 1};
+    ItemStack* copperPlateStack = new ItemStack{InventoryItemType::COPPER_PLATE, 1};
     copperPlateInputs->push_back(copperOreStack);
     copperPlateOutputs->push_back(copperPlateStack);
     Recipe* copperPlateRecipe =
@@ -317,8 +310,8 @@ void RecipeConfiguration::initIntermediateProductsRecipes() {
 
     std::vector<ItemStack*>* copperCableInputs = new std::vector<ItemStack*>();
     std::vector<ItemStack*>* copperCableOutputs = new std::vector<ItemStack*>();
-    ItemStack* copperPlateStack2 = newItemStack(InventoryItemType::COPPER_PLATE, 1);
-    ItemStack* copperCableStack = newItemStack(InventoryItemType::COPPER_CABLE, 2);
+    ItemStack* copperPlateStack2 = new ItemStack{InventoryItemType::COPPER_PLATE, 1};
+    ItemStack* copperCableStack = new ItemStack{InventoryItemType::COPPER_CABLE, 2};
     copperCableInputs->push_back(copperPlateStack2);
     copperCableOutputs->push_back(copperCableStack);
     Recipe* copperCableRecipe =
@@ -327,8 +320,8 @@ void RecipeConfiguration::initIntermediateProductsRecipes() {
 
     std::vector<ItemStack*>* ironStickInputs = new std::vector<ItemStack*>();
     std::vector<ItemStack*>* ironStickOutputs = new std::vector<ItemStack*>();
-    ItemStack* ironPlateStack13 = newItemStack(InventoryItemType::IRON_PLATE, 1);
-    ItemStack* ironStickStack = newItemStack(InventoryItemType::IRON_STICK, 2);
+    ItemStack* ironPlateStack13 = new ItemStack{InventoryItemType::IRON_PLATE, 1};
+    ItemStack* ironStickStack = new ItemStack{InventoryItemType::IRON_STICK, 2};
     ironStickInputs->push_back(ironPlateStack13);
     ironStickOutputs->push_back(ironStickStack);
     Recipe* ironStickRecipe = new Recipe("Iron stick", *ironStickInputs, *ironStickOutputs, 0.5);
@@ -336,8 +329,8 @@ void RecipeConfiguration::initIntermediateProductsRecipes() {
 
     std::vector<ItemStack*>* ironGearWheelInputs = new std::vector<ItemStack*>();
     std::vector<ItemStack*>* ironGearWheelOutputs = new std::vector<ItemStack*>();
-    ItemStack* ironPlateStack3 = newItemStack(InventoryItemType::IRON_PLATE, 2);
-    ItemStack* ironGearWheelStack2 = newItemStack(InventoryItemType::IRON_GEAR_WHEEL, 1);
+    ItemStack* ironPlateStack3 = new ItemStack{InventoryItemType::IRON_PLATE, 2};
+    ItemStack* ironGearWheelStack2 = new ItemStack{InventoryItemType::IRON_GEAR_WHEEL, 1};
     ironGearWheelInputs->push_back(ironPlateStack3);
     ironGearWheelOutputs->push_back(ironGearWheelStack2);
     Recipe* ironGearWheelRecipe =
@@ -346,9 +339,9 @@ void RecipeConfiguration::initIntermediateProductsRecipes() {
 
     std::vector<ItemStack*>* electronicCircuitInputs = new std::vector<ItemStack*>();
     std::vector<ItemStack*>* electronicCircuitOutputs = new std::vector<ItemStack*>();
-    ItemStack* ironPlateStack8 = newItemStack(InventoryItemType::IRON_PLATE, 1);
-    ItemStack* copperCableStack2 = newItemStack(InventoryItemType::COPPER_CABLE, 3);
-    ItemStack* electronicCircuitStack2 = newItemStack(InventoryItemType::ELECTRONIC_CIRCUIT, 1);
+    ItemStack* ironPlateStack8 = new ItemStack{InventoryItemType::IRON_PLATE, 1};
+    ItemStack* copperCableStack2 = new ItemStack{InventoryItemType::COPPER_CABLE, 3};
+    ItemStack* electronicCircuitStack2 = new ItemStack{InventoryItemType::ELECTRONIC_CIRCUIT, 1};
     electronicCircuitInputs->push_back(ironPlateStack8);
     electronicCircuitInputs->push_back(copperCableStack2);
     electronicCircuitOutputs->push_back(electronicCircuitStack2);
@@ -358,10 +351,10 @@ void RecipeConfiguration::initIntermediateProductsRecipes() {
 
     std::vector<ItemStack*>* automationSciencePackInputs = new std::vector<ItemStack*>();
     std::vector<ItemStack*>* automationSciencePackOutputs = new std::vector<ItemStack*>();
-    ItemStack* copperPlateStack3 = newItemStack(InventoryItemType::COPPER_PLATE, 1);
-    ItemStack* ironGearWheelStack3 = newItemStack(InventoryItemType::IRON_GEAR_WHEEL, 1);
+    ItemStack* copperPlateStack3 = new ItemStack{InventoryItemType::COPPER_PLATE, 1};
+    ItemStack* ironGearWheelStack3 = new ItemStack{InventoryItemType::IRON_GEAR_WHEEL, 1};
     ItemStack* automationSciencePackStack =
-        newItemStack(InventoryItemType::AUTOMATION_SCIENCE_PACK, 1);
+        new ItemStack{InventoryItemType::AUTOMATION_SCIENCE_PACK, 1};
     automationSciencePackInputs->push_back(copperPlateStack3);
     automationSciencePackInputs->push_back(ironGearWheelStack3);
     automationSciencePackOutputs->push_back(automationSciencePackStack);
@@ -374,9 +367,9 @@ void RecipeConfiguration::initIntermediateProductsRecipes() {
 void RecipeConfiguration::initCombatRecipes() {
     std::vector<ItemStack*>* pistolInputs = new std::vector<ItemStack*>();
     std::vector<ItemStack*>* pistolOutputs = new std::vector<ItemStack*>();
-    ItemStack* ironPlateStack14 = newItemStack(InventoryItemType::IRON_PLATE, 5);
-    ItemStack* copperPlateStack3 = newItemStack(InventoryItemType::COPPER_PLATE, 5);
-    ItemStack* pistolStack = newItemStack(InventoryItemType::PISTOL, 1);
+    ItemStack* ironPlateStack14 = new ItemStack{InventoryItemType::IRON_PLATE, 5};
+    ItemStack* copperPlateStack3 = new ItemStack{InventoryItemType::COPPER_PLATE, 5};
+    ItemStack* pistolStack = new ItemStack{InventoryItemType::PISTOL, 1};
     pistolInputs->push_back(ironPlateStack14);
     pistolInputs->push_back(copperPlateStack3);
     pistolOutputs->push_back(pistolStack);
@@ -385,8 +378,8 @@ void RecipeConfiguration::initCombatRecipes() {
 
     std::vector<ItemStack*>* firearmMagazineInputs = new std::vector<ItemStack*>();
     std::vector<ItemStack*>* firearmMagazineOutputs = new std::vector<ItemStack*>();
-    ItemStack* ironPlateStack15 = newItemStack(InventoryItemType::IRON_PLATE, 4);
-    ItemStack* firearmMagazineStack = newItemStack(InventoryItemType::FIREARM_MAGAZINE, 1);
+    ItemStack* ironPlateStack15 = new ItemStack{InventoryItemType::IRON_PLATE, 4};
+    ItemStack* firearmMagazineStack = new ItemStack{InventoryItemType::FIREARM_MAGAZINE, 1};
     firearmMagazineInputs->push_back(ironPlateStack15);
     firearmMagazineOutputs->push_back(firearmMagazineStack);
     Recipe* firearmMagazineRecipe =
@@ -395,8 +388,8 @@ void RecipeConfiguration::initCombatRecipes() {
 
     std::vector<ItemStack*>* lightArmorInputs = new std::vector<ItemStack*>();
     std::vector<ItemStack*>* lightArmorOutputs = new std::vector<ItemStack*>();
-    ItemStack* ironPlateStack16 = newItemStack(InventoryItemType::IRON_PLATE, 40);
-    ItemStack* lightArmorStack = newItemStack(InventoryItemType::LIGHT_ARMOR, 1);
+    ItemStack* ironPlateStack16 = new ItemStack{InventoryItemType::IRON_PLATE, 40};
+    ItemStack* lightArmorStack = new ItemStack{InventoryItemType::LIGHT_ARMOR, 1};
     lightArmorInputs->push_back(ironPlateStack16);
     lightArmorOutputs->push_back(lightArmorStack);
     Recipe* lightArmorRecipe =
@@ -405,10 +398,10 @@ void RecipeConfiguration::initCombatRecipes() {
 
     std::vector<ItemStack*>* radarInputs = new std::vector<ItemStack*>();
     std::vector<ItemStack*>* radarOutputs = new std::vector<ItemStack*>();
-    ItemStack* ironGearWheelStack11 = newItemStack(InventoryItemType::IRON_GEAR_WHEEL, 5);
-    ItemStack* electronicCircuitStack5 = newItemStack(InventoryItemType::ELECTRONIC_CIRCUIT, 5);
-    ItemStack* ironPlateStack17 = newItemStack(InventoryItemType::IRON_PLATE, 10);
-    ItemStack* radarStack = newItemStack(InventoryItemType::RADAR, 1);
+    ItemStack* ironGearWheelStack11 = new ItemStack{InventoryItemType::IRON_GEAR_WHEEL, 5};
+    ItemStack* electronicCircuitStack5 = new ItemStack{InventoryItemType::ELECTRONIC_CIRCUIT, 5};
+    ItemStack* ironPlateStack17 = new ItemStack{InventoryItemType::IRON_PLATE, 10};
+    ItemStack* radarStack = new ItemStack{InventoryItemType::RADAR, 1};
     radarInputs->push_back(ironGearWheelStack11);
     radarInputs->push_back(electronicCircuitStack5);
     radarInputs->push_back(ironPlateStack17);

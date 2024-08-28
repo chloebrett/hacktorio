@@ -23,10 +23,8 @@ EmptySpace::EmptySpace(sf::Vector2f pos, EntityPlacementManager &entityPlacement
                       if (itemStack->count == 1) {
                           cursor.setItemStack(nullptr);
                       } else {
-                          ItemStack *newItemStack = new ItemStack;
-                          newItemStack->type = itemStack->type;
+                          ItemStack *newItemStack = new ItemStack(*itemStack);
                           newItemStack->count = itemStack->count - 1;
-                          // TODO: copy instead of reference
                           cursor.setItemStack(newItemStack);
                       }
                   }
