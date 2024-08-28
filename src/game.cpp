@@ -13,7 +13,6 @@
 #include "empty_space.hpp"
 #include "entity/electric_mining_drill.hpp"
 #include "entity/wooden_chest.hpp"
-#include "entity_manager.hpp"
 #include "entity_placement_manager.hpp"
 #include "environment.hpp"
 #include "input.hpp"

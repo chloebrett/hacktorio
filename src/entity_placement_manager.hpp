@@ -4,13 +4,12 @@
 
 #include "config/inventory_item_type.hpp"
 #include "config/recipe_configuration.hpp"
-#include "entity_manager.hpp"
 #include "rotation.hpp"
 #include "scene_node.hpp"
 #include "spatial_index.hpp"
 #include "ui/gui.hpp"
 
-class EntityPlacementManager : public EntityManager {
+class EntityPlacementManager {
    public:
     EntityPlacementManager(SceneNode &rootSceneNode, RecipeConfiguration &recipeConfiguration,
                            Gui &gui, SpatialIndex &spatialIndex);
