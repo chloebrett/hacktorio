@@ -57,8 +57,6 @@ InventorySlot::InventorySlot(int row, int column, int index, InventoryGrid& grid
           /* size= */ sf::Vector2f(GRID_SIZE, GRID_SIZE),
           /* onClick= */
           [row, column, index, &grid](Cursor& cursor) {
-              std::cout << "Inventory slot (" << column << "," << row << ") clicked" << std::endl;
-
               std::vector<ItemStack>& containerItems = grid.getContainer()->getItems();
               ItemStack* cursorItemStack = cursor.getItemStack();
 
@@ -73,15 +71,6 @@ InventorySlot::InventorySlot(int row, int column, int index, InventoryGrid& grid
               } else {  // slot with items
                   // Beware memory leaks, when we remove item from container, we need to delete it
                   ItemStack* containerItemStackCopy = new ItemStack(containerItems[index]);
-
-                  std::cout << "Item stack: "
-                            << inventoryItemTypeToString(containerItemStackCopy->type) << " "
-                            << containerItemStackCopy->count << std::endl;
-                  std::cout << "Cursor item stack: "
-                            << (cursorItemStack == nullptr
-                                    ? "null"
-                                    : inventoryItemTypeToString(cursorItemStack->type))
-                            << std::endl;
 
                   cursor.setItemStack(containerItemStackCopy);
                   grid.getContainer()->removeItem(containerItemStackCopy->type,

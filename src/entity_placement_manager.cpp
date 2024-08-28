@@ -25,8 +25,6 @@ EntityPlacementManager::EntityPlacementManager(SceneNode &rootSceneNode,
 
 bool EntityPlacementManager::tryPlaceEntity(InventoryItemType inventoryItemType,
                                             sf::Vector2f position, Rotation rotation) {
-    std::cout << "Placing entity" << static_cast<int>(inventoryItemType) << std::endl;
-
     switch (inventoryItemType) {
         case InventoryItemType::WOODEN_CHEST:
             rootSceneNode.addChild(new WoodenChest(gui, /* capacity= */ 10, position));

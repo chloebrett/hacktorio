@@ -16,7 +16,6 @@ void CraftingQueue::queueRecipe(Recipe *recipe) {
     queue.push_back(recipe);
 
     if (queue.size() == 1) {
-        std::cout << "Crafting started" << std::endl;
         startNextRecipe();
     }
 }
@@ -28,9 +27,7 @@ void CraftingQueue::startNextRecipe() {
 
     Recipe *recipe = queue.front();
 
-    std::cout << "Crafting started 2" << std::endl;
     timer.addFutureEvent(recipe->getTime(), new TimerEvent([this, recipe]() {
-                             std::cout << "Crafting complete" << std::endl;
                              queue.erase(queue.begin());
 
                              for (ItemStack *output : recipe->getOutputs()) {

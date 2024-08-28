@@ -27,14 +27,10 @@ RecipeGridSlot::RecipeGridSlot(Gui &gui, RecipePanel &recipePanel,
           [this, &recipeConfiguration, &position, &gui](Cursor &cursor) {
               if (!isVisible()) return;
 
-              std::cout << "RecipeGridSlot clicked" << std::endl;
               Recipe *recipe = recipeConfiguration.getRecipeAtPosition(position);
 
               if (recipe != nullptr) {
-                  std::cout << "Recipe found" << std::endl;
                   gui.startCraftingRecipe(recipe);
-              } else {
-                  std::cout << "No recipe found" << std::endl;
               }
           },
           /* onRender= */

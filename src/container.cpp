@@ -32,18 +32,9 @@ int Container::getTotalItemCount() {
 }
 
 void Container::addItem(InventoryItemType item, int amount) {
-    std::cout << "Adding " << amount << " " << static_cast<int>(item) << std::endl;
-    if (contents == nullptr) {
-        std::cout << "Contents is null" << std::endl;
-    } else {
-        std::cout << "Contents is not null" << std::endl;
-    }
-    std::cout << contents->size() << std::endl;
     if (contents->find(item) == contents->end()) {
-        std::cout << "T" << std::endl;
         (*contents)[item] = 0;
     }
-    std::cout << "After: " << (*contents)[item] << std::endl;
     (*contents)[item] += amount;
 }
 

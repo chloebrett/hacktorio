@@ -37,10 +37,6 @@ std::vector<SceneNode*> SpatialIndex::nodesAt(sf::Vector2i searchPosition) {
         sf::Vector2f bottomRight = topLeft + node->getSize();
         if (topLeft.x <= searchPosition.x && searchPosition.x <= bottomRight.x &&
             topLeft.y <= searchPosition.y && searchPosition.y <= bottomRight.y) {
-            // std::cout << "topLeft: " << topLeft.x << ", " << topLeft.y << std::endl;
-            // std::cout << "bottomRight: " << bottomRight.x << ", " << bottomRight.y << std::endl;
-            // std::cout << "searchPosition: " << searchPosition.x << ", " << searchPosition.y <<
-            // std::endl; std::cout << "Found node" << std::endl;
             result.push_back(node);
         }
     }

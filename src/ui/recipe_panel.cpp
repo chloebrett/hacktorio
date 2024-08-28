@@ -13,7 +13,7 @@ RecipePanel::RecipePanel(sf::Vector2f pos)
           /* position= */
           pos,
           /* size= */ sf::Vector2f(RECIPE_PANEL_WIDTH, RECIPE_PANEL_HEIGHT),
-          /* onClick= */ [](Cursor &cursor) { std::cout << "Recipe panel clicked" << std::endl; },
+          /* onClick= */ nullptr,
           /* onRender= */
           [this](SceneNode &node, sf::RenderWindow &window, sf::Vector2f absolutePos) {
               sf::RectangleShape mainRect;

@@ -36,8 +36,6 @@
 #include "wiring.hpp"
 
 void Game::start() {
-    std::cout << "Starting game" << std::endl;
-
     sf::RenderWindow window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Hacktorio");
 
     sf::Clock clock;

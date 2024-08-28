@@ -30,8 +30,7 @@ ResourcePatch::ResourcePatch(Player *player, sf::Vector2f position,
           /* position= */
           position,
           /* size= */ sf::Vector2f(1 * GRID_SIZE, 1 * GRID_SIZE),
-          /* onClick= */
-          [this](Cursor &cursor) { std::cout << "Resource patch clicked" << std::endl; },
+          /* onClick= */ nullptr,
           /* onRender= */
           [this](SceneNode &node, sf::RenderWindow &window, sf::Vector2f absolutePos) {
               if (this->getRemaining() > 0) {
@@ -48,14 +47,10 @@ ResourcePatch::ResourcePatch(Player *player, sf::Vector2f position,
 void ResourcePatch::handleMine() {
     if (this->getRemaining() > 0) {
         bool didMine = this->mine(this->player->getMiningSpeed() / FRAMES_PER_SECOND);
-        std::cout << "Mined: " << didMine << std::endl;
         if (didMine) {
             InventoryItemType type = this->getInventoryItemType();
-            std::cout << "abc" << std::endl;
             this->player->addItem(type, 1);
-            std::cout << "abc2" << std::endl;
             this->player->updateItems();
-            std::cout << "abc3" << std::endl;
         }
     }
 }
@@ -82,8 +77,6 @@ InventoryItemType ResourcePatch::getInventoryItemType() {
 bool ResourcePatch::mine(float amount) {
     int remainingInt = std::floor(remaining);
     remaining -= amount;
-
-    std::cout << "Remaining amount of resource: " + std::to_string(remaining) << std::endl;
 
     if (remaining < 0) {
         remaining = 0;

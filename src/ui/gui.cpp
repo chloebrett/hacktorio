@@ -92,8 +92,6 @@ void Gui::setEntityInventoryGrid(InventoryGrid *entityInventoryGrid) {
 
 // TODO: put the "startCraftingRecipe" method in the crafting queue as well
 void Gui::startCraftingRecipe(Recipe *recipe) {
-    std::cout << "Crafting recipe: " << recipe->getName() << std::endl;
-    std::cout << "Inputs: " << std::endl;
     GameResources &gameResources = GameResources::getInstance();
     for (ItemStack *input : recipe->getInputs()) {
         std::cout << "  " << input->count << " x "

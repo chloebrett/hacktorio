@@ -22,10 +22,7 @@ StoneFurnace::StoneFurnace(Gui &gui, RecipeConfiguration &recipeConfiguration, s
           pos,
           /* size= */ sf::Vector2f(2 * GRID_SIZE, 2 * GRID_SIZE),
           /* onClick= */
-          [this](Cursor &cursor) {
-              std::cout << "Stone furnace clicked" << std::endl;
-              this->gui.showPanelForEntity(this->container);
-          },
+          [this](Cursor &cursor) { this->gui.showPanelForEntity(this->container); },
           /* onRender= */
           [this](SceneNode &node, sf::RenderWindow &window, sf::Vector2f absolutePos) {
               sf::Sprite sprite =
@@ -51,9 +48,6 @@ void StoneFurnace::onTick() {
             return;
         }
     }
-    std::cout << "Smelting: " << isSmelting << " " << currentRecipe->getName() << std::endl;
-    std::cout << "Ticks remaining: " << smeltUnitTicksRemaining << " " << fuelUnitTicksRemaining
-              << std::endl;
 
     if (isSmelting) {
         smeltUnitTicksRemaining--;

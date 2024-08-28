@@ -40,7 +40,6 @@ void Input::handleQueuedEvents() {
                 }
             }
 
-            std::cout << "Clicked " << clickedNodes.size() << " nodes" << std::endl;
             if (clickedNodes.size() == 0) {
                 if (!gui.isAnyPanelOpen()) {
                     for (SceneNode *node : nodes) {

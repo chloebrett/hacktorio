@@ -26,10 +26,7 @@ TransportBelt::TransportBelt(Gui& gui, SpatialIndex& spatialIndex, Rotation rota
           pos,
           /* size= */ sf::Vector2f(GRID_SIZE, GRID_SIZE),
           /* onClick= */
-          [this](Cursor& cursor) {
-              std::cout << "Belt clicked" << std::endl;
-              this->gui.showPanelForContainer(this);
-          },
+          [this](Cursor& cursor) { this->gui.showPanelForContainer(this); },
           /* onRender= */
           [this](SceneNode& node, sf::RenderWindow& window, sf::Vector2f absolutePos) {
               sf::Sprite sprite = *GameResources::getInstance().getSprite("entity-transport-belt");
@@ -75,12 +72,8 @@ Container* TransportBelt::getOutputContainer() {
 }
 
 void TransportBelt::onTick() {
+    // TODO: handle invalid
     Container* outputContainer = getOutputContainer();
-    if (outputContainer != nullptr) {
-        std::cout << "Output container found" << std::endl;
-    } else {
-        return;
-    }
 
     transferItemTicksRemaining--;
 

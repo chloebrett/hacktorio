@@ -272,7 +272,6 @@ std::string GameResources::inventoryItemTypeToKey(InventoryItemType inventoryIte
 void GameResources::loadSprite(std::string key, std::string filename) {
     textures[key] = new sf::Texture();
     if (!textures[key]->loadFromFile(filename)) {
-        std::cout << "Failed to load texture" << std::endl;
     }
     sprites[key] = new sf::Sprite(*textures[key]);
 }

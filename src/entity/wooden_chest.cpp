@@ -20,10 +20,7 @@ WoodenChest::WoodenChest(Gui &gui, int capacity, sf::Vector2f pos)
           pos,
           /* size= */ sf::Vector2f(GRID_SIZE, GRID_SIZE),
           /* onClick= */
-          [this](Cursor &cursor) {
-              std::cout << "Chest clicked" << std::endl;
-              this->gui.showPanelForContainer(this);
-          },
+          [this](Cursor &cursor) { this->gui.showPanelForContainer(this); },
           /* onRender= */
           [this](SceneNode &node, sf::RenderWindow &window, sf::Vector2f absolutePos) {
               sf::Sprite sprite = *GameResources::getInstance().getSprite("chest");

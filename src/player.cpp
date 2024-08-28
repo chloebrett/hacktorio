@@ -12,8 +12,7 @@ Player::Player()
           /* pos= */
           sf::Vector2f(0, 0),
           /* size= */ sf::Vector2f(GRID_SIZE, GRID_SIZE),
-          /* onClick= */
-          [](Cursor &cursor) { std::cout << "Player clicked" << std::endl; },
+          /* onClick= */ nullptr,
           /* onRender= */
           [this](SceneNode &node, sf::RenderWindow &window, sf::Vector2f absolutePos) {
               sf::RectangleShape playerRect(this->getSize());
