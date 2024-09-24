@@ -1,2 +1,2 @@
 # hacktorio
-Factorio clone written in pure, clean C++ and SFML
+Factorio clone written in C++ and SFML
